@@ -4,6 +4,7 @@ const Terminal = require('./Terminal');
 const Constants = require('./constants');
 const torrent_main = require('./torrent_search/torrent_main');
 const permission = require('./permissions/permission_main');
+const admin_main = require('./admin/admin_main');
 
 const bot = new TelegramBot(Constants.TOKEN, {polling: true});
 
@@ -69,6 +70,24 @@ var deal_with_message = function(msg){
                         });
                     }
                     break;
+                case "-a":
+                    if(permission.check_permissions(user_id,"-a", current_chat, user_name, bot)) {
+                        if(msg.reply_to_message){
+                            user_id = msg.reply_to_message.from.id;
+                        }else{
+                            user_id = false;
+                        }
+
+                        admin_main.admin_main({
+                            user_id:user_id,
+                            user_name:user_name,
+                            current_chat:current_chat,
+                            users:users,
+                            input_array: input_array,
+                            bot: bot
+                        });
+                    }
+                    break;    
                 case "-p_ask":
                     if(permission.check_permissions(user_id,"-p_ask", current_chat, user_name, bot)) {
                         permission.request_permission(user_name,user_id,bot,current_chat, input_array.shift());

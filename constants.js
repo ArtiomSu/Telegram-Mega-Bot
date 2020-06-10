@@ -71,6 +71,19 @@ const help_page_permissions = "    <b>t80search_bot V0.0.5 Permissions</b>" +
     "        -h displays this help\n" +
     "    </pre>";
 
+const HELP_PAGE_ADMIN = "    <b>t80search_bot V0.0.5 Admin</b>" +
+    "    <pre>\n" +
+    "        These can either be replies to a message\n"+
+    "        or just send the id directly\n\n" +
+    "        ban (id) bans a user from the group\n" +
+    "        unban (id) unbans a user from the group\n" +
+    "        promote (id) makes a user admin\n" +
+    "        gen_link generates invite link\n" +
+    "        restrict (id) user cant do anything\n" +
+    "        unrestrict (id) user is back to normal\n" +
+    "        -h displays this help\n" +
+    "    </pre>";   
+
 module.exports = {
     TOKEN: token,
     BOT_NAME: BOT_NAME,
@@ -82,6 +95,7 @@ module.exports = {
     HELP_PAGE_MAIN: help_page_main,
     ROOT_USER: ROOT_USER,
     HELP_PAGE_PERMISSIONS: help_page_permissions,
+    HELP_PAGE_ADMIN: HELP_PAGE_ADMIN,
     YOUTUBE_CHANNEL: YOUTUBE_CHANNEL,
     YOUTUBE_CHANNEL_PINNED_MSG_ID: YOUTUBE_CHANNEL_PINNED_MSG_ID
 };

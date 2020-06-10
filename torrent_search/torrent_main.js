@@ -33,9 +33,9 @@ var tmain = function (data) {
         var ok_to_grab = true;
 
         while(data.input_array.length !==0 ){
-            temp = data.input_array.shift();
+            let temp = data.input_array.shift();
             //console.log(data.input_array);
-            ok_to_grab = true;
+            let ok_to_grab = true;
             if(temp === "-l"){
                 limit_amount = -1;
                 lnext = true;

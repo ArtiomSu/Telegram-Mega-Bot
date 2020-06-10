@@ -2,20 +2,22 @@ const Constants = require('../constants');
 
 var permissions = {
     torrents:[],
-    grant_permissions:[]
+    grant_permissions:[],
+    admin:[]
 };
 
 var permissions_requests = [];
 
 permissions.torrents.push(Constants.ROOT_USER);
 permissions.grant_permissions.push(Constants.ROOT_USER);
+permissions.admin.push(Constants.ROOT_USER);
 
 
 var permission_main = function(data){
 
-    console.log("input array = ",data.input_array);
+    //console.log("input array = ",data.input_array);
 
-    temp = data.input_array.shift();
+    let temp = data.input_array.shift();
     switch (temp) {
         case "-l": //list permissions
             if(permissions_requests.length === 0){
@@ -37,6 +39,9 @@ var permission_main = function(data){
             permissions.grant_permissions.forEach( perm =>{
                 outString = outString +"-p   "+perm+"\n";
             });
+            permissions.admin.forEach( perm =>{
+                outString = outString +"-a   "+perm+"\n";
+            });
             outString = outString +"</pre>";
             data.bot.sendMessage(data.current_chat, outString, {parse_mode : "HTML"});
             return 1;   
@@ -56,10 +61,16 @@ var permission_main = function(data){
                     break;
                 case "-p":
                     if(! permissions.grant_permissions.includes(user_id_give)){
-                        permissions.grant_permissions.push(user_id_give);
+                        permissions.grant_permissions.push(parseInt(user_id_give));
                     }
                     perm_ok_give = true;
                     break;
+                case "-a":
+                    if(! permissions.admin.includes(user_id_give)){
+                        permissions.admin.push(parseInt(user_id_give));
+                    }
+                    perm_ok_give = true;
+                    break;    
                 default:
                     perm_ok_give = false;
             }
@@ -100,6 +111,9 @@ var request_permission = function(user_name, user_id, bot, current_chat, perm_ty
         case "-p":
             perm_ok = true;
             break;
+        case "-a":
+            perm_ok = true;
+            break;    
         default:
             perm_ok = false;
     }
@@ -113,13 +127,13 @@ var request_permission = function(user_name, user_id, bot, current_chat, perm_ty
 
         }
     }else{
-        bot.sendMessage(current_chat, "<i>" + user_name + "</i>" + "<b>\nYou Have submitted an invalid permissions request see bellow for valid</b><pre>\n-t : for torrents\n-p : to grant permissions</pre>", {parse_mode: "HTML"});
+        bot.sendMessage(current_chat, "<i>" + user_name + "</i>" + "<b>\nYou Have submitted an invalid permissions request see bellow for valid</b><pre>\n-t : for torrents\n-p : to grant permissions\n-a : for admin</pre>", {parse_mode: "HTML"});
     }
 
 };
 
 var check_permissions = function(user_id, perm_type, current_chat, user_name, bot){
-    console.log("checking user "+user_id+"users in torrents= "+ permissions.torrents);
+    //console.log("checking user "+user_id+"users in torrents= "+ permissions.torrents);
     let granted = false;
     switch (perm_type) {
         case "-t":
@@ -132,6 +146,11 @@ var check_permissions = function(user_id, perm_type, current_chat, user_name, bo
                 granted = true;
             }
             break;
+        case "-a":
+            if(permissions.admin.includes(user_id)){
+                granted = true;
+            }
+            break;    
         case "-h":
             granted = true;
             break;
@@ -173,19 +192,6 @@ var whois = function(bot, current_chat, user_id){
     }).catch(err =>{
         bot.sendMessage(current_chat, "<i>Couldn't find user "+user_id+"</i>", {parse_mode: "HTML"});
     });
-
-    // if(perm_ok){
-    //     if(permissions_requests.some(user => user.user_id === user_id && user.perm_type === perm_type)){
-    //         bot.sendMessage(current_chat, "<i>" + user_name + "</i>" + "<b>\nYou Have already submitted a permissions request wait for approval</b>", {parse_mode: "HTML"});
-    //     }else{
-    //         permissions_requests.push({user_id: user_id, user_name: user_name, perm_type:perm_type});
-    //         bot.sendMessage(current_chat, "<i>" + user_name + "</i>" + "<b>\nRequest submitted wait for approval</b>", {parse_mode: "HTML"});
-
-    //     }
-    // }else{
-    //     bot.sendMessage(current_chat, "<i>" + user_name + "</i>" + "<b>\nYou Have submitted an invalid permissions request see bellow for valid</b><pre>\n-t : for torrents\n-p : to grant permissions</pre>", {parse_mode: "HTML"});
-    // }
-
 };
 
 module.exports = {
