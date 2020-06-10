@@ -102,7 +102,7 @@ var request_permission = function(user_name, user_id, bot, current_chat, perm_ty
 
         }
     }else{
-        bot.sendMessage(current_chat, "<i>" + user_name + "</i>" + "<b>\nYou Have submitted an invalid permissions request see bellow for valid</b>", {parse_mode: "HTML"});
+        bot.sendMessage(current_chat, "<i>" + user_name + "</i>" + "<b>\nYou Have submitted an invalid permissions request see bellow for valid</b><pre>\n-t : for torrents\n-p : to grant permissions</pre>", {parse_mode: "HTML"});
     }
 
 };
