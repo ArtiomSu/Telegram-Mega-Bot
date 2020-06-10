@@ -29,6 +29,17 @@ var permission_main = function(data){
             outString = outString +"</pre>";
             data.bot.sendMessage(data.current_chat, outString, {parse_mode : "HTML"});
             return 1;
+        case "-lg": //list granted permissions
+            var outString="<b>Permissions granted</b><pre>\n";
+            permissions.torrents.forEach( perm =>{
+                outString = outString +"-t   "+perm+"\n";
+            });
+            permissions.grant_permissions.forEach( perm =>{
+                outString = outString +"-p   "+perm+"\n";
+            });
+            outString = outString +"</pre>";
+            data.bot.sendMessage(data.current_chat, outString, {parse_mode : "HTML"});
+            return 1;   
         case "-g": //give permisions
             //console.log("give permission");
             perm_type_give = data.input_array.shift();
@@ -130,6 +141,11 @@ var check_permissions = function(user_id, perm_type, current_chat, user_name, bo
         case "pinned":
             granted = true;
             break;
+        case "whois":
+            if(permissions.grant_permissions.includes(user_id)){
+                granted = true;
+            }
+            break;    
         default:
             granted = false;
     }
@@ -144,9 +160,38 @@ var check_permissions = function(user_id, perm_type, current_chat, user_name, bo
 
 };
 
+var whois = function(bot, current_chat, user_id){
+
+    bot.getChatMember(current_chat,user_id).then(user =>{
+        bot.sendMessage(current_chat, "<pre>"+
+            "\nid:         " + user.user.id +
+            "\nis_bot:     " + user.user.is_bot +
+            "\nfirst_name: " + user.user.first_name +
+            "\nusername:   " + user.user.username +
+            "\nstatus:     " + user.status +
+            "</pre>", {parse_mode: "HTML"});
+    }).catch(err =>{
+        bot.sendMessage(current_chat, "<i>Couldn't find user "+user_id+"</i>", {parse_mode: "HTML"});
+    });
+
+    // if(perm_ok){
+    //     if(permissions_requests.some(user => user.user_id === user_id && user.perm_type === perm_type)){
+    //         bot.sendMessage(current_chat, "<i>" + user_name + "</i>" + "<b>\nYou Have already submitted a permissions request wait for approval</b>", {parse_mode: "HTML"});
+    //     }else{
+    //         permissions_requests.push({user_id: user_id, user_name: user_name, perm_type:perm_type});
+    //         bot.sendMessage(current_chat, "<i>" + user_name + "</i>" + "<b>\nRequest submitted wait for approval</b>", {parse_mode: "HTML"});
+
+    //     }
+    // }else{
+    //     bot.sendMessage(current_chat, "<i>" + user_name + "</i>" + "<b>\nYou Have submitted an invalid permissions request see bellow for valid</b><pre>\n-t : for torrents\n-p : to grant permissions</pre>", {parse_mode: "HTML"});
+    // }
+
+};
+
 module.exports = {
     permission_main: permission_main,
     request_permission: request_permission,
-    check_permissions: check_permissions
+    check_permissions: check_permissions,
+    whois: whois
 };
 

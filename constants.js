@@ -44,22 +44,27 @@ const help_page = "    <b>t80search_bot V0.0.5 Torrents help</b>" +
 const help_page_main = "    <b>t80search_bot V0.0.5</b>" +
     "    <pre>\n" +
     "        -t gets you into the torrent functions\n" +
-    "        -t -h to see help page for torrent functions\n" +
+    "        -t -h to see help page for torrent\n" +
     "\n" +
     "        -p gets you into permissions manager\n" +
     "        -p -h shows help for permissions manager\n\n" +
     "        -p_ask allows you to request permissions\n" +
-    "        -p_ask -t for example allows you to request permissions to use torrent search\n" +
+    "        -p_ask -t for example allows you to request\n" +
+    "                  permissions to use torrent search\n\n" +
     "        Current requestable permissions are:\n" +
     "        ____________________________________\n" +
     "        -t for torrent searching\n" +
-    "        -p allows you to grant and remove permissions from users\n\n" +
-    "      more funcs will be available soon" +
+    "        -p allows you to grant or remove\n" + 
+    "           permissions from users\n\n" +
+    "        whois id lets you see info about users\n"+ 
+    "              replying to a user with whois will\n"+ 
+    "              do the same\n" +
     "    </pre>";
 
 const help_page_permissions = "    <b>t80search_bot V0.0.5 Permissions</b>" +
     "    <pre>\n" +
     "        -l lists all permission requests\n" +
+    "        -lg lists all granted permissions\n" +
     "        -g allows you to grant permissions so like\n" +
     "        -g -t 123456789 grants the user whose id is 123456789 torrent access\n" +
     "        -r removes permission from user in the same way as granting\n" +

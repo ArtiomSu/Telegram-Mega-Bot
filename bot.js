@@ -84,6 +84,15 @@ var deal_with_message = function(msg){
                         bot.forwardMessage(current_chat,Constants.YOUTUBE_CHANNEL,Constants.YOUTUBE_CHANNEL_PINNED_MSG_ID);
                     }
                     break;
+                case "whois":
+                    if(permission.check_permissions(user_id,"whois", current_chat, user_name, bot)) {
+                        if(msg.reply_to_message){
+                            permission.whois(bot, current_chat, msg.reply_to_message.from.id);
+                        }else{
+                            permission.whois(bot, current_chat, input_array.shift());                    
+                        }
+                    }
+                    break;
                 default:
                     console.log("default statement do nothing");
             }
