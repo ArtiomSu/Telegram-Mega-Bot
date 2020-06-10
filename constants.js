@@ -46,6 +46,9 @@ const help_page_main = "    <b>t80search_bot V0.0.5</b>" +
     "        -t gets you into the torrent functions\n" +
     "        -t -h to see help page for torrent\n" +
     "\n" +
+    "        -a gets you into the admin functions\n" +
+    "        -a -h to see help page for admin\n" +
+    "\n" +
     "        -p gets you into permissions manager\n" +
     "        -p -h shows help for permissions manager\n\n" +
     "        -p_ask allows you to request permissions\n" +
@@ -54,11 +57,13 @@ const help_page_main = "    <b>t80search_bot V0.0.5</b>" +
     "        Current requestable permissions are:\n" +
     "        ____________________________________\n" +
     "        -t for torrent searching\n" +
+    "        -a for admin functions\n" +
     "        -p allows you to grant or remove\n" + 
     "           permissions from users\n\n" +
     "        whois id lets you see info about users\n"+ 
     "              replying to a user with whois will\n"+ 
-    "              do the same\n" +
+    "              do the same\n\n" +
+    "        pinned forwards the saved message" +
     "    </pre>";
 
 const help_page_permissions = "    <b>t80search_bot V0.0.5 Permissions</b>" +
