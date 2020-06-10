@@ -21,7 +21,7 @@ var tmain = function (data) {
         };
     }
 
-        console.log("input array = ",data.input_array);
+        //console.log("input array = ",data.input_array);
         var sort_amount = null;
         var limit_amount = null;
         var d_amount = null;
