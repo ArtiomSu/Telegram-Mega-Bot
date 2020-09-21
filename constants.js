@@ -6,7 +6,7 @@ const MAGNET_URL = torrent_api_url+"/magnet";
 const use_logger=false;
 const LOGGING_CHANNEL = parseInt(process.env.LOGGING_CHANNEL); // logs channel
 const ROOT_USER = parseInt(process.env.ROOT_USER);
-
+const CATHAL_USER = parseInt(process.env.CATHAL_USER);
 
 // used to deal with new channel member so custom welcome message
 const YOUTUBE_CHANNEL = parseInt(process.env.YOUTUBE_CHANNEL);
@@ -99,6 +99,7 @@ module.exports = {
     HELP_PAGE_TORRENT: help_page,
     HELP_PAGE_MAIN: help_page_main,
     ROOT_USER: ROOT_USER,
+    CATHAL_USER: CATHAL_USER,
     HELP_PAGE_PERMISSIONS: help_page_permissions,
     HELP_PAGE_ADMIN: HELP_PAGE_ADMIN,
     YOUTUBE_CHANNEL: YOUTUBE_CHANNEL,

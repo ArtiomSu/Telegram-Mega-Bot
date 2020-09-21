@@ -9,6 +9,7 @@ var permissions = {
 var permissions_requests = [];
 
 permissions.torrents.push(Constants.ROOT_USER);
+permissions.torrents.push(Constants.CATHAL_USER);
 permissions.grant_permissions.push(Constants.ROOT_USER);
 permissions.admin.push(Constants.ROOT_USER);
 
