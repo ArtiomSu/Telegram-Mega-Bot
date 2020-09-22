@@ -27,16 +27,22 @@ def get_ses():
 def get_status():
     r = requests.get("http://"+address+"/")
     print(r.status_code, r.reason)
-    b = json.loads(r.text)
-    print(b)
+    try:
+        b = json.loads(r.text)
+        print(b)
+    except:
+        print("no json")
 
 def turn_on():
     if get_ses():
         #print(hashed)
         r = requests.post("http://"+address+"/start", data={'data': hashed})
         print(r.status_code, r.reason)
-        b = json.loads(r.text)
-        print(b)
+        try:
+            b = json.loads(r.text)
+            print(b)
+        except:
+            print("no json")
     else:
         print("failed to get session")
 
@@ -45,8 +51,24 @@ def turn_off():
         #print(hashed)
         r = requests.post("http://"+address+"/stop", data={'data': hashed})
         print(r.status_code, r.reason)
-        b = json.loads(r.text)
-        print(b)
+        try:
+            b = json.loads(r.text)
+            print(b)
+        except:
+            print("no json")
+    else:
+        print("failed to get session")
+
+def restart():
+    if get_ses():
+        #print(hashed)
+        r = requests.post("http://"+address+"/restart", data={'data': hashed})
+        print(r.status_code, r.reason)
+        try:
+            b = json.loads(r.text)
+            print(b)
+        except:
+            print("no json")
     else:
         print("failed to get session")
 
@@ -57,7 +79,8 @@ def print_menu():       ## Your menu design here
     print("2. Stop")
     print("3. Enter secret")
     print("4. get status")
-    print("5. Exit")
+    print("5. restart")
+    print("6. Exit")
     print(67 * "-")
 
 loop=True
@@ -74,6 +97,8 @@ while loop:          ## While loop which will keep going until loop = False
     elif choice=='4':
         get_status()
     elif choice=='5':
+        restart()
+    elif choice=='6':
         exit(0)
     else:
         print("wrong input")

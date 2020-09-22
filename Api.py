@@ -62,7 +62,6 @@ def start():
 @app.route('/stop', methods=['POST'])
 def stop():
     global nodejs_process
-
     req = request.form.get('data',default=None)
     if req is not None:
         hashed = request.form['data']
@@ -79,6 +78,26 @@ def stop():
             return jsonify({'error': 'invalid session'})
     else:
         return jsonify({'error': 'invalid request'})
+
+@app.route('/restart', methods=['POST'])
+def restart():
+    req = request.form.get('data',default=None)
+    if req is not None:
+        hashed = request.form['data']
+        if confirm_ses(hashed):
+            shutdown()
+            return jsonify({'status': 'rebooting'})
+        else:
+            return jsonify({'error': 'invalid session'})
+    else:
+        return jsonify({'error': 'invalid request'})
+
+def shutdown():
+    func = request.environ.get('werkzeug.server.shutdown')
+    if func is None:
+        raise RuntimeError('Not running with the Werkzeug Server')
+    func()
+    return "Shutting down..."
 
 
 
