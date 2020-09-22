@@ -111,4 +111,4 @@ def test():
         print("secret not found")
     return jsonify({'test': 'ok'})
 
-app.run(host='10.0.0.2', port='9877')
+app.run(host='10.0.0.69', port='9877')

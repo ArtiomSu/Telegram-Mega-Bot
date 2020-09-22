@@ -1,5 +1,55 @@
 const Constants = require('../constants');
 
+var ban = (bot,chat,callbackQuery) =>{
+    const action = callbackQuery.data;
+    let user_id = parseInt(callbackQuery.from.id);
+    let user_name = callbackQuery.from.username;
+    let intended_for_user_id = parseInt(action.split(" ")[0]);
+
+    bot.kickChatMember(chat,intended_for_user_id).then(status =>{
+        if(status){
+            let output = "<pre>" + "Banned \n" +
+                "data="+action+" \n" +
+                "user_id="+intended_for_user_id+"\n" +
+                "user_name="+callbackQuery.message.reply_to_message.from.username+"\n" +
+                "text banned for="+callbackQuery.message.reply_to_message.text+"\n\n"+
+
+                "ban by: "+ user_id + "\n"+
+                user_name +
+                "</pre>";
+            var options = {
+                reply_markup: JSON.stringify({
+                    inline_keyboard: [
+                        [{text: 'unban', callback_data:""+intended_for_user_id+" unban"}]
+                    ]
+                }),
+                parse_mode: "HTML",
+                disable_web_page_preview:true
+            };
+            bot.sendMessage(callbackQuery.message.chat.id, output, options);
+
+        }else{
+            data.bot.sendMessage(chat,"Couldn't ban this is sad",{parse_mode: "HTML", disable_web_page_preview:true});
+        }
+    });
+};
+
+var unban = (bot,chat,user_id) =>{
+    bot.unbanChatMember(chat,user_id).then(status =>{
+        if(status){
+            var options = {
+                parse_mode: "HTML",
+                disable_web_page_preview:true
+            };
+            bot.sendMessage(chat,
+                "<pre>" + "UnBanned " + user_id +
+                "</pre>",
+                options);
+        }else{
+            data.bot.sendMessage(chat,"Couldn't unban this is sad",{parse_mode: "HTML", disable_web_page_preview:true});
+        }
+    });
+};
 
 var admin_main = function(data){
 
@@ -87,5 +137,7 @@ var admin_main = function(data){
 };
 
 module.exports = {
-    admin_main: admin_main
+    admin_main: admin_main,
+    ban: ban,
+    unban: unban
 };

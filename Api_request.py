@@ -6,7 +6,7 @@ from getpass import getpass
 
 ses = None
 secret = None
-address= '10.0.0.2:9877'
+address= '10.0.0.69:9877'
 hashed = None
 
 def get_ses():

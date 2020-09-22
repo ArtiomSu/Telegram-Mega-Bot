@@ -171,7 +171,7 @@ var check_permissions = function(user_id, perm_type, current_chat, user_name, bo
     }
 
     if (!granted){
-        bot.sendMessage(current_chat, "<i>" + user_name + "</i>" + "<b>\nYou Do not have Permissions for this action ask @Terminal_Heat_Sink nicely and he might give it to you </b>", {parse_mode: "HTML"});
+        //bot.sendMessage(current_chat, "<i>" + user_name + "</i>" + "<b>\nYou Do not have Permissions for this action ask @Terminal_Heat_Sink nicely and he might give it to you </b>", {parse_mode: "HTML"});
         return false;
     }else{
         return true;
