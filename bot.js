@@ -59,7 +59,7 @@ var deal_with_message = function(msg){
 
             switch (temp) {
                 case "-t":
-                    if(permission.check_permissions(user_id,"-t", current_chat, user_name, bot)){
+                    if(permission.check_permissions(user_id,"-t")){
                         torrent_main.tmain({
                             user_id:user_id,
                             user_name:user_name,
@@ -71,7 +71,7 @@ var deal_with_message = function(msg){
                     }
                     break;
                 case "-p":
-                    if(permission.check_permissions(user_id,"-p", current_chat, user_name, bot)) {
+                    if(permission.check_permissions(user_id,"-p")) {
                         permission.permission_main({
                             user_id:user_id,
                             user_name:user_name,
@@ -83,7 +83,7 @@ var deal_with_message = function(msg){
                     }
                     break;
                 case "-a":
-                    if(permission.check_permissions(user_id,"-a", current_chat, user_name, bot)) {
+                    if(permission.check_permissions(user_id,"-a")) {
                         if(msg.reply_to_message){
                             user_id = msg.reply_to_message.from.id;
                         }else{
@@ -101,26 +101,28 @@ var deal_with_message = function(msg){
                     }
                     break;    
                 case "-p_ask":
-                    if(permission.check_permissions(user_id,"-p_ask", current_chat, user_name, bot)) {
+                    if(permission.check_permissions(user_id,"-p_ask")) {
                         permission.request_permission(user_name,user_id,bot,current_chat, input_array.shift());
                     }
                     break;
                 case "-h":
-                    if(permission.check_permissions(user_id,"-h", current_chat, user_name, bot)) {
+                    if(permission.check_permissions(user_id,"-h")) {
                         help_main(current_chat);
                     }
                     break;
                 case "pinned":
-                    if(permission.check_permissions(user_id,"pinned", current_chat, user_name, bot)) {
+                    if(permission.check_permissions(user_id,"pinned")) {
                         bot.forwardMessage(current_chat,Constants.YOUTUBE_CHANNEL,Constants.YOUTUBE_CHANNEL_PINNED_MSG_ID);
                     }
                     break;
                 case "whois":
-                    if(permission.check_permissions(user_id,"whois", current_chat, user_name, bot)) {
+                    if(permission.check_permissions(user_id,"whois")) {
                         if(msg.reply_to_message){
-                            permission.whois(bot, current_chat, msg.reply_to_message.from.id);
+                            permission.whois(bot, current_chat, msg.reply_to_message.from.id, null);
                         }else{
-                            permission.whois(bot, current_chat, input_array.shift());                    
+                            let this_chat = input_array.shift();
+                            let other_chat = input_array.shift() || null;
+                            permission.whois(bot, current_chat, this_chat, other_chat);
                         }
                     }
                     break;
@@ -276,6 +278,8 @@ var check_user_ban = (msg) => {
             "upm="+user_posted_messages+"\n\n"+
             "user_id="+msg.from.id+"\n" +
             "user_name="+msg.from.username+"\n" +
+            "first_name="+msg.from.first_name+"\n" +
+            "last_name="+msg.from.last_name+"\n" +
             "text=: "+ msg.text +
             "</pre>",
             options);
@@ -303,44 +307,54 @@ var user_slash_functions = (msg) =>{
             //"<pre>\n______________________________\n</pre>"+
             "@Terminal_Heat_Sink Report submitted for<pre>" + " \n" +
             "user_id="+msg.reply_to_message.from.id+"\n" +
+            "first_name="+msg.reply_to_message.from.first_name+"\n" +
+            "last_name="+msg.reply_to_message.from.last_name+"\n" +
             "user_name="+msg.reply_to_message.from.username+"\n\n" +
             "report by="+ msg.from.id + "\n" +
             "user_name=="+ msg.from.username+ "\n"+
             "</pre>"+"Reason: "+ msg.text.toLowerCase().split("/report")[1],
             options);
-    }else if(msg.text.toLowerCase().startsWith("/donate")){
-        bot.sendMessage(msg.chat.id,Constants.DONATE,{parse_mode: "HTML", disable_web_page_preview:true,});
-    }else if(msg.text.toLowerCase().startsWith("/notes")){
-        bot.sendMessage(msg.chat.id,Constants.NOTES,{parse_mode: "HTML", disable_web_page_preview:true,});
-    }else if(msg.text.toLowerCase().startsWith("/all")){
-        //bot.sendMessage(msg.chat.id,Constants.NOTES,{parse_mode: "HTML", disable_web_page_preview:true,});
-        bot.forwardMessage(msg.chat.id,Constants.YOUTUBE_CHANNEL,Constants.YOUTUBE_CHANNEL_PINNED_MSG_ID);
-    }else if(msg.text.toLowerCase().startsWith("/rogphone2rgb")){
-        bot.sendMessage(msg.chat.id,Constants.NOTES_ROGPHONE2RGB,{parse_mode: "HTML", disable_web_page_preview:true,});
-    }else if(msg.text.toLowerCase().startsWith("/rogphone2")){
-        bot.sendMessage(msg.chat.id,Constants.NOTES_ROG_PHONE_2_GUIDES,{parse_mode: "HTML", disable_web_page_preview:true,});
-    }else if(msg.text.toLowerCase().startsWith("/raw")){
-        bot.sendMessage(msg.chat.id,Constants.NOTES_RAW,{parse_mode: "HTML", disable_web_page_preview:true,});
-    }else if(msg.text.toLowerCase().startsWith("/relock")){
-        bot.sendMessage(msg.chat.id,Constants.NOTES_RELOCK,{parse_mode: "HTML", disable_web_page_preview:true,});
-    }else if(msg.text.toLowerCase().startsWith("/apps")){
-        bot.sendMessage(msg.chat.id,Constants.NOTES_APPS,{parse_mode: "HTML", disable_web_page_preview:true,});
-    }else if(msg.text.toLowerCase().startsWith("/psvita")){
-        bot.sendMessage(msg.chat.id,Constants.NOTES_PSVITA,{parse_mode: "HTML", disable_web_page_preview:true,});
-    }else if(msg.text.toLowerCase().startsWith("/qmk")){
-        bot.sendMessage(msg.chat.id,Constants.NOTES_QMK,{parse_mode: "HTML", disable_web_page_preview:true,});
-    }else if(msg.text.toLowerCase().startsWith("/edxposed")){
-        bot.sendMessage(msg.chat.id,Constants.NOTES_Edxposed,{parse_mode: "HTML", disable_web_page_preview:true,});
-    }else if(msg.text.toLowerCase().startsWith("/lineage")){
-        bot.sendMessage(msg.chat.id,Constants.NOTES_LINEAGE,{parse_mode: "HTML", disable_web_page_preview:true,});
-    }else if(msg.text.toLowerCase().startsWith("/flasher")){
-        bot.sendMessage(msg.chat.id,Constants.NOTES_FLASHING_SCRIPT,{parse_mode: "HTML", disable_web_page_preview:true,});
-    }else if(msg.text.toLowerCase().startsWith("/root")){
-        bot.sendMessage(msg.chat.id,Constants.NOTES_ROOT,{parse_mode: "HTML", disable_web_page_preview:true,});
-    }else if(msg.text.toLowerCase().startsWith("/cts-profile")){
-        bot.sendMessage(msg.chat.id,Constants.NOTES_CTS,{parse_mode: "HTML", disable_web_page_preview:true,});
+    }else if(msg.text.toLowerCase() in Constants.NOTES_DICTIONARY){
+        bot.sendMessage(msg.chat.id,Constants.NOTES_DICTIONARY[msg.text.toLowerCase()],{parse_mode: "HTML", disable_web_page_preview:true, reply_to_message_id: msg.message_id});
     }
+    else if(msg.text.toLowerCase().startsWith("/all")) {
+            bot.forwardMessage(msg.chat.id, Constants.YOUTUBE_CHANNEL, Constants.YOUTUBE_CHANNEL_PINNED_MSG_ID);
+    }else if(msg.text.toLowerCase().startsWith("/top") && permission.check_permissions(msg.from.id,"-a")){
+        let chat_id = msg.chat.id;
+        let chat_title = msg.chat.title;
+        let chat_type = msg.chat.type;
+        let top_users_for_chat = chat_id;
+        try{
+            let other_chat = msg.text.split(" ")[1];
+            if(other_chat.toString() in history){
+                top_users_for_chat = other_chat
+            }
+        }catch (e) {}
+        let messages = history[top_users_for_chat.toString()];
+        var sortable = [];
+        for (var count in messages) {
+            sortable.push([count, messages[count]]);
+        }
+        sortable.sort(function(a, b) {
+            return b[1] - a[1];
+        });
 
+        let output_top = "<pre>";
+        for(let i=0;i<sortable.length;i++){
+            if(i>10){
+                break;
+            }
+            output_top+=sortable[i][0] + ": " + sortable[i][1] + "\n";
+        }
+        output_top+="</pre>";
+
+        bot.sendMessage(chat_id, "<pre>"+
+            "\chat_id      " + chat_id +
+            "\nchat_title: " + chat_title +
+            "\nchat_type:  " + chat_type +
+            "\n\nTop Users in "+top_users_for_chat+"</pre>" +
+            output_top, {parse_mode: "HTML"});
+    }
 };
 
 var deal_with_new_member = function(msg){
@@ -430,6 +444,11 @@ var get_messages_count_for_user = (msg) => {
 bot.on('message', (msg) => {
     //console.log(msg);
 
+    if(!Constants.APPROVED_CHANNELS.includes(parseInt(msg.chat.id) )){
+        console.log("inside wrong channel leaving");
+        return bot.leaveChat(msg.chat.id);
+    }
+
     history_update(msg);
     //console.log("######### messages_count_for user: ", get_messages_count_for_user(msg));
 
@@ -445,9 +464,14 @@ bot.on('message', (msg) => {
     }
 
     check_user_ban(msg);
-
-   //
 });
+
+//prevent spam bot buttons
+var callback_notes_used = {
+    user_id: null,
+    notes_used: false,
+    donate_used: false
+};
 
 bot.on('callback_query', (callbackQuery) => {
     //console.log(callbackQuery);
@@ -460,7 +484,7 @@ bot.on('callback_query', (callbackQuery) => {
     let type_of_action = action.split(" ")[1];
 
     //admin actions
-    if(permission.check_permissions(user_id,"-a", callbackQuery.message.chat.id, user_name, bot)) {
+    if(permission.check_permissions(user_id,"-a")) {
         switch (type_of_action){
             case "test":
                 var options = {
@@ -498,34 +522,51 @@ bot.on('callback_query', (callbackQuery) => {
             default:
                 break;
         }
-    }else{
-        //for normal users
-        switch (type_of_action){
-            case "notes":
-                bot.sendMessage(callbackQuery.message.chat.id,Constants.NOTES,{parse_mode: "HTML", disable_web_page_preview:true,});
-                break;
-            case "donate":
-                bot.sendMessage(callbackQuery.message.chat.id,Constants.DONATE,{parse_mode: "HTML", disable_web_page_preview:true,});
-                break;
-            default:
-                break;
-        }
     }
 
-
-
-
-
-
-    // bot.sendMessage(msg.chat.id,
-    //     //"<pre>\n______________________________\n</pre>"+
-    //     "<pre>" + "callback response \n" +
-    //     "data="+action+" \n" +
-    //     "user_id="+user_id+"\n" +
-    //     "user_name="+user_name+"\n" +
-    //     "</pre>",
-    //     {parse_mode: "HTML", disable_web_page_preview:true});
-
+        //for normal users
+        if(user_id === intended_for_user_id) {
+            let send_notes = true;
+            let send_donation = true;
+            if(callback_notes_used.user_id !== intended_for_user_id){
+                callback_notes_used.user_id = intended_for_user_id;
+            }else {
+                if(callback_notes_used.notes_used){
+                    send_notes = false;
+                }
+                if(callback_notes_used.donate_used){
+                    send_donation = false;
+                }
+            }
+            switch (type_of_action) {
+                case "notes":
+                    if(send_notes) {
+                        callback_notes_used.notes_used = true;
+                        bot.sendMessage(callbackQuery.message.chat.id, Constants.NOTES, {
+                            parse_mode: "HTML",
+                            disable_web_page_preview: true,
+                        });
+                    }else{
+                        return bot.answerCallbackQuery(callbackQuery.id, {text: "Please dont spam bot buttons. If you badly want to see notes again type /notes",show_alert: true});
+                    }
+                    break;
+                case "donate":
+                    if(send_donation) {
+                        callback_notes_used.donate_used = true;
+                        bot.sendMessage(callbackQuery.message.chat.id, Constants.DONATE, {
+                            parse_mode: "HTML",
+                            disable_web_page_preview: true,
+                        });
+                    }else{
+                        return bot.answerCallbackQuery(callbackQuery.id, {text: "Please dont spam bot buttons. If you badly want to see donation again type /donate",show_alert: true});
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }else{
+            return bot.answerCallbackQuery(callbackQuery.id, {text: "This messages was not meant for you. Type /notes or whatever",show_alert: true});
+        }
 
     bot.answerCallbackQuery(callbackQuery.id);
 });
@@ -548,8 +589,8 @@ function exitHandler(options, exitCode) {
     if (exitCode || exitCode === 0) console.log(exitCode);
     if (options.exit){
         console.log("needs to exit");
-        console.log("history\n");
-        console.log(JSON.stringify(history));
+        //console.log("history\n");
+        //console.log(JSON.stringify(history));
 
         try {
             fs.writeFileSync('simple_history.json', JSON.stringify(history));

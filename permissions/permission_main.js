@@ -133,7 +133,7 @@ var request_permission = function(user_name, user_id, bot, current_chat, perm_ty
 
 };
 
-var check_permissions = function(user_id, perm_type, current_chat, user_name, bot){
+var check_permissions = function(user_id, perm_type){
     //console.log("checking user "+user_id+"users in torrents= "+ permissions.torrents);
     let granted = false;
     switch (perm_type) {
@@ -180,15 +180,21 @@ var check_permissions = function(user_id, perm_type, current_chat, user_name, bo
 
 };
 
-var whois = function(bot, current_chat, user_id){
+var whois = function(bot, current_chat, user_id, otherchat_id){
 
-    bot.getChatMember(current_chat,user_id).then(user =>{
+    let user_from_chat = current_chat;
+    if(otherchat_id !== null){
+        user_from_chat = otherchat_id;
+    }
+
+    bot.getChatMember(parseInt(user_from_chat),user_id).then(user =>{
         bot.sendMessage(current_chat, "<pre>"+
             "\nid:         " + user.user.id +
             "\nis_bot:     " + user.user.is_bot +
             "\nfirst_name: " + user.user.first_name +
             "\nusername:   " + user.user.username +
             "\nstatus:     " + user.status +
+            "\nchat:       " + current_chat +
             "</pre>", {parse_mode: "HTML"});
     }).catch(err =>{
         bot.sendMessage(current_chat, "<i>Couldn't find user "+user_id+"</i>", {parse_mode: "HTML"});

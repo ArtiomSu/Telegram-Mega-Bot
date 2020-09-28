@@ -82,6 +82,6 @@ function show_history(){
     }
 }
 
-read_results();
+//read_results();
 show_history();
 

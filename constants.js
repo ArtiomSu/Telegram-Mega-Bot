@@ -13,6 +13,11 @@ const YOUTUBE_CHANNEL = parseInt(process.env.YOUTUBE_CHANNEL);
 // used to forward pinned message
 const YOUTUBE_CHANNEL_PINNED_MSG_ID = parseInt(process.env.YOUTUBE_CHANNEL_PINNED_MSG_ID);
 
+const TESTING_CHANNEL_1 = parseInt(process.env.TESTING_CHANNEL_1);
+const TESTING_CHANNEL_2 = parseInt(process.env.TESTING_CHANNEL_2);
+
+const APPROVED_CHANNELS = [ LOGGING_CHANNEL, YOUTUBE_CHANNEL, TESTING_CHANNEL_1, TESTING_CHANNEL_2 ];
+
 
 const help_page = "    <b>t80search_bot V0.0.5 Torrents help</b>" +
     "    <pre>\n" +
@@ -356,24 +361,88 @@ const DONATE = "<b>Donate</b>"+
     "        Thank you\n" +
     "</pre>";
 
-const NOTES = "<pre>" +
-    "/notes ( this page )\n" +
-    "/donate ( support me nicely )\n"+
-    "/report ( report bois by replying this to their message )\n\n"+
-    "/rogphone2 ( essentially all rog phone 2 guides )\n"+
-    "/rogphone2rgb ( RGB app )\n"+
-    "/flasher ( dual boot script for rog 2 )\n"+
-    "/raw ( flashing raw )\n"+
-    "/relock ( bootloader )\n" +
-    "/apps ( random shiet )\n"+
-    "/root \n"+
-    "/cts-profile \n" +
-    "/psvita\n"+
-    "/qmk ( keyboard custom firmware )\n"+
-    "/edxposed\n"+
-    "/lineage\n"+
-    "/all ( old pinned message I used before this )\n"+
-    "</pre>";
+// const NOTES = "<pre>" +
+//     "/notes ( this page )\n" +
+//     "/donate ( support me nicely )\n"+
+//     "/report ( report bois by replying this to their message )\n\n"+
+//     "/rogphone2 ( essentially all rog phone 2 guides )\n"+
+//     "/rogphone2rgb ( RGB app )\n"+
+//     "/flasher ( dual boot script for rog 2 )\n"+
+//     "/raw ( flashing raw )\n"+
+//     "/relock ( bootloader )\n" +
+//     "/apps ( random shiet )\n"+
+//     "/root \n"+
+//     "/cts-profile \n" +
+//     "/psvita\n"+
+//     "/qmk ( keyboard custom firmware )\n"+
+//     "/edxposed\n"+
+//     "/lineage\n"+
+//     "/all ( old pinned message I used before this )\n"+
+//     "</pre>";
+
+const NOTES = "<b>Notes</b>" +
+    "<pre>\n</pre>"+
+    "To see the notes just type one of the following into the chat"+
+    "<pre>\n___________________________________________\n</pre>" +
+    "<pre>/notes\n\n</pre>" +
+    "<pre>/donate\n\n</pre>" +
+
+    "( report bois by replying this to their message )" +
+    "<pre>\n</pre>"+
+    "<pre>/report\n\n</pre>" +
+
+    "( essentially all rog phone 2 guides )" +
+    "<pre>\n</pre>"+
+    "<pre>/rogphone2\n\n</pre>" +
+
+    "<pre>/rogphone2rgb\n\n</pre>" +
+
+    "( dual boot script for rog 2 )" +
+    "<pre>\n</pre>"+
+    "<pre>/flasher\n\n</pre>" +
+
+    "( flashing raw )" +
+    "<pre>\n</pre>"+
+    "<pre>/raw\n\n</pre>" +
+
+    "( relock the bootloader )" +
+    "<pre>\n</pre>"+
+    "<pre>/relock\n\n</pre>" +
+
+    "<pre>/apps\n\n</pre>" +
+    "<pre>/root\n\n</pre>" +
+    "<pre>/cts-profile\n\n</pre>" +
+    "<pre>/psvita\n\n</pre>" +
+
+    "( keyboard custom firmware )" +
+    "<pre>\n</pre>"+
+    "<pre>/qmk\n\n</pre>" +
+
+    "<pre>/edxposed\n\n</pre>" +
+    "<pre>/lineage\n\n</pre>" +
+
+    "( old pinned message (handy if you are following a youtube vid and I posted something here) )" +
+    "<pre>\n</pre>"+
+    "<pre>/all\n</pre>" +
+    "<pre>" +
+    "___________________________________________</pre>";
+
+const NOTES_DICTIONARY = {
+    '/donate':DONATE,
+    '/notes':NOTES,
+    '/rogphone2rgb':NOTES_ROGPHONE2RGB,
+    '/rogphone2':NOTES_ROG_PHONE_2_GUIDES,
+    '/raw':NOTES_RAW,
+    '/apps':NOTES_APPS,
+    '/psvita':NOTES_PSVITA,
+    '/qmk':NOTES_QMK,
+    '/edxposed':NOTES_Edxposed,
+    '/lineage':NOTES_LINEAGE,
+    '/flasher':NOTES_FLASHING_SCRIPT,
+    '/root':NOTES_ROOT,
+    '/relock':NOTES_RELOCK,
+    '/cts-profile':NOTES_CTS
+}
 
 module.exports = {
     TOKEN: token,
@@ -403,5 +472,7 @@ module.exports = {
     NOTES_ROGPHONE2RGB: NOTES_ROGPHONE2RGB,
     NOTES_RELOCK: NOTES_RELOCK,
     NOTES_ROOT: NOTES_ROOT,
-    NOTES_CTS: NOTES_CTS
+    NOTES_CTS: NOTES_CTS,
+    NOTES_DICTIONARY,
+    APPROVED_CHANNELS
 };
