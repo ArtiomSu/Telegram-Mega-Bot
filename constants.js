@@ -147,7 +147,7 @@ const NOTES_PSVITA = "<b>PSVITA</b>" +
     "<pre>\n" +
     "___________________________________________</pre>";
 
-const NOTES_RAW = "<b>Raw Firmware And Relock Bootloader</b>" +
+const NOTES_RAW = "<b>FLASH Raw Firmware</b>" +
     "<pre>\n\n"+
     "___________________________________________\n</pre>" +
     "<a href=\"https://t.me/rogphonevietnam2\">find raw a10 or a9 on this channel</a>" +
@@ -177,16 +177,40 @@ const NOTES_RAW = "<b>Raw Firmware And Relock Bootloader</b>" +
     "<pre>\n</pre>" +
     "6. Turn of your phone when it reboots and reboot into recovery and select factory reset ( Your phone will not work properly if you dont  )" +
     "<pre>\n" +
+    "___________________________________________</pre>";
+
+
+const NOTES_RELOCK = "<b>Relock Bootloader</b>" +
+    "<pre>\n\n"+
+    "___________________________________________\n</pre>" +
+    "<a href=\"https://t.me/rogphonevietnam2\">find raw a10 or a9 on this channel</a>" +
+    "<pre>\n\n</pre>" +
+    "<a href=\"https://t.me/Terminal_Heat_Sink_Group/6723\">raw a10</a>" +
+    "<pre>\n\n</pre>" +
+    "<a href=\"https://forum.xda-developers.com/rog-phone-2/how-to/guide-convert-cn-to-ww-rom-26-08-t3961042\">raw a9</a>" +
+    "<pre>\n\n</pre>" +
+    "<a href=\"https://drive.google.com/drive/folders/0B16KcYGeJ8Q9fml4MzdQUFA3Z29aS3Jkd01iY3oyT09zaWwzaldFZl9tV0JXNG9jUEdkSFE\">raw a9 and 10 thank to Vietnam bois</a>" +
+    "<pre>\n\n</pre>" +
+    "<a href=\"https://youtu.be/uONJrZrHWxI?t=664\">If you want to see how flashing raw firmware looks like in a video click on this and skip to 11:03</a>" +
+    "<pre>\n" +
     "___________________________________________\n\n</pre>"+
 
     "<b>Lock Bootloader</b>" +
     "<pre>\n"+
     "___________________________________________\n</pre>" +
-    "1. Repeat the steps 1-5 from above" +
+    "1. Download raw firmware from above" +
     "<pre>\n</pre>" +
-    "2. Reboot into fastboot mode and run this command to lock fastboot oem asus-csc_lk" +
+    "2. Extract the zip two times. You should see a file called flashall.bat or flashall_AFT.cmd." +
     "<pre>\n</pre>" +
-    "3. You can do a factory reset ( not sure if it is needed but prob best to do it  )" +
+    "3. Put phone into fastboot mode ( this is where you will see large green start text )" +
+    "<pre>\n</pre>" +
+    "4. Double Click on flashall.bat or flashall_AFT.cmd this should open up a cmd window. If it doesnt just run the file in cmd by typing flashall.bat or flashall_AFT.cmd" +
+    "<pre>\n</pre>" +
+    "5. Leave the phone for 20 minutes. It will restart when fully Flashed" +
+    "<pre>\n</pre>" +
+    "6. Force reboot into fastboot mode and run this command to lock <pre>fastboot oem asus-csc_lk</pre>" +
+    "<pre>\n</pre>" +
+    "7. You can do a factory reset" +
     "<pre>\n" +
     "___________________________________________</pre>";
 
@@ -297,6 +321,26 @@ const NOTES_ROGPHONE2RGB = "<b>Asus ROG Phone 2 RGB</b>" +
     "<pre>\n" +
     "___________________________________________</pre>";
 
+const NOTES_ROOT = "<b>Rooting Guides</b>" +
+    "<pre>\n\n"+
+    "___________________________________________\n</pre>" +
+    "<a href=\"https://www.youtube.com/watch?v=uGdSWUK9vNw\">Magisk Patched boot method ( payload dumper )</a>" +
+    "<pre>\n\n</pre>" +
+    "<a href=\"https://www.youtube.com/watch?v=pgqboLXMSuk\">Using TWRP to root</a>" +
+    "<pre>\n\n</pre>" +
+    "<a href=\"https://www.youtube.com/watch?v=Jq3aCh5d8ng\">Rooting WearOS ( Ticwatch E )</a>" +
+    "<pre>\n" +
+    "___________________________________________</pre>";
+
+const NOTES_CTS = "<b>Magisk cts profile kaput</b>" +
+    "<pre>\n\n"+
+    "___________________________________________\n</pre>" +
+    "In magisk manager settings enable magisk hide and reboot"+
+    "<pre>\n\n</pre>"+
+    "If the above doesn't work you can try using some safetynet fix magisk modules." +
+    "<pre>\n" +
+    "___________________________________________</pre>";
+
 const DONATE = "<b>Donate</b>"+
     "<pre>\n\n</pre>" +
     "<a href=\"https://paypal.me/artiomSudo\">Paypal</a>"+
@@ -322,6 +366,8 @@ const NOTES = "<pre>" +
     "/raw ( flashing raw )\n"+
     "/relock ( bootloader )\n" +
     "/apps ( random shiet )\n"+
+    "/root \n"+
+    "/cts-profile \n" +
     "/psvita\n"+
     "/qmk ( keyboard custom firmware )\n"+
     "/edxposed\n"+
@@ -354,5 +400,8 @@ module.exports = {
     NOTES_Edxposed: NOTES_Edxposed,
     NOTES_LINEAGE: NOTES_LINEAGE,
     NOTES_FLASHING_SCRIPT: NOTES_FLASHING_SCRIPT,
-    NOTES_ROGPHONE2RGB: NOTES_ROGPHONE2RGB
+    NOTES_ROGPHONE2RGB: NOTES_ROGPHONE2RGB,
+    NOTES_RELOCK: NOTES_RELOCK,
+    NOTES_ROOT: NOTES_ROOT,
+    NOTES_CTS: NOTES_CTS
 };
