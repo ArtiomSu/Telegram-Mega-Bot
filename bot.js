@@ -234,7 +234,7 @@ var check_user_ban = (msg) => {
     }else{
         //total ban
         severity_category = 4;
-        severity_text = "Hmmmmmmmmmmmmmmmmmmmmmmmmmmmmm (severity 3)";
+        severity_text = "Hmmmmmmmmmmmmmmmmmmmmmmmmmmmmm (severity 4)";
     }
 
     // console.log("########################## check user ban #######################");
