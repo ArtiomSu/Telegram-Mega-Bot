@@ -483,6 +483,7 @@ bot.on('callback_query', (callbackQuery) => {
     let intended_for_user_id = parseInt(action.split(" ")[0]);
     let type_of_action = action.split(" ")[1];
 
+    let done_task = true;
     //admin actions
     if(permission.check_permissions(user_id,"-a")) {
         switch (type_of_action){
@@ -520,53 +521,67 @@ bot.on('callback_query', (callbackQuery) => {
                 admin_main.unban(bot,callbackQuery.message.chat.id,intended_for_user_id);
                 break;
             default:
+                done_task = false;
                 break;
         }
+    }else{
+        done_task = false;
     }
 
+    if(!done_task) {
         //for normal users
-        if(user_id === intended_for_user_id) {
+        if (user_id === intended_for_user_id) {
             let send_notes = true;
             let send_donation = true;
-            if(callback_notes_used.user_id !== intended_for_user_id){
+            if (callback_notes_used.user_id !== intended_for_user_id) {
                 callback_notes_used.user_id = intended_for_user_id;
-            }else {
-                if(callback_notes_used.notes_used){
+            } else {
+                if (callback_notes_used.notes_used) {
                     send_notes = false;
                 }
-                if(callback_notes_used.donate_used){
+                if (callback_notes_used.donate_used) {
                     send_donation = false;
                 }
             }
             switch (type_of_action) {
                 case "notes":
-                    if(send_notes) {
+                    if (send_notes) {
                         callback_notes_used.notes_used = true;
                         bot.sendMessage(callbackQuery.message.chat.id, Constants.NOTES, {
                             parse_mode: "HTML",
                             disable_web_page_preview: true,
                         });
-                    }else{
-                        return bot.answerCallbackQuery(callbackQuery.id, {text: "Please dont spam bot buttons. If you badly want to see notes again type /notes",show_alert: true});
+                    } else {
+                        return bot.answerCallbackQuery(callbackQuery.id, {
+                            text: "Please dont spam bot buttons. If you badly want to see notes again type /notes",
+                            show_alert: true
+                        });
                     }
                     break;
                 case "donate":
-                    if(send_donation) {
+                    if (send_donation) {
                         callback_notes_used.donate_used = true;
                         bot.sendMessage(callbackQuery.message.chat.id, Constants.DONATE, {
                             parse_mode: "HTML",
                             disable_web_page_preview: true,
                         });
-                    }else{
-                        return bot.answerCallbackQuery(callbackQuery.id, {text: "Please dont spam bot buttons. If you badly want to see donation again type /donate",show_alert: true});
+                    } else {
+                        return bot.answerCallbackQuery(callbackQuery.id, {
+                            text: "Please dont spam bot buttons. If you badly want to see donation again type /donate",
+                            show_alert: true
+                        });
                     }
                     break;
                 default:
                     break;
             }
-        }else{
-            return bot.answerCallbackQuery(callbackQuery.id, {text: "This messages was not meant for you. Type /notes or whatever",show_alert: true});
+        } else {
+            return bot.answerCallbackQuery(callbackQuery.id, {
+                text: "This messages was not meant for you. Type /notes or whatever",
+                show_alert: true
+            });
         }
+    }
 
     bot.answerCallbackQuery(callbackQuery.id);
 });

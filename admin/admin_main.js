@@ -5,14 +5,21 @@ var ban = (bot,chat,callbackQuery) =>{
     let user_id = parseInt(callbackQuery.from.id);
     let user_name = callbackQuery.from.username;
     let intended_for_user_id = parseInt(action.split(" ")[0]);
+    let banned_user_name = "unknown";
+    let banned_text = "none";
+    if(callbackQuery.message && callbackQuery.message.reply_to_message && callbackQuery.message.reply_to_message.from){
+        banned_user_name = callbackQuery.message.reply_to_message.from.username;
+        banned_text = callbackQuery.message.reply_to_message.text;
+    }
+
 
     bot.kickChatMember(chat,intended_for_user_id).then(status =>{
         if(status){
             let output = "<pre>" + "Banned \n" +
                 "data="+action+" \n" +
                 "user_id="+intended_for_user_id+"\n" +
-                "user_name="+callbackQuery.message.reply_to_message.from.username+"\n" +
-                "text banned for="+callbackQuery.message.reply_to_message.text+"\n\n"+
+                "user_name="+banned_user_name+"\n" +
+                "text banned for="+banned_text+"\n\n"+
 
                 "ban by: "+ user_id + "\n"+
                 user_name +
