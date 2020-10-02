@@ -18,8 +18,10 @@ secret = os.getenv('API_SECRET')
 session_text = None
 
 def confirm_ses(hashed):
+    global session_text
     if session_text is not None:
         real_hash = hashlib.sha512(str(session_text).encode('utf-8')+str(secret).encode('utf-8')).hexdigest()
+        session_text = None
         if real_hash == hashed:
             return True
         else:

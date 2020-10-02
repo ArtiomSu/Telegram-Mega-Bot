@@ -3,14 +3,11 @@ import json
 import hashlib
 from getpass import getpass
 
-
-ses = None
 secret = None
 address= '10.0.0.69:9877'
 hashed = None
 
 def get_ses():
-    global ses
     global hashed
     if secret is None:
         print("You need to enter the secret first")
@@ -73,7 +70,7 @@ def restart():
         print("failed to get session")
 
 
-def print_menu():       ## Your menu design here
+def print_menu():
     print(30 * "-" , "MENU" , 30 * "-")
     print("1. Start")
     print("2. Stop")
@@ -84,9 +81,9 @@ def print_menu():       ## Your menu design here
     print(67 * "-")
 
 loop=True
-while loop:          ## While loop which will keep going until loop = False
-    print_menu()    ## Displays menu
-    choice = input("Enter your choice [1-5]: ")
+while loop:
+    print_menu()
+    choice = input("Enter your choice [1-6]: ")
     print("\n"*5)
     if choice=='1':
         turn_on()

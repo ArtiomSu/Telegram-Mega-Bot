@@ -361,30 +361,33 @@ const DONATE = "<b>Donate</b>"+
     "        Thank you\n" +
     "</pre>";
 
-// const NOTES = "<pre>" +
-//     "/notes ( this page )\n" +
-//     "/donate ( support me nicely )\n"+
-//     "/report ( report bois by replying this to their message )\n\n"+
-//     "/rogphone2 ( essentially all rog phone 2 guides )\n"+
-//     "/rogphone2rgb ( RGB app )\n"+
-//     "/flasher ( dual boot script for rog 2 )\n"+
-//     "/raw ( flashing raw )\n"+
-//     "/relock ( bootloader )\n" +
-//     "/apps ( random shiet )\n"+
-//     "/root \n"+
-//     "/cts-profile \n" +
-//     "/psvita\n"+
-//     "/qmk ( keyboard custom firmware )\n"+
-//     "/edxposed\n"+
-//     "/lineage\n"+
-//     "/all ( old pinned message I used before this )\n"+
-//     "</pre>";
+const NOTES_CHANNELS = "<b>Other Telegram Groups and Channels</b>" +
+    "<pre>\n\n"+
+    "___________________________________________\n</pre>" +
+    "<a href=\"https://t.me/ROGPhoneSeriesDiscussion\">Global Discussion group for ASUS ROG Phone series</a>" +
+    "<pre>\n\n</pre>" +
+    "<a href=\"https://t.me/omnirog2\">Omni ROM for Rog 2</a>" +
+    "<pre>\n\n</pre>" +
+    "<a href=\"https://t.me/msmrog2support\">MSM, Ancient, Bliss, Havoc Roms for Rog 2</a>" +
+    "<pre>\n\n</pre>" +
+    "<a href=\"https://t.me/rogseriesgcam\">Google Cam for rog</a>" +
+    "<pre>\n\n</pre>" +
+    "<a href=\"https://t.me/shady_mods_releases\">Shady Mods channel (best recents mod)</a>" +
+    "<pre>\n\n</pre>" +
+    "<a href=\"https://t.me/rogphonevietnam2\">Vietnam Channel for rog phones (raw firmware and stuff)</a>" +
+    "<pre>\n" +
+    "___________________________________________</pre>";
 
 const NOTES = "<b>Notes</b>" +
     "<pre>\n</pre>"+
     "To see the notes just type one of the following into the chat"+
     "<pre>\n___________________________________________\n</pre>" +
     "<pre>/notes\n\n</pre>" +
+
+    "( sick shortcut for notes so you dont have to type them out (uses custom keyboard) )" +
+    "<pre>\n</pre>"+
+    "<pre>/n\n\n</pre>" +
+
     "<pre>/donate\n\n</pre>" +
 
     "( report bois by replying this to their message )" +
@@ -421,6 +424,10 @@ const NOTES = "<b>Notes</b>" +
     "<pre>/edxposed\n\n</pre>" +
     "<pre>/lineage\n\n</pre>" +
 
+    "( Telegram Channels and groups that you will find interesting )" +
+    "<pre>\n</pre>"+
+    "<pre>/channels\n\n</pre>" +
+
     "( old pinned message (handy if you are following a youtube vid and I posted something here) )" +
     "<pre>\n</pre>"+
     "<pre>/all\n</pre>" +
@@ -441,7 +448,8 @@ const NOTES_DICTIONARY = {
     '/flasher':NOTES_FLASHING_SCRIPT,
     '/root':NOTES_ROOT,
     '/relock':NOTES_RELOCK,
-    '/cts-profile':NOTES_CTS
+    '/cts-profile':NOTES_CTS,
+    '/channels': NOTES_CHANNELS
 }
 
 module.exports = {
@@ -474,5 +482,6 @@ module.exports = {
     NOTES_ROOT: NOTES_ROOT,
     NOTES_CTS: NOTES_CTS,
     NOTES_DICTIONARY,
-    APPROVED_CHANNELS
+    APPROVED_CHANNELS,
+    NOTES_CHANNELS: NOTES_CHANNELS
 };

@@ -10,11 +10,9 @@ const admin_main = require('./admin/admin_main');
 
 const bot = new TelegramBot(Constants.TOKEN, {polling: true});
 
-
-
 var users = {};
-
 var history = {};
+var history_write_counter =0;
 
 try {
     const file = fs.readFileSync('simple_history.json');
@@ -23,6 +21,16 @@ try {
 } catch (error) {
     console.log("failed to read history");
     console.error(error);
+}
+
+function write_history(){
+    try {
+        fs.writeFileSync('simple_history.json', JSON.stringify(history));
+        console.log("JSON data is saved.");
+    } catch (error) {
+        console.log("failed to save history");
+        console.error(error);
+    }
 }
 
 
@@ -148,22 +156,59 @@ var deal_with_message = function(msg){
 };
 
 var check_user_ban = (msg) => {
-    let ban_words = [ "hack", "hax", "whatsapp", "invest", "trading", "money", "crypto", "forex", "hak" ];
+    //console.log(msg,"\n\n\n");
+    let ban_words = [ "hack", "hax", "whatsapp", "invest", "trading", "money", "crypto", "forex", "hak", "cheat", "cheet", "cash", "refer", "share this", "click here" ];
 
     let banned_words_used = 0;
     let message_forwarded = 0;
-    let message_has_photo = 0;
+    let message_has_media = 0;
     let message_has_urls = 0;
     let user_posted_messages = get_messages_count_for_user(msg);
     //check ban words
+    let message_text = "";
+    let message_entities = null;
+
+    //check if message is some media
+    if(msg.photo || msg.video || msg.document || msg.audio || msg.sticker || msg.voice || msg.video_note || msg.animation || msg.contact || msg.location){
+        message_has_media = 1;
+        if(msg.caption){
+            message_text = msg.caption.toLowerCase();
+        }
+
+        if(msg.document){
+            message_text = message_text + " " + msg.document.file_name.toLowerCase();
+        }
+
+        if(msg.caption_entities){
+            message_entities = msg.caption_entities;
+        }
+
+    }
+
+
     if(msg.text){
-        let text = msg.text.toLowerCase();
+        message_text = msg.text.toLowerCase();
+        if(msg.entities){
+            message_entities = msg.entities;
+        }
+    }
+
+    if(message_text !== ""){
         for(let i=0; i<ban_words.length; i++){
-            if(text.includes(ban_words[i])){
+            if(message_text.includes(ban_words[i])){
                 banned_words_used++;
             }
         }
     }
+
+    if(message_entities !== null){
+        for(x in message_entities){
+            if(message_entities[x].type === 'url'){
+                message_has_urls++;
+            }
+        }
+    }
+
 
 
     //check if message is forwarded
@@ -171,19 +216,7 @@ var check_user_ban = (msg) => {
         message_forwarded = 1;
     }
 
-    //check if message is an image
-    if(msg.photo){
-        message_has_photo = 1;
-    }
 
-    //check if message has url
-    if(msg.entities){
-        for(x in msg.entities){
-            if(msg.entities[x].type === 'url'){
-                message_has_urls++;
-            }
-        }
-    }
 
     const banned_words_used_weight = 60;
     const message_forwarded_weight = 30;
@@ -198,7 +231,7 @@ var check_user_ban = (msg) => {
             //user_posts_score = user_posts_score * message_has_urls_weight;
             triggers++;
         }
-        if(message_has_photo === 1){
+        if(message_has_media === 1){
             //user_posts_score = user_posts_score * message_has_photo_weight;
             triggers++;
         }
@@ -214,7 +247,7 @@ var check_user_ban = (msg) => {
     }
 
 
-    let score = (banned_words_used * banned_words_used_weight) + (message_forwarded * message_forwarded_weight) + (message_has_photo * message_has_photo_weight) + (message_has_urls * message_has_urls_weight) + user_posts_score;
+    let score = (banned_words_used * banned_words_used_weight) + (message_forwarded * message_forwarded_weight) + (message_has_media * message_has_photo_weight) + (message_has_urls * message_has_urls_weight) + user_posts_score;
 
     let severity_category = 0;
     let severity_text = "";
@@ -242,7 +275,7 @@ var check_user_ban = (msg) => {
     // console.log("########################## check user ban #######################");
     // console.log("banned_words_used: ",banned_words_used);
     // console.log("message_forwarded: ",message_forwarded);
-    // console.log("message_has_photo: ",message_has_photo);
+    // console.log("message_has_media: ",message_has_media);
     // console.log("message_has_urls: ",message_has_urls);
     // console.log("user_posted_messages: ",user_posted_messages);
     // console.log("score: ",score);
@@ -273,14 +306,14 @@ var check_user_ban = (msg) => {
             "cat="+severity_category+"\n"+
             "bwu="+banned_words_used+"\n"+
             "mf="+message_forwarded+"\n"+
-            "mhp="+message_has_photo+"\n"+
+            "mhm="+message_has_media+"\n"+
             "mhu="+message_has_urls+"\n"+
             "upm="+user_posted_messages+"\n\n"+
             "user_id="+msg.from.id+"\n" +
             "user_name="+msg.from.username+"\n" +
             "first_name="+msg.from.first_name+"\n" +
             "last_name="+msg.from.last_name+"\n" +
-            "text=: "+ msg.text +
+            "text= "+ message_text +
             "</pre>",
             options);
     }
@@ -354,6 +387,33 @@ var user_slash_functions = (msg) =>{
             "\nchat_type:  " + chat_type +
             "\n\nTop Users in "+top_users_for_chat+"</pre>" +
             output_top, {parse_mode: "HTML"});
+    }else if(msg.text.toLowerCase().startsWith("/n")){
+        let notes_array = [];
+        let temp = [];
+        for(let key in Constants.NOTES_DICTIONARY){
+            temp.push({'text':key});
+            if(temp.length === 2){
+                notes_array.push(temp);
+                temp = [];
+            }
+        }
+        if(temp.length !== 0){
+            notes_array.push(temp);
+        }
+        var options = {
+            reply_markup: JSON.stringify({
+                keyboard: notes_array,
+                    resize_keyboard: true,
+                    one_time_keyboard: true,
+                    selective: true
+            }),
+            parse_mode: "HTML",
+            disable_web_page_preview:true,
+            reply_to_message_id: msg.message_id
+        };
+        let user_name = msg.from.username || msg.from.first_name;
+        let output = "@"+user_name+" pick a note from the custom keyboard";
+        bot.sendMessage(msg.chat.id,output,options);
     }
 };
 
@@ -369,8 +429,8 @@ var deal_with_new_member = function(msg){
         var options = {
             reply_markup: JSON.stringify({
                 inline_keyboard: [
-                    [{text: 'MSM', url: 'https://t.me/msmrog2support'},{text: 'OMNI', url: 'https://t.me/omnirog2'},{text: 'ROG GLOBAL', url: 'https://t.me/ROGPhoneSeriesDiscussion'}],
-                    [{ text: 'Notes', callback_data:""+user_id+" notes"},{ text: 'Donate', callback_data:""+user_id+" donate"}]
+                    [{text: 'Other Groups And Channels on Telegram', callback_data:""+user_id+" channels"}],
+                    [{ text: 'Notes', callback_data:""+user_id+" notes"},{ text: 'Donate', callback_data:""+user_id+" donate"},{text: 'Youtube', url: 'https://www.youtube.com/c/TerminalHeatSink'}]
                 ]
             }),
             parse_mode: "HTML",
@@ -389,7 +449,10 @@ var deal_with_new_member = function(msg){
             "      |_|  |_|  |_|_____/ \n" +
             "                          \n" +
             "</pre>"+
-            "<b>Click on the Notes bellow or type <pre>/notes</pre> for all guides, links to downloads and so on. It should have everything you need :) </b>",
+            "<b>Click on the Notes bellow or type <pre>/notes</pre> for all guides, links to downloads and so on. It should have everything you need :) </b>"+
+            "<pre>\n</pre>"+
+            "<b>(New) shortcut for notes is <pre>/n</pre> this will spawn a custom keyboard pretty cool shit</b>"
+            ,
             options); // last argument to diable link previews https://core.telegram.org/bots/api#sendmessage
     // }else{
     //     bot.deleteMessage(chat_id,msg.message_id);
@@ -445,7 +508,7 @@ bot.on('message', (msg) => {
     //console.log(msg);
 
     if(!Constants.APPROVED_CHANNELS.includes(parseInt(msg.chat.id) )){
-        console.log("inside wrong channel leaving");
+        console.log("inside wrong channel leaving:", msg.chat.id, " ", msg.chat.title);
         return bot.leaveChat(msg.chat.id);
     }
 
@@ -463,14 +526,25 @@ bot.on('message', (msg) => {
             {parse_mode: "HTML", disable_web_page_preview:true}); // last argument to diable link previews https://core.telegram.org/bots/api#sendmessage
     }
 
-    check_user_ban(msg);
+    if(! permission.check_permissions(msg.from.id,"-a")) {
+        check_user_ban(msg);
+    }
+
+    history_write_counter++;
+    if(history_write_counter > 10){
+        history_write_counter = 0;
+        write_history();
+        console.log("saving history");
+    }
+
 });
 
 //prevent spam bot buttons
 var callback_notes_used = {
     user_id: null,
     notes_used: false,
-    donate_used: false
+    donate_used: false,
+    channels_used: false
 };
 
 bot.on('callback_query', (callbackQuery) => {
@@ -533,6 +607,7 @@ bot.on('callback_query', (callbackQuery) => {
         if (user_id === intended_for_user_id) {
             let send_notes = true;
             let send_donation = true;
+            let send_channels = true;
             if (callback_notes_used.user_id !== intended_for_user_id) {
                 callback_notes_used.user_id = intended_for_user_id;
             } else {
@@ -541,6 +616,9 @@ bot.on('callback_query', (callbackQuery) => {
                 }
                 if (callback_notes_used.donate_used) {
                     send_donation = false;
+                }
+                if (callback_notes_used.channels_used) {
+                    send_channels = false;
                 }
             }
             switch (type_of_action) {
@@ -572,6 +650,20 @@ bot.on('callback_query', (callbackQuery) => {
                         });
                     }
                     break;
+                case "channels":
+                    if (send_channels) {
+                        callback_notes_used.channels_used = true;
+                        bot.sendMessage(callbackQuery.message.chat.id, Constants.NOTES_CHANNELS, {
+                            parse_mode: "HTML",
+                            disable_web_page_preview: true,
+                        });
+                    } else {
+                        return bot.answerCallbackQuery(callbackQuery.id, {
+                            text: "Please dont spam bot buttons. If you badly want to see them channels again type /channels",
+                            show_alert: true
+                        });
+                    }
+                    break;
                 default:
                     break;
             }
@@ -599,6 +691,8 @@ bot.on('polling_error', (error) => {
 });
 
 
+
+
 function exitHandler(options, exitCode) {
     if (options.cleanup) console.log('clean');
     if (exitCode || exitCode === 0) console.log(exitCode);
@@ -607,13 +701,7 @@ function exitHandler(options, exitCode) {
         //console.log("history\n");
         //console.log(JSON.stringify(history));
 
-        try {
-            fs.writeFileSync('simple_history.json', JSON.stringify(history));
-            console.log("JSON data is saved.");
-        } catch (error) {
-            console.log("failed to save history");
-            console.error(error);
-        }
+        write_history();
 
         process.exit();
     }
