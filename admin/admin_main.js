@@ -1,10 +1,9 @@
 const Constants = require('../constants');
 
-var ban = (bot,chat,callbackQuery) =>{
+var ban = (bot,chat,intended_for_user_id,callbackQuery) =>{
     const action = callbackQuery.data;
     let user_id = parseInt(callbackQuery.from.id);
     let user_name = callbackQuery.from.username;
-    let intended_for_user_id = parseInt(action.split(" ")[0]);
     let banned_user_name = "unknown";
     let banned_text = "none";
     if(callbackQuery.message && callbackQuery.message.reply_to_message && callbackQuery.message.reply_to_message.from){
@@ -27,7 +26,7 @@ var ban = (bot,chat,callbackQuery) =>{
             var options = {
                 reply_markup: JSON.stringify({
                     inline_keyboard: [
-                        [{text: 'unban', callback_data:""+intended_for_user_id+" unban"}]
+                        [{text: 'unban', callback_data:""+intended_for_user_id+" unban"+" "+chat}]
                     ]
                 }),
                 parse_mode: "HTML",
@@ -36,24 +35,24 @@ var ban = (bot,chat,callbackQuery) =>{
             bot.sendMessage(callbackQuery.message.chat.id, output, options);
 
         }else{
-            data.bot.sendMessage(chat,"Couldn't ban this is sad",{parse_mode: "HTML", disable_web_page_preview:true});
+            data.bot.sendMessage(callbackQuery.message.chat.id,"Couldn't ban this is sad",{parse_mode: "HTML", disable_web_page_preview:true});
         }
     });
 };
 
-var unban = (bot,chat,user_id) =>{
+var unban = (bot,chat,user_id,send_to_chat_id) =>{
     bot.unbanChatMember(chat,user_id).then(status =>{
         if(status){
             var options = {
                 parse_mode: "HTML",
                 disable_web_page_preview:true
             };
-            bot.sendMessage(chat,
+            bot.sendMessage(send_to_chat_id,
                 "<pre>" + "UnBanned " + user_id +
                 "</pre>",
                 options);
         }else{
-            data.bot.sendMessage(chat,"Couldn't unban this is sad",{parse_mode: "HTML", disable_web_page_preview:true});
+            data.bot.sendMessage(send_to_chat_id,"Couldn't unban this is sad",{parse_mode: "HTML", disable_web_page_preview:true});
         }
     });
 };

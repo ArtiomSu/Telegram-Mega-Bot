@@ -287,7 +287,7 @@ var check_user_ban = (msg) => {
         var options = {
             reply_markup: JSON.stringify({
                 inline_keyboard: [
-                    [{text: 'ban', callback_data:""+msg.from.id+" ban"},{text: 'delete', callback_data:""+msg.message_id+" deletem"},{text: 'delete this', callback_data:""+msg.message_id+" delete"}]
+                    [{text: 'ban', callback_data:""+msg.from.id+" ban"+" "+msg.chat.id},{text: 'delete', callback_data:""+msg.message_id+" deletem"+" "+msg.chat.id},{text: 'delete this', callback_data:""+msg.message_id+" delete"+" "+msg.chat.id}]
                 ]
             }),
             parse_mode: "HTML",
@@ -295,7 +295,13 @@ var check_user_ban = (msg) => {
             reply_to_message_id: msg.message_id
         };
 
-        bot.sendMessage(msg.chat.id,
+        let send_to_chat = msg.chat.id;
+        if(severity_category !== 4){
+            send_to_chat = Constants.LOGGING_CHANNEL;
+            options.reply_to_message_id = null;
+        }
+
+        bot.sendMessage(send_to_chat,
             "@Terminal_Heat_Sink bot experiment triggered "+
             "<pre>\n</pre>"+
             severity_text+
@@ -305,15 +311,17 @@ var check_user_ban = (msg) => {
             "score="+score+"\n"+
             "cat="+severity_category+"\n"+
             "bwu="+banned_words_used+"\n"+
-            "mf="+message_forwarded+"\n"+
+            "mf= "+message_forwarded+"\n"+
             "mhm="+message_has_media+"\n"+
             "mhu="+message_has_urls+"\n"+
             "upm="+user_posted_messages+"\n\n"+
-            "user_id="+msg.from.id+"\n" +
-            "user_name="+msg.from.username+"\n" +
-            "first_name="+msg.from.first_name+"\n" +
-            "last_name="+msg.from.last_name+"\n" +
-            "text= "+ message_text +
+            "user_id=    "+msg.from.id+"\n" +
+            "user_name=  "+msg.from.username+"\n" +
+            "first_name= "+msg.from.first_name+"\n" +
+            "last_name=  "+msg.from.last_name+"\n\n" +
+            "chat_id=    "+msg.chat.id+"\n"+
+            "chat_title= "+msg.chat.title+"\n\n"+
+            "text=       "+ message_text +
             "</pre>",
             options);
     }
@@ -327,8 +335,8 @@ var user_slash_functions = (msg) =>{
         var options = {
             reply_markup: JSON.stringify({
                 inline_keyboard: [
-                    [{text: 'ban', callback_data:""+msg.reply_to_message.from.id+" ban"},{text: 'delete', callback_data:""+msg.reply_to_message.message_id+" deletem"},{text: 'delete report', callback_data:""+msg.message_id+" deletem"}],
-                    [{text: 'delete this', callback_data:""+msg.reply_to_message.message_id+" delete"}]
+                    [{text: 'ban', callback_data:""+msg.reply_to_message.from.id+" ban"+" "+msg.chat.id},{text: 'delete', callback_data:""+msg.reply_to_message.message_id+" deletem"+" "+msg.chat.id},{text: 'delete report', callback_data:""+msg.message_id+" deletem"+" "+msg.chat.id}],
+                    [{text: 'delete this', callback_data:""+msg.reply_to_message.message_id+" delete"+" "+msg.chat.id}]
                 ]
             }),
             parse_mode: "HTML",
@@ -429,8 +437,8 @@ var deal_with_new_member = function(msg){
         var options = {
             reply_markup: JSON.stringify({
                 inline_keyboard: [
-                    [{text: 'Other Groups And Channels on Telegram', callback_data:""+user_id+" channels"}],
-                    [{ text: 'Notes', callback_data:""+user_id+" notes"},{ text: 'Donate', callback_data:""+user_id+" donate"},{text: 'Youtube', url: 'https://www.youtube.com/c/TerminalHeatSink'}]
+                    [{text: 'Other Groups And Channels on Telegram', callback_data:""+user_id+" channels"+" "+chat_id}],
+                    [{ text: 'Notes', callback_data:""+user_id+" notes"+" "+chat_id},{ text: 'Donate', callback_data:""+user_id+" donate"+" "+chat_id},{text: 'Youtube', url: 'https://www.youtube.com/c/TerminalHeatSink'}]
                 ]
             }),
             parse_mode: "HTML",
@@ -556,6 +564,7 @@ bot.on('callback_query', (callbackQuery) => {
 
     let intended_for_user_id = parseInt(action.split(" ")[0]);
     let type_of_action = action.split(" ")[1];
+    let intended_for_channel = parseInt(action.split(" ")[2]);
 
     let done_task = true;
     //admin actions
@@ -565,7 +574,7 @@ bot.on('callback_query', (callbackQuery) => {
                 var options = {
                     reply_markup: JSON.stringify({
                         inline_keyboard: [
-                            [{text: 'delete', callback_data:""+user_id+" delete"}]
+                            [{text: 'delete', callback_data:""+user_id+" delete"+" "+callbackQuery.message.chat.id}]
                         ]
                     }),
                     parse_mode: "HTML",
@@ -586,13 +595,13 @@ bot.on('callback_query', (callbackQuery) => {
                 bot.deleteMessage(callbackQuery.message.chat.id,callbackQuery.message.message_id);
                 break;
             case "deletem":
-                bot.deleteMessage(callbackQuery.message.chat.id,intended_for_user_id);
+                bot.deleteMessage(intended_for_channel,intended_for_user_id);
                 break;
             case "ban":
-                admin_main.ban(bot,callbackQuery.message.chat.id,callbackQuery);
+                admin_main.ban(bot,intended_for_channel,intended_for_user_id,callbackQuery);
                 break;
             case "unban":
-                admin_main.unban(bot,callbackQuery.message.chat.id,intended_for_user_id);
+                admin_main.unban(bot,intended_for_channel,intended_for_user_id,callbackQuery.message.chat.id);
                 break;
             default:
                 done_task = false;
@@ -690,8 +699,9 @@ bot.on('polling_error', (error) => {
     }
 });
 
-
-
+var api = require('./api');
+api.set_save_function(write_history);
+api.set_exit_function(exitHandler)
 
 function exitHandler(options, exitCode) {
     if (options.cleanup) console.log('clean');
