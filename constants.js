@@ -351,7 +351,7 @@ const DONATE = "<b>Donate</b>"+
     "<a href=\"https://paypal.me/artiomSudo\">Paypal</a>"+
     "<pre>\n\n</pre>" +
     "<a href=\"https://www.patreon.com/user?u=28429069\">Patreon</a>"+
-    "<pre>\n\n" +
+    "<pre>\n\n</pre>" +
     "<a href=\"https://play.google.com/store/apps/developer?id=Terminal+Heat+Sink\">Google Pay Billing App</a>"+
     "<pre>\n\n" +
     "        Crypto Currencies\n\n" +
