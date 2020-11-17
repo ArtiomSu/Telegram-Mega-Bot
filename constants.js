@@ -320,7 +320,9 @@ const NOTES_FLASHING_SCRIPT = "<b>RogPhone2Flasher</b>" +
 const NOTES_ROGPHONE2RGB = "<b>Asus ROG Phone 2 RGB</b>" +
     "<pre>\n\n"+
     "___________________________________________\n</pre>" +
-    "<a href=\"https://github.com/ArtiomSu/Asus-ROG-Phone-2-RGB/releases\">Download</a>" +
+    "<a href=\"https://github.com/ArtiomSu/Asus-ROG-Phone-2-RGB/releases\">Download From Github</a>" +
+    "<pre>\n\n</pre>" +
+    "<a href=\"https://play.google.com/store/apps/details?id=terminal_heat_sink.asusrogphone2rgb\">Download From PlayStore</a>" +
     "<pre>\n\n</pre>" +
     "<a href=\"https://www.youtube.com/watch?v=8rNJtEDuV1I\">Latest Guide</a>" +
     "<pre>\n" +
@@ -352,7 +354,7 @@ const DONATE = "<b>Donate</b>"+
     "<pre>\n\n</pre>" +
     "<a href=\"https://www.patreon.com/user?u=28429069\">Patreon</a>"+
     "<pre>\n\n</pre>" +
-    "<a href=\"https://play.google.com/store/apps/developer?id=Terminal+Heat+Sink\">Google Pay Billing App</a>"+
+    "<a href=\"https://play.google.com/store/apps/details?id=terminal_heat_sink.donateterminalheatsink\">Google Pay Billing App</a>"+
     "<pre>\n\n" +
     "        Crypto Currencies\n\n" +
     "BTC : 3McWRwH6sf3bBgtSXsGvta5nR1ZKLvoP6M \n\n" +
