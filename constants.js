@@ -352,6 +352,8 @@ const DONATE = "<b>Donate</b>"+
     "<pre>\n\n</pre>" +
     "<a href=\"https://www.patreon.com/user?u=28429069\">Patreon</a>"+
     "<pre>\n\n" +
+    "<a href=\"https://play.google.com/store/apps/developer?id=Terminal+Heat+Sink\">Google Pay Billing App</a>"+
+    "<pre>\n\n" +
     "        Crypto Currencies\n\n" +
     "BTC : 3McWRwH6sf3bBgtSXsGvta5nR1ZKLvoP6M \n\n" +
     "XMR : 8AgA9hRFbE69gaP5mBjB4y93J1MarAuyRRopN4SD5FLbGbrHB6GPc4ojZ2vAhD1zThFGboFqvumYKQ7xhRmJUMgdK3MdRE5 \n\n" +

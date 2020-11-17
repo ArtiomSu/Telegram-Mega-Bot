@@ -17,6 +17,8 @@ app.get('/', function (req, res) {
 
 
 app.get('/shutdown', function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     res.json( {shutdown:"ok"} );
     exit_function({exit:true}, null);
 });

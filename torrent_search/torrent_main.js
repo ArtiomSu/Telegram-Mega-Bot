@@ -196,7 +196,7 @@ var tmain = function (data) {
                                 });
                                 //console.log(message_content);
                                 const pre_message = "<b>" + data.user_name + " Here is what I found for </b><i>"+data.users[data.user_id].old_search_term+"</i><pre>\n</pre>";
-                                data.bot.sendMessage(data.current_chat, pre_message+message_content, {parse_mode: "HTML"});
+                                data.bot.sendMessage(data.current_chat, pre_message+message_content, {parse_mode: "HTML",disable_web_page_preview:true});
                                 data.users[data.user_id].results = body.data;
                                 data.users[data.user_id].old_search_exists = true;
                             }
