@@ -148,7 +148,9 @@ const NOTES_PSVITA = "<b>PSVITA</b>" +
     "___________________________________________\n</pre>" +
     "<a href=\"https://t.me/Terminal_Heat_Sink_Group/23593\">custom theme: red cyber</a>" +
     "<pre>\n\n</pre>" +
-    "<a href=\"https://www.youtube.com/watch?v=WBBfPrQsiA8\">Matrix Custom boot animation</a>" +
+    "<a href=\"https://www.youtube.com/watch?v=WBBfPrQsiA8\">Matrix Custom boot animation video</a>" +
+    "<pre>\n\n</pre>" +
+    "<a href=\"https://t.me/c/1201136003/35\">Matrix Custom boot image download</a>" +
     "<pre>\n" +
     "___________________________________________</pre>";
 
@@ -382,6 +384,26 @@ const NOTES_CHANNELS = "<b>Other Telegram Groups and Channels</b>" +
     "<pre>\n" +
     "___________________________________________</pre>";
 
+const NOTES_PROGRAMS = "<b>Programs</b>" +
+    "<pre>\n\n"+
+    "___________________________________________\n</pre>" +
+    "<a href=\"https://t.me/c/1201136003/16\">Assassins Creed Valhala Auto Save Backup</a>" +
+    "<pre>\n" +
+    "___________________________________________</pre>";
+
+const NOTES_CUSTOM_BOOT_ANIMATION = "<b>Custom Boot Animations</b>" +
+    "<pre>\n\n"+
+    "___________________________________________\n</pre>" +
+    "<a href=\"https://t.me/c/1201136003/15\">Matrix Boot Animation</a>" +
+    "<pre>\n\n</pre>" +
+    "<a href=\"https://t.me/c/1201136003/14\">Make Your Own Custom Boot Animation Template</a>" +
+    "<pre>\n\n</pre>" +
+    "<a href=\"https://t.me/c/1201136003/12\">One Plus 8t CyberPunk Boot Animations Preview</a>" +
+    "<pre>\n\n</pre>" +
+    "<a href=\"https://t.me/c/1201136003/9\">One Plus 8t CyberPunk Boot Animations Download</a>" +
+    "<pre>\n" +
+    "___________________________________________</pre>";
+
 const NOTES = "<b>Notes</b>" +
     "<pre>\n</pre>"+
     "To see the notes just type one of the following into the chat"+
@@ -431,6 +453,8 @@ const NOTES = "<b>Notes</b>" +
     "( Telegram Channels and groups that you will find interesting )" +
     "<pre>\n</pre>"+
     "<pre>/channels\n\n</pre>" +
+    "<pre>/programs\n\n</pre>" +
+    "<pre>/boot_animations\n\n</pre>" +
 
     "( old pinned message (handy if you are following a youtube vid and I posted something here) )" +
     "<pre>\n</pre>"+
@@ -453,7 +477,9 @@ const NOTES_DICTIONARY = {
     '/root':NOTES_ROOT,
     '/relock':NOTES_RELOCK,
     '/cts-profile':NOTES_CTS,
-    '/channels': NOTES_CHANNELS
+    '/channels': NOTES_CHANNELS,
+    '/programs': NOTES_PROGRAMS,
+    '/boot_animations': NOTES_CUSTOM_BOOT_ANIMATION
 }
 
 module.exports = {
@@ -487,5 +513,7 @@ module.exports = {
     NOTES_CTS: NOTES_CTS,
     NOTES_DICTIONARY,
     APPROVED_CHANNELS,
-    NOTES_CHANNELS: NOTES_CHANNELS
+    NOTES_CHANNELS: NOTES_CHANNELS,
+    NOTES_PROGRAMS: NOTES_PROGRAMS,
+    NOTES_CUSTOM_BOOT_ANIMATION: NOTES_CUSTOM_BOOT_ANIMATION
 };
