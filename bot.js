@@ -702,7 +702,8 @@ bot.on('polling_error', (error) => {
 
 var api = require('./api');
 api.set_save_function(write_history);
-api.set_exit_function(exitHandler)
+api.set_exit_function(exitHandler);
+api.set_bot_send_function(bot);
 
 function exitHandler(options, exitCode) {
     if (options.cleanup) console.log('clean');
