@@ -1,24 +1,32 @@
-# Torrent-search-Telegram-Bot
-Multipurpose Telegram bot designed to work with my [Torrent-search-API](https://github.com/ArtiomSu/Torrent-search-API).
+# Telegram-Mega-Bot
+Custom Telegram Bot that is primarily used for managing my personal group.
+
+It is able to detect spammers / scammers and auto ban them if you wish. By default it will just send me a report as the feature still needs some work to be trusted.
+
+It features the standard /notes functionality you see in other telegram bots.
+
+It can also interact with my [Torrent-search-API](https://github.com/ArtiomSu/Torrent-search-API) and display the results in an attractive manner.
 
 This bot is capable of:
 1. [Greeting new members](#greeting-new-members)
-2. [Admin tasks](#admin-tasks) such as
+2. [Anti Scam](#anti-scam)
+3. [Notes](#notes)
+4. [Admin tasks](#admin-tasks) such as
   * ban/unban
   * make admin
   * generate invite link
   * restrict/unrestrict users
-3. [Internal permission managment](#internal-permission-managment)
+5. [Internal permission managment](#internal-permission-managment)
   * request/grant permissions
   * see all granted permissions
   * remove permissions
   * allow access to admin functions
   * allow access to torrent searching
   * allow access to permission mangement
-4. [Torrent searching](#torrent-searching)
+6. [Torrent searching](#torrent-searching)
   * search for torrents and sort them
   * get magnet link
-5. [Specific things](#specific-things) (Misq)  
+7. [Specific things](#specific-things) (Misq)  
 
 # Setup
 0. Clone the repo.
@@ -123,31 +131,26 @@ t80search_bot V0.0.5 Admin
         -h displays this help
 ```
 ## Greeting new members
-When a user joins the group there will be a welcome message. For default channels it will look like this
-```
-Testing_user_ths Welcome to testbots
+When a user joins the group there will be a welcome message. It contains the name of the user aswell as attached links via buttons for handy resources.
 
-    _    _ _____ 
-   | |  | |_   _|
-   | |__| | | |  
-   |  __  | | |  
-   | |  | |_| |_ 
-   |_|  |_|_____|
-```
-For my channel it will look like this
-```
-Testing_user_ths Welcome to Terminal Heat Sink Group
+## Anti Scam
+Detects wether a user is a spammer/scammer and notifies the admins or bans the offender.
 
-    _______ _    _  _____ 
-   |__   __| |  | |/ ____|
-      | |  | |__| | (___  
-      | |  |  __  |\___ \ 
-      | |  | |  | |____) |
-      |_|  |_|  |_|_____/ 
-                          
-Click 👉 This 👈 (https://t.me/Terminal_Heat_Sink_Group/1514) For all guides, links to downloads and so on. It 
-should have everything you need :)
-```
+It uses a custom algorithm based on how many messages the user sent, words used, media type i.e if its an image etc, if the message is forwarded and so on.
+
+The algorithm is based on a scoring system that puts users into categories.
+
+Suspicius users are logged to a private logging channel which allows you to call functions directly through the attached telegram keyboard.
+
+If the user is very likely to be a spammer/scammer the bot will log to the channel directly so that users will know not to trust the offender.
+
+## Notes
+This is the standard `/notes` implementation found in most bots. Notes are currently hardcoded as I havent found the need to incorporate a full fledges database for this bot so all the notes are currently stored in Constants.js.
+
+After calling `/notes` the bot will return a list of categories that you can choose and read in more detail. For example in the notes you will see `/root` which when typed will display another message and links for rooting guides. 
+
+A custom feature of notes is writing `/n` this shortcut will spawn a custom keyboard in your telegram client which has all the notes listed and you can simply click on notes instead of typing them. 
+
 ## Admin tasks
 Admin tasks work based on user id, or replies. 
 ##### ban
@@ -245,6 +248,17 @@ username:   t80search_bot
 status:     administrator
 ```
 If you know the id if the user you dont need to reply to them you can just type `@t80search_bot whois 123456` and the same as above will occur.
+#### /top
+Will list users with the most messages sent at the top. You can also pass in a group id that the bot is part off and can view the results in a different channel.
+```
+chat_id      -123456
+chat_title: bot bots
+chat_type:  supergroup
+
+Top Users in -123456
+234323423: 109
+234323424: 59
+```
 
 # Telegram Group that this bot is active on
 [Terminal_Heat_Sink_Group](https://t.me/Terminal_Heat_Sink_Group)
