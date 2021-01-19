@@ -5,6 +5,8 @@ It is able to detect spammers / scammers and auto ban them if you wish. By defau
 
 It features the standard /notes functionality you see in other telegram bots.
 
+It features a built in API mostly used for restarting the bot and using the bot as a user.
+
 It can also interact with my [Torrent-search-API](https://github.com/ArtiomSu/Torrent-search-API) and display the results in an attractive manner.
 
 This bot is capable of:
