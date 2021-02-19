@@ -226,67 +226,12 @@ const NOTES_QMK = "<b>QMK</b>" +
     "___________________________________________\n</pre>" +
     "<a href=\"https://www.youtube.com/watch?v=x6pWqjC39_I\">Custom RGB Animations</a>" +
     "<pre>\n\n</pre>" +
-    "<a href=\"https://github.com/ArtiomSu/qmk_firmware\">Github link to my fork</a>" +
-    "<pre>\n" +
-    "___________________________________________</pre>";
-
-const NOTES_Edxposed = "<b>Edxposed</b>" +
-    "<pre>\n\n</pre>" +
-    "<b>Magisk Modules ( Install using magisk )</b>" +
-    "<pre>\n"+
-    "___________________________________________\n</pre>" +
-    "<a href=\"https://t.me/Terminal_Heat_Sink_Group/4028\">riru core (install first)</a>" +
-    "<pre>\n\n</pre>" +
-    "<a href=\"https://t.me/Terminal_Heat_Sink_Group/4026\">xposed magisk module ( installs edxposed )</a>" +
-    "<pre>\n" +
-    "___________________________________________\n\n</pre>"+
-
-    "<b>Edxposed Manager</b>" +
-    "<pre>\n"+
-    "___________________________________________\n</pre>" +
-    "<a href=\"https://t.me/Terminal_Heat_Sink_Group/4025\">install this like normal apk</a>" +
-    "<pre>\n" +
-    "___________________________________________\n\n</pre>"+
-
-    "<b>Edxposed Modules</b>" +
-    "<pre>\n"+
-    "___________________________________________\n</pre>" +
-    "<a href=\"https://t.me/Terminal_Heat_Sink_Group/4029\">HiddenCore ( needed to pass safetynet )</a>" +
-    "<pre>\n\n</pre>" +
-    "<a href=\"https://t.me/Terminal_Heat_Sink_Group/4027\">xprivacy ( blocks apps from using parts of android )</a>" +
-    "<pre>\n\n</pre>" +
-    "<a href=\"https://t.me/Terminal_Heat_Sink_Group/4024\">GravityBox ( havock OS like customasations )</a>" +
-    "<pre>\n" +
-    "___________________________________________\n\n</pre>"+
-
-    "<b>SafetyNet Fake Source from XDA</b>" +
-    "<pre>\n"+
-    "___________________________________________\n</pre>" +
-    "<a href=\"https://forum.xda-developers.com/apps/magisk/safetynet-fix-google-update-march-2020-t4063679\">link</a>" +
+    "<a href=\"https://github.com/ArtiomSu/qmk_firmware/tree/artiom\">Github link to my fork</a>" +
     "<pre>\n" +
     "___________________________________________</pre>";
 
 const NOTES_LINEAGE = "<b>Lineage Guides</b>" +
     "<pre>\n\n</pre>" +
-    "<b>version 17.1-20200319</b>" +
-    "<pre>\n"+
-    "___________________________________________\n</pre>" +
-    "<a href=\"https://t.me/Terminal_Heat_Sink_Group/1222\">stock</a>" +
-    "<pre>\n\n</pre>" +
-    "<a href=\"https://t.me/Terminal_Heat_Sink_Group/1224\">magisk patched</a>" +
-    "<pre>\n" +
-    "___________________________________________\n\n</pre>"+
-
-    "<b>version 17.1-20200320</b>" +
-    "<pre>\n"+
-    "___________________________________________\n</pre>" +
-    "<a href=\"https://t.me/Terminal_Heat_Sink_Group/1513\">stock</a>" +
-    "<pre>\n\n</pre>" +
-    "<a href=\"https://t.me/Terminal_Heat_Sink_Group/1516\">magisk patched</a>" +
-    "<pre>\n" +
-    "___________________________________________\n\n</pre>"+
-
-    "<b>Guides</b>" +
     "<pre>\n"+
     "___________________________________________\n</pre>" +
     "<a href=\"https://www.youtube.com/watch?v=f7gZO9qn0gM\">How to install lineage os:</a>" +
@@ -388,6 +333,12 @@ const NOTES_PROGRAMS = "<b>Programs</b>" +
     "<pre>\n\n"+
     "___________________________________________\n</pre>" +
     "<a href=\"https://t.me/c/1201136003/16\">Assassins Creed Valhala Auto Save Backup</a>" +
+    "<pre>\n\n</pre>" +
+    "<a href=\"https://t.me/c/1201136003/40\">CyberDunk 2077 Auto Save Backup</a>" +
+    "<pre>\n\n</pre>" +
+    "<a href=\"https://github.com/ArtiomSu/MoviePickerZSH\">MoviePicker</a>" +
+    "<pre>\n\n</pre>" +
+    "<a href=\"https://github.com/ArtiomSu/Python-Troll-Server\">Python Troll Server</a>" +
     "<pre>\n" +
     "___________________________________________</pre>";
 
@@ -401,6 +352,15 @@ const NOTES_CUSTOM_BOOT_ANIMATION = "<b>Custom Boot Animations</b>" +
     "<a href=\"https://t.me/c/1201136003/12\">One Plus 8t CyberPunk Boot Animations Preview</a>" +
     "<pre>\n\n</pre>" +
     "<a href=\"https://t.me/c/1201136003/9\">One Plus 8t CyberPunk Boot Animations Download</a>" +
+    "<pre>\n" +
+    "___________________________________________</pre>";
+
+const NOTES_UNBRICK = "<b>Unbrick</b>" +
+    "<pre>\n\n"+
+    "___________________________________________\n</pre>" +
+    "You will need to use a program called miflash and you will need to be able to get into edl mode. This can be done using an edl cable bought from a legitimate website or you can make your own by stripping a usb 2 cable" +
+    "<pre>\n\n</pre>" +
+    "<a href=\"https://www.youtube.com/watch?v=uONJrZrHWxI\">Click Here For Video Guide</a>" +
     "<pre>\n" +
     "___________________________________________</pre>";
 
@@ -447,7 +407,7 @@ const NOTES = "<b>Notes</b>" +
     "<pre>\n</pre>"+
     "<pre>/qmk\n\n</pre>" +
 
-    "<pre>/edxposed\n\n</pre>" +
+    "<pre>/unbrick\n\n</pre>" +
     "<pre>/lineage\n\n</pre>" +
 
     "( Telegram Channels and groups that you will find interesting )" +
@@ -471,7 +431,6 @@ const NOTES_DICTIONARY = {
     '/apps':NOTES_APPS,
     '/psvita':NOTES_PSVITA,
     '/qmk':NOTES_QMK,
-    '/edxposed':NOTES_Edxposed,
     '/lineage':NOTES_LINEAGE,
     '/flasher':NOTES_FLASHING_SCRIPT,
     '/root':NOTES_ROOT,
@@ -479,7 +438,8 @@ const NOTES_DICTIONARY = {
     '/cts-profile':NOTES_CTS,
     '/channels': NOTES_CHANNELS,
     '/programs': NOTES_PROGRAMS,
-    '/boot_animations': NOTES_CUSTOM_BOOT_ANIMATION
+    '/boot_animations': NOTES_CUSTOM_BOOT_ANIMATION,
+    '/unbrick': NOTES_UNBRICK
 }
 
 module.exports = {
@@ -515,5 +475,6 @@ module.exports = {
     APPROVED_CHANNELS,
     NOTES_CHANNELS: NOTES_CHANNELS,
     NOTES_PROGRAMS: NOTES_PROGRAMS,
-    NOTES_CUSTOM_BOOT_ANIMATION: NOTES_CUSTOM_BOOT_ANIMATION
+    NOTES_CUSTOM_BOOT_ANIMATION: NOTES_CUSTOM_BOOT_ANIMATION,
+    NOTES_UNBRICK: NOTES_UNBRICK
 };

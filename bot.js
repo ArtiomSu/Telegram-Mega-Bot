@@ -439,7 +439,7 @@ var deal_with_new_member = function(msg){
                 inline_keyboard: [
                     [{text: 'Other Groups And Channels on Telegram', callback_data:""+user_id+" channels"+" "+chat_id}],
                     [{ text: 'Notes', callback_data:""+user_id+" notes"+" "+chat_id},{ text: 'Donate', callback_data:""+user_id+" donate"+" "+chat_id},{text: 'Youtube', url: 'https://www.youtube.com/c/TerminalHeatSink'}],
-                    [{text: 'My PlayStore Apps', url: 'https://play.google.com/store/apps/developer?id=Terminal+Heat+Sink'}]
+                    [{text: 'My PlayStore Apps', url: 'https://play.google.com/store/apps/developer?id=Terminal+Heat+Sink'}, {text: 'My Awful Website', url: 'https://artiomsu.github.io'}]
                 ]
             }),
             parse_mode: "HTML",
