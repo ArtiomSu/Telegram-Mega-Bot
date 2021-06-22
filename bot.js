@@ -737,6 +737,12 @@ api.set_save_function(write_history);
 api.set_exit_function(exitHandler);
 api.set_bot_send_function(bot);
 
+if(Constants.REBOOT_AFTER_1_HOUR){
+    setTimeout(function (){
+        exitHandler({exit:true},null);
+    },3600000);
+}
+
 function exitHandler(options, exitCode) {
     if (options.cleanup) console.log('clean');
     if (exitCode || exitCode === 0) console.log(exitCode);
