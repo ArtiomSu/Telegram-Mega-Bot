@@ -1,4 +1,5 @@
 const Constants = require('../constants');
+const Notes = require('../notes');
 
 var permissions = {
     torrents:[],
@@ -95,7 +96,7 @@ var permission_main = function(data){
             console.log("remove permission");
             break;
         case "-h": //help
-            data.bot.sendMessage(data.current_chat, Constants.HELP_PAGE_PERMISSIONS, {parse_mode: "HTML"});
+            data.bot.sendMessage(data.current_chat, Notes.HELP_PAGE_PERMISSIONS, {parse_mode: "HTML"});
             break;
         default:
             console.log("default permissions statement do nothing");
@@ -165,7 +166,12 @@ var check_permissions = function(user_id, perm_type){
             if(permissions.grant_permissions.includes(user_id)){
                 granted = true;
             }
-            break;    
+            break;
+        case "shutup":
+            if(permissions.admin.includes(user_id)){
+                granted = true;
+            }
+            break;
         default:
             granted = false;
     }

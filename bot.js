@@ -4,6 +4,7 @@ const fs = require('fs');
 
 const Terminal = require('./Terminal');
 const Constants = require('./constants');
+const Notes = require('./notes');
 const torrent_main = require('./torrent_search/torrent_main');
 const permission = require('./permissions/permission_main');
 const admin_main = require('./admin/admin_main');
@@ -46,7 +47,7 @@ var logger = function(msg){
 };
 
 var help_main = function(current_chat){
-    bot.sendMessage(current_chat, Constants.HELP_PAGE_MAIN, {parse_mode : "HTML"});
+    bot.sendMessage(current_chat, Notes.HELP_PAGE_MAIN, {parse_mode : "HTML"});
 };
 
 var deal_with_message = function(msg){
@@ -125,7 +126,9 @@ var deal_with_message = function(msg){
                     break;
                 case "whois":
                     if(permission.check_permissions(user_id,"whois")) {
-                        if(msg.reply_to_message){
+                        if(msg.forward_from){
+                            permission.whois(bot, current_chat, msg.forward_from.id, null);
+                        } else if(msg.reply_to_message){
                             permission.whois(bot, current_chat, msg.reply_to_message.from.id, null);
                         }else{
                             let this_chat = input_array.shift();
@@ -134,8 +137,14 @@ var deal_with_message = function(msg){
                         }
                     }
                     break;
+                case "shutup":
+                    if(permission.check_permissions(user_id,"shutup")){
+                        Constants.USE_AUTO_HELP = !Constants.USE_AUTO_HELP;
+                        bot.sendMessage(current_chat, "<b>Auto Helper is: "+Constants.USE_AUTO_HELP+"</b>", {parse_mode : "HTML"});
+                    }
+                    break
                 default:
-                    console.log("default statement do nothing");
+                    console.log("default statement do nothing: ", temp);
             }
 
             //console.log(users);
@@ -145,14 +154,37 @@ var deal_with_message = function(msg){
         }
 
 
+    }else if(msg.text[0] === '/'){
+        user_slash_functions(msg);
+    }else if(auto_help_notes(msg)){
     }else{
-
-        if(msg.text[0] === '/'){
-            user_slash_functions(msg);
+        if(parseInt(msg.chat.id) === Constants.LOGGING_CHANNEL ){
+            if(msg.forward_from){
+                permission.whois(bot, Constants.LOGGING_CHANNEL, msg.forward_from.id, null);
+            }
         }
-
-
     }
+};
+
+let auto_help_notes = (msg) => {
+    if(! Constants.USE_AUTO_HELP){
+        return false;
+    }
+    let text = msg.text.toLowerCase();
+    for(let trig in Notes.NOTES_KEYWORDS_AUTO_HELP_TRIGGER){
+        if(text.includes(Notes.NOTES_KEYWORDS_AUTO_HELP_TRIGGER[trig])){
+            for(let key in Notes.NOTES_KEYWORDS_AUTO_HELP_DICTIONARY){
+                for(let pattern in Notes.NOTES_KEYWORDS_AUTO_HELP_DICTIONARY[key]){
+                    if(text.includes(Notes.NOTES_KEYWORDS_AUTO_HELP_DICTIONARY[key][pattern])){
+                        bot.sendMessage(msg.chat.id,Notes.NOTES_DICTIONARY[key],{parse_mode: "HTML", disable_web_page_preview:true, reply_to_message_id: msg.message_id});
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+    }
+    return false;
 };
 
 var check_user_ban = (msg) => {
@@ -355,8 +387,8 @@ var user_slash_functions = (msg) =>{
             "user_name=="+ msg.from.username+ "\n"+
             "</pre>"+"Reason: "+ msg.text.toLowerCase().split("/report")[1],
             options);
-    }else if(msg.text.toLowerCase() in Constants.NOTES_DICTIONARY){
-        bot.sendMessage(msg.chat.id,Constants.NOTES_DICTIONARY[msg.text.toLowerCase()],{parse_mode: "HTML", disable_web_page_preview:true, reply_to_message_id: msg.message_id});
+    }else if(msg.text.toLowerCase() in Notes.NOTES_DICTIONARY){
+        bot.sendMessage(msg.chat.id,Notes.NOTES_DICTIONARY[msg.text.toLowerCase()],{parse_mode: "HTML", disable_web_page_preview:true, reply_to_message_id: msg.message_id});
     }
     else if(msg.text.toLowerCase().startsWith("/all")) {
             bot.forwardMessage(msg.chat.id, Constants.YOUTUBE_CHANNEL, Constants.YOUTUBE_CHANNEL_PINNED_MSG_ID);
@@ -398,7 +430,7 @@ var user_slash_functions = (msg) =>{
     }else if(msg.text.toLowerCase().startsWith("/n")){
         let notes_array = [];
         let temp = [];
-        for(let key in Constants.NOTES_DICTIONARY){
+        for(let key in Notes.NOTES_DICTIONARY){
             temp.push({'text':key});
             if(temp.length === 2){
                 notes_array.push(temp);
@@ -635,7 +667,7 @@ bot.on('callback_query', (callbackQuery) => {
                 case "notes":
                     if (send_notes) {
                         callback_notes_used.notes_used = true;
-                        bot.sendMessage(callbackQuery.message.chat.id, Constants.NOTES, {
+                        bot.sendMessage(callbackQuery.message.chat.id, Notes.NOTES, {
                             parse_mode: "HTML",
                             disable_web_page_preview: true,
                         });
@@ -649,7 +681,7 @@ bot.on('callback_query', (callbackQuery) => {
                 case "donate":
                     if (send_donation) {
                         callback_notes_used.donate_used = true;
-                        bot.sendMessage(callbackQuery.message.chat.id, Constants.DONATE, {
+                        bot.sendMessage(callbackQuery.message.chat.id, Notes.DONATE, {
                             parse_mode: "HTML",
                             disable_web_page_preview: true,
                         });
@@ -663,7 +695,7 @@ bot.on('callback_query', (callbackQuery) => {
                 case "channels":
                     if (send_channels) {
                         callback_notes_used.channels_used = true;
-                        bot.sendMessage(callbackQuery.message.chat.id, Constants.NOTES_CHANNELS, {
+                        bot.sendMessage(callbackQuery.message.chat.id, Notes.NOTES_CHANNELS, {
                             parse_mode: "HTML",
                             disable_web_page_preview: true,
                         });

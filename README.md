@@ -153,6 +153,7 @@ After calling `/notes` the bot will return a list of categories that you can cho
 
 A custom feature of notes is writing `/n` this shortcut will spawn a custom keyboard in your telegram client which has all the notes listed and you can simply click on notes instead of typing them. 
 
+You can also now use auto notes depending on keywords used in text. to toggle this feature on and off admin must type `@bot shutup`. It's on by default.
 ## Admin tasks
 Admin tasks work based on user id, or replies. 
 ##### ban

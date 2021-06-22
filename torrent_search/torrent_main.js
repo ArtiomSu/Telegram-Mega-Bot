@@ -1,5 +1,6 @@
 const request = require('request');
 const Constants = require('../constants');
+const Notes = require('../notes');
 
 
 var tmain = function (data) {
@@ -71,7 +72,7 @@ var tmain = function (data) {
         }
 
         if(need_help){
-            data.bot.sendMessage(data.current_chat, Constants.HELP_PAGE_TORRENT, {parse_mode : "HTML"});
+            data.bot.sendMessage(data.current_chat, Notes.HELP_PAGE_TORRENT, {parse_mode : "HTML"});
             return 1;
         } else{
 
@@ -93,7 +94,7 @@ var tmain = function (data) {
 
 
             if (invalid_input || (d_amount == null && search_term.length <= 2)) {
-                data.bot.sendMessage(data.current_chat, "<b>" + data.user_name + " those are invalid arguments read the help page you donkey</b>"+ Constants.HELP_PAGE_TORRENT, {parse_mode: "HTML"});
+                data.bot.sendMessage(data.current_chat, "<b>" + data.user_name + " those are invalid arguments read the help page you donkey</b>"+ Notes.HELP_PAGE_TORRENT, {parse_mode: "HTML"});
                 return 1;
 
             }else {
@@ -145,7 +146,7 @@ var tmain = function (data) {
                     } else if(isNaN(sort_amount) || Number(sort_amount) <= 0 || Number(sort_amount) >=9 ){
                         sort_amount = 1;
                         //console.log("sort amount was too high");
-                        data.bot.sendMessage(data.current_chat, "<b>" + data.user_name + " those are invalid arguments read the help page you donkey</b>"+ Constants.HELP_PAGE_TORRENT, {parse_mode: "HTML"});
+                        data.bot.sendMessage(data.current_chat, "<b>" + data.user_name + " those are invalid arguments read the help page you donkey</b>"+ Notes.HELP_PAGE_TORRENT, {parse_mode: "HTML"});
                         return 1;
                     }
 
@@ -154,7 +155,7 @@ var tmain = function (data) {
                     }else if(isNaN(limit_amount) || Number(limit_amount) <= 0 || Number(limit_amount) >=300){
                         limit_amount = 6;
                         //console.log("limit_amount was too high");
-                        data.bot.sendMessage(data.current_chat, "<b>" + data.user_name + " those are invalid arguments read the help page you donkey</b>"+ Constants.HELP_PAGE_TORRENT, {parse_mode: "HTML"});
+                        data.bot.sendMessage(data.current_chat, "<b>" + data.user_name + " those are invalid arguments read the help page you donkey</b>"+ Notes.HELP_PAGE_TORRENT, {parse_mode: "HTML"});
                         return 1;
                     }
 
