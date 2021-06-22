@@ -437,7 +437,7 @@ const NOTES_KEYWORDS_AUTO_HELP_DICTIONARY = {
     '/cts-profile':["cts", "safety net", "safetynet"],
     '/channels': ["channel"],
     '/programs': ["programs"],
-    '/boot_animations': ["boot", "animation"],
+    '/boot_animations': ["animation"],
     '/unbrick': ["unbrick", "brick"]
 };
 
