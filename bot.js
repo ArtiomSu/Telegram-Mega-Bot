@@ -167,7 +167,7 @@ var deal_with_message = function(msg){
 };
 
 let auto_help_notes = (msg) => {
-    if(! Constants.USE_AUTO_HELP){
+    if(! Constants.USE_AUTO_HELP || msg.from.id === Constants.ROOT_USER){
         return false;
     }
     let text = msg.text.toLowerCase();

@@ -422,13 +422,9 @@ const NOTES_DICTIONARY = {
 };
 
 const NOTES_KEYWORDS_AUTO_HELP_DICTIONARY = {
-    '/donate':["donate"],
-    '/notes':["notes"],
-    '/rogphone2rgb':["rgb", "app"],
-    '/rogphone2':["rog phone 2", "rog 2", "rog"],
-    '/raw':["flash raw", "raw"],
-    '/apps':["apps"],
-    '/psvita':["psvita"],
+    '/rogphone2rgb':["rgb"],
+    '/raw':["flash raw", "raw", "bootloader"],
+    '/unbrick': ["brick"],
     '/qmk':["qmk", "keyboard"],
     '/lineage':["lineage"],
     '/flasher':["flasher", "dual boot"],
@@ -438,7 +434,11 @@ const NOTES_KEYWORDS_AUTO_HELP_DICTIONARY = {
     '/channels': ["channel"],
     '/programs': ["programs"],
     '/boot_animations': ["animation"],
-    '/unbrick': ["unbrick", "brick"]
+    '/rogphone2':["rog phone 2", "rog 2", "rog"],
+    '/donate':["donate"],
+    '/notes':["notes"],
+    '/apps':["apps"],
+    '/psvita':["psvita"],
 };
 
 const NOTES_KEYWORDS_AUTO_HELP_TRIGGER = [
