@@ -99,6 +99,12 @@ const NOTES_ROG_PHONE_2_GUIDES = "<b>Rog Phone 2 Guides</b>" +
     "<pre>\n\n</pre>" +
     "<a href=\"https://www.youtube.com/watch?v=Xo3ZtxFkPbI\">omni rom flashing</a>" +
     "<pre>\n\n</pre>" +
+    "<a href=\"https://www.youtube.com/watch?v=wQULU-3BWvg\">Omni android 11 flashing from scratch</a>" +
+    "<pre>\n\n</pre>" +
+    "<a href=\"https://www.youtube.com/watch?v=3HqnSKmTCLM\">Things to do after flashing omni 11</a>" +
+    "<pre>\n\n</pre>" +
+    "<a href=\"https://www.youtube.com/watch?v=LsfM4Wms4GQ\">making omni 11 look good with gravitybox</a>" +
+    "<pre>\n\n</pre>" +
     "<a href=\"https://www.youtube.com/watch?v=IEnnVAPLSeg\">havoc flashing</a>" +
     "<pre>\n\n</pre>" +
     "<a href=\"https://www.youtube.com/watch?v=8vhocq5UWJQ\">MSM flashing</a>" +
@@ -112,13 +118,25 @@ const NOTES_ROG_PHONE_2_GUIDES = "<b>Rog Phone 2 Guides</b>" +
 const NOTES_APPS = "<b>APPs And Other Misc</b>" +
     "<pre>\n\n"+
     "___________________________________________\n</pre>" +
-    "<a href=\"https://t.me/Terminal_Heat_Sink_Group/2540\">Viperfx</a>" +
+    "<a href=\"https://t.me/Terminal_Heat_Sink_Group/2540\">Viperfx (old)</a>" +
     "<pre>\n\n</pre>" +
     "<a href=\"https://t.me/Terminal_Heat_Sink_Group/2769\">viperfx irs and ddc collection</a>" +
     "<pre>\n\n</pre>" +
-    "<a href=\"https://t.me/Terminal_Heat_Sink_Group/3001\">Gcam</a>" +
+    "<a href=\"https://t.me/Terminal_Heat_Sink_Group/3001\">Gcam (old)</a>" +
     "<pre>\n\n</pre>" +
     "<a href=\"https://forum.xda-developers.com/apps/magisk/collection-magisk-modules-v2-t3575758/post72542167#post72542167\">Uninstall magisk modules using twrp</a>" +
+    "<pre>\n\n</pre>" +
+    "<a href=\"https://play.google.com/store/apps/details?id=terminal_heat_sink.asusrogphone2rgb\">Asus Rog Phone RGB</a>" +
+    "<pre>\n\n</pre>" +
+    "<a href=\"https://play.google.com/store/apps/details?id=terminal_heat_sink.keyboardpickershortcut\">Keyboard picker shortcut</a>" +
+    "<pre>\n\n</pre>" +
+    "<a href=\"https://play.google.com/store/apps/details?id=terminal_heat_sink.openwithcopyurl\">Open With Copy Url</a>" +
+    "<pre>\n\n</pre>" +
+    "<a href=\"https://play.google.com/store/apps/details?id=terminal_heat_sink.terminal_keyboard\">Ergonomic Terminal Keyboard</a>" +
+    "<pre>\n\n</pre>" +
+    "<a href=\"https://play.google.com/store/apps/details?id=terminalheatsink.nixieface\">Nixie face wearos watch face</a>" +
+    "<pre>\n\n</pre>" +
+    "<a href=\"https://play.google.com/store/apps/details?id=terminal_heat_sink.donateterminalheatsink\">Donate using google play store balance app</a>" +
     "<pre>\n" +
     "___________________________________________</pre>";
 
@@ -161,7 +179,7 @@ const NOTES_RAW = "<b>FLASH Raw Firmware</b>" +
     "<pre>\n</pre>" +
     "5. Leave the phone for 20 minutes. It will restart when fully Flashed" +
     "<pre>\n</pre>" +
-    "6. Turn of your phone when it reboots and reboot into recovery and select factory reset ( Your phone will not work properly if you dont  )" +
+    "6. Turn of your phone when it reboots ( by holding power + both volume keys ) and reboot into recovery ( by holding power + volume up key to get into fastboot and then use volume keys to select recovery ) and select factory reset ( Your phone will not work properly if you dont  )" +
     "<pre>\n" +
     "___________________________________________</pre>";
 
@@ -194,7 +212,7 @@ const NOTES_RELOCK = "<b>Relock Bootloader</b>" +
     "<pre>\n</pre>" +
     "5. Leave the phone for 20 minutes. It will restart when fully Flashed" +
     "<pre>\n</pre>" +
-    "6. Force reboot into fastboot mode and run this command to lock <pre>fastboot oem asus-csc_lk</pre>" +
+    "6. Turn of your phone when it reboots ( by holding power + both volume keys ) and run this command to lock <pre>fastboot oem asus-csc_lk</pre>" +
     "<pre>\n</pre>" +
     "7. You can do a factory reset" +
     "<pre>\n" +
@@ -205,7 +223,13 @@ const NOTES_QMK = "<b>QMK</b>" +
     "___________________________________________\n</pre>" +
     "<a href=\"https://www.youtube.com/watch?v=x6pWqjC39_I\">Custom RGB Animations</a>" +
     "<pre>\n\n</pre>" +
-    "<a href=\"https://github.com/ArtiomSu/qmk_firmware/tree/artiom\">Github link to my fork</a>" +
+    "<a href=\"https://www.youtube.com/watch?v=I5HsfuSsXSQ\">QMK calculator feature</a>" +
+    "<pre>\n\n</pre>" +
+    "<a href=\"https://www.youtube.com/watch?v=1OD1ulmc71I&list=PLnn9-6POoRYjRVMKyUz1B_gH8U6bbUT_J&index=7\">QMK delete current word feature</a>" +
+    "<pre>\n\n</pre>" +
+    "<a href=\"https://github.com/ArtiomSu/qmk_firmware/tree/artiom\">Github link Ergodox Ez QMK Layout</a>" +
+    "<pre>\n\n</pre>" +
+    "<a href=\"https://github.com/ArtiomSu/qmk_firmware/tree/macropad_artiomsu\">Github link macropad QMK Layout</a>" +
     "<pre>\n" +
     "___________________________________________</pre>";
 
@@ -318,6 +342,29 @@ const NOTES_PROGRAMS = "<b>Programs</b>" +
     "<a href=\"https://github.com/ArtiomSu/MoviePickerZSH\">MoviePicker</a>" +
     "<pre>\n\n</pre>" +
     "<a href=\"https://github.com/ArtiomSu/Python-Troll-Server\">Python Troll Server</a>" +
+
+    "<pre>\n\n</pre>" +
+    "<a href=\"https://github.com/ArtiomSu/kensington-expert-trackball-linux-config\">kensington expert trackball linux config</a>" +
+    "<pre>\n\n</pre>" +
+    "<a href=\"https://github.com/ArtiomSu/Auto-Suspend-Current-Window\">Auto Suspend Current Window</a>" +
+    "<pre>\n\n</pre>" +
+    "<a href=\"https://github.com/ArtiomSu/wabbajack-nexus-free-helper\">wabbajack nexus free helper</a>" +
+    "<pre>\n\n</pre>" +
+    "<a href=\"https://github.com/ArtiomSu/TicWatch-All-In-One-Tool\">TicWatch E All In One Tool</a>" +
+    "<pre>\n\n</pre>" +
+    "<a href=\"https://github.com/ArtiomSu/PS4-controller-arduino-scuff-mod\">PS4 controller arduino scuff mod</a>" +
+    "<pre>\n\n</pre>" +
+    "<a href=\"https://github.com/ArtiomSu/Openvpn-connector-script-server\">Openvpn connector script</a>" +
+    "<pre>\n\n</pre>" +
+    "<a href=\"https://github.com/ArtiomSu/Arduino_Custom_Multilayer_Mouse\">Arduino Custom Multilayer Mouse</a>" +
+    "<pre>\n\n</pre>" +
+    "<a href=\"https://github.com/ArtiomSu/Python-key-sequence-app-restarter\">Python key sequence app restarter</a>" +
+    "<pre>\n\n</pre>" +
+    "<a href=\"https://github.com/ArtiomSu/Steam-Pin-To-Start\">Steam Pin To Start</a>" +
+    "<pre>\n\n</pre>" +
+    "<a href=\"https://github.com/ArtiomSu/PSP-Video-Converter-2020\">PSP Video Converter 2020</a>" +
+    "<pre>\n\n</pre>" +
+    "<a href=\"https://github.com/ArtiomSu/selenium_skribbl_io_bot\">skribbl io bot</a>" +
     "<pre>\n" +
     "___________________________________________</pre>";
 
@@ -429,7 +476,7 @@ const NOTES_KEYWORDS_AUTO_HELP_DICTIONARY = {
     '/lineage':["lineage"],
     '/flasher':["flasher", "dual boot"],
     '/root':["root", "twrp"],
-    '/relock':["relock", "lock"],
+    '/relock':["lock"],
     '/cts-profile':["cts", "safety net", "safetynet"],
     '/channels': ["channel"],
     '/programs': ["programs"],
@@ -442,7 +489,7 @@ const NOTES_KEYWORDS_AUTO_HELP_DICTIONARY = {
 };
 
 const NOTES_KEYWORDS_AUTO_HELP_TRIGGER = [
-    "help", "how", "download", "want"
+    "help", "how", "download", "want", "problem"
 ];
 
 module.exports = {
