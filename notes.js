@@ -416,7 +416,52 @@ const NOTES_FASTBOOT_NO_DETECT = "<b>Fastboot not detecting</b>" +
 "<pre>\n\n</pre>" +
 "2. If on Debian/Ubuntu based distro <pre>sudo apt update && sudo apt install android-tools-adb android-tools-fastboot -y</pre>" +
 "<pre>\n\n</pre>" +
-"<pre>_______________________________________</pre>";    
+"<pre>_______________________________________</pre>";   
+
+const NOTES_MY_ROG_PHONE_2_SETUP = "<b>Personal Rog Phone 2 Setup</b>" +
+"<pre>\n"+
+"_______________________________________\n\n</pre>" +
+"<b>ROM</b>" +
+"<pre>\n\n</pre>" +
+"Latest Omni android 11" +
+"<pre>\n\n</pre>" +
+
+"<b>Launcher</b>" +
+"<pre>\n\n</pre>" +
+"Smart Launcher 5 with Azure theme and Viral icon pack" +
+"<pre>\n\n</pre>" +
+
+"<b>Magisk Modules</b>" +
+"<pre>\n\n</pre>" +
+"1. ACC" +
+"<pre>\n\n</pre>" +
+"2. Fullscreen Immersive Gestures" +
+"<pre>\n\n</pre>" +
+"3. Riru" +
+"<pre>\n\n</pre>" +
+"4. Riru LSPOSED" +
+"<pre>\n\n</pre>" +
+"5. Fira Font Adder (my own module)" +
+"<pre>\n\n</pre>" +
+"6. omni-asus-services-disabler (my own module)" +
+"<pre>\n\n</pre>" +
+"7. Pixel Launcher for Android R (SKULSHADY Mods)" +
+"<pre>\n\n</pre>" +
+"8. Terminal Heat Sinks custom cyberpunk boot animation (my own module)" +
+"<pre>\n\n</pre>" +
+"9. Webview Manager" +
+"<pre>\n\n</pre>" +
+"10. Axet Call Recorder" +
+"<pre>\n\n</pre>" +
+
+"<b>LSPOSED Modules</b>" +
+"<pre>\n\n</pre>" +
+"1. GravityBox R" +
+"<pre>\n\n</pre>" +
+"2. XprivacyLua" +
+"<pre>\n\n</pre>" +
+
+"<pre>_______________________________________</pre>";   
 
 const NOTES = "<b>Notes</b>" +
     "<pre>\n</pre>"+
@@ -464,6 +509,7 @@ const NOTES = "<b>Notes</b>" +
     "<pre>/unbrick\n\n</pre>" +
     "<pre>/lineage\n\n</pre>" +
     "<pre>/fastboot_no_detect\n\n</pre>" +
+    "<pre>/my_rog_phone_setup\n\n</pre>" +
 
     "( Telegram Channels and groups that you will find interesting )" +
     "<pre>\n</pre>"+
@@ -496,6 +542,7 @@ const NOTES_DICTIONARY = {
     '/boot_animations': NOTES_CUSTOM_BOOT_ANIMATION,
     '/unbrick': NOTES_UNBRICK,
     '/fastboot_no_detect': NOTES_FASTBOOT_NO_DETECT,
+    '/my_rog_phone_setup': NOTES_MY_ROG_PHONE_2_SETUP
 };
 
 const NOTES_KEYWORDS_AUTO_HELP_DICTIONARY = {
@@ -517,6 +564,7 @@ const NOTES_KEYWORDS_AUTO_HELP_DICTIONARY = {
     '/notes':["notes"],
     '/apps':["apps"],
     '/psvita':["psvita"],
+    '/my_rog_phone_setup': ["what is your rog phone 2 setup"]
 };
 
 const NOTES_KEYWORDS_AUTO_HELP_TRIGGER = [
