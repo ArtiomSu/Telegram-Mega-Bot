@@ -76,7 +76,7 @@ const HELP_PAGE_ADMIN = "    <b>t80search_bot V0.0.5 Admin</b>" +
 
 const NOTES_ROG_PHONE_2_GUIDES = "<b>Rog Phone 2 Guides</b>" +
     "<pre>\n\n"+
-    "___________________________________________\n</pre>" +
+    "_______________________________________\n</pre>" +
     "<a href=\"https://www.youtube.com/watch?v=pgqboLXMSuk\">How to root stock android 9 and 10</a>" +
     "<pre>\n\n</pre>" +
     "<a href=\"https://www.youtube.com/watch?v=uONJrZrHWxI\">How to unbrick ( stuck in edl mode )</a>" +
@@ -113,11 +113,11 @@ const NOTES_ROG_PHONE_2_GUIDES = "<b>Rog Phone 2 Guides</b>" +
     "<pre>\n\n</pre>" +
     "<a href=\"https://www.youtube.com/watch?v=gh7b9AH51k4\">Improve battery life</a>" +
     "<pre>\n" +
-    "___________________________________________</pre>";
+    "_______________________________________</pre>";
 
 const NOTES_APPS = "<b>APPs And Other Misc</b>" +
     "<pre>\n\n"+
-    "___________________________________________\n</pre>" +
+    "_______________________________________\n</pre>" +
     "<a href=\"https://t.me/Terminal_Heat_Sink_Group/2540\">Viperfx (old)</a>" +
     "<pre>\n\n</pre>" +
     "<a href=\"https://t.me/Terminal_Heat_Sink_Group/2769\">viperfx irs and ddc collection</a>" +
@@ -138,22 +138,22 @@ const NOTES_APPS = "<b>APPs And Other Misc</b>" +
     "<pre>\n\n</pre>" +
     "<a href=\"https://play.google.com/store/apps/details?id=terminal_heat_sink.donateterminalheatsink\">Donate using google play store balance app</a>" +
     "<pre>\n" +
-    "___________________________________________</pre>";
+    "_______________________________________</pre>";
 
 const NOTES_PSVITA = "<b>PSVITA</b>" +
     "<pre>\n\n"+
-    "___________________________________________\n</pre>" +
+    "_______________________________________\n</pre>" +
     "<a href=\"https://t.me/Terminal_Heat_Sink_Group/23593\">custom theme: red cyber</a>" +
     "<pre>\n\n</pre>" +
     "<a href=\"https://www.youtube.com/watch?v=WBBfPrQsiA8\">Matrix Custom boot animation video</a>" +
     "<pre>\n\n</pre>" +
     "<a href=\"https://t.me/c/1201136003/35\">Matrix Custom boot image download</a>" +
     "<pre>\n" +
-    "___________________________________________</pre>";
+    "_______________________________________</pre>";
 
 const NOTES_RAW = "<b>FLASH Raw Firmware</b>" +
     "<pre>\n\n"+
-    "___________________________________________\n</pre>" +
+    "_______________________________________\n</pre>" +
     "<a href=\"https://t.me/rogphonevietnam2\">find raw a10 or a9 on this channel</a>" +
     "<pre>\n\n</pre>" +
     "<a href=\"https://t.me/Terminal_Heat_Sink_Group/6723\">raw a10</a>" +
@@ -164,11 +164,11 @@ const NOTES_RAW = "<b>FLASH Raw Firmware</b>" +
     "<pre>\n\n</pre>" +
     "<a href=\"https://youtu.be/uONJrZrHWxI?t=664\">If you want to see how flashing raw firmware looks like in a video click on this and skip to 11:03</a>" +
     "<pre>\n" +
-    "___________________________________________\n\n</pre>"+
+    "_______________________________________\n\n</pre>"+
 
     "<b>FLASH RAW</b>" +
     "<pre>\n"+
-    "___________________________________________\n</pre>" +
+    "_______________________________________\n</pre>" +
     "1. Download raw firmware from above" +
     "<pre>\n</pre>" +
     "2. Extract the zip two times. You should see a file called flashall.bat or flashall_AFT.cmd." +
@@ -181,12 +181,12 @@ const NOTES_RAW = "<b>FLASH Raw Firmware</b>" +
     "<pre>\n</pre>" +
     "6. Turn of your phone when it reboots ( by holding power + both volume keys ) and reboot into recovery ( by holding power + volume up key to get into fastboot and then use volume keys to select recovery ) and select factory reset ( Your phone will not work properly if you dont  )" +
     "<pre>\n" +
-    "___________________________________________</pre>";
+    "_______________________________________</pre>";
 
 
 const NOTES_RELOCK = "<b>Relock Bootloader</b>" +
     "<pre>\n\n"+
-    "___________________________________________\n</pre>" +
+    "_______________________________________\n</pre>" +
     "<a href=\"https://t.me/rogphonevietnam2\">find raw a10 or a9 on this channel</a>" +
     "<pre>\n\n</pre>" +
     "<a href=\"https://t.me/Terminal_Heat_Sink_Group/6723\">raw a10</a>" +
@@ -197,11 +197,11 @@ const NOTES_RELOCK = "<b>Relock Bootloader</b>" +
     "<pre>\n\n</pre>" +
     "<a href=\"https://youtu.be/uONJrZrHWxI?t=664\">If you want to see how flashing raw firmware looks like in a video click on this and skip to 11:03</a>" +
     "<pre>\n" +
-    "___________________________________________\n\n</pre>"+
+    "_______________________________________\n\n</pre>"+
 
     "<b>Lock Bootloader</b>" +
     "<pre>\n"+
-    "___________________________________________\n</pre>" +
+    "_______________________________________\n</pre>" +
     "1. Download raw firmware from above" +
     "<pre>\n</pre>" +
     "2. Extract the zip two times. You should see a file called flashall.bat or flashall_AFT.cmd." +
@@ -216,11 +216,11 @@ const NOTES_RELOCK = "<b>Relock Bootloader</b>" +
     "<pre>\n</pre>" +
     "7. You can do a factory reset" +
     "<pre>\n" +
-    "___________________________________________</pre>";
+    "_______________________________________</pre>";
 
 const NOTES_QMK = "<b>QMK</b>" +
     "<pre>\n\n"+
-    "___________________________________________\n</pre>" +
+    "_______________________________________\n</pre>" +
     "<a href=\"https://www.youtube.com/watch?v=x6pWqjC39_I\">Custom RGB Animations</a>" +
     "<pre>\n\n</pre>" +
     "<a href=\"https://www.youtube.com/watch?v=I5HsfuSsXSQ\">QMK calculator feature</a>" +
@@ -231,32 +231,32 @@ const NOTES_QMK = "<b>QMK</b>" +
     "<pre>\n\n</pre>" +
     "<a href=\"https://github.com/ArtiomSu/qmk_firmware/tree/macropad_artiomsu\">Github link macropad QMK Layout</a>" +
     "<pre>\n" +
-    "___________________________________________</pre>";
+    "_______________________________________</pre>";
 
 const NOTES_LINEAGE = "<b>Lineage Guides</b>" +
     "<pre>\n\n</pre>" +
     "<pre>\n"+
-    "___________________________________________\n</pre>" +
+    "_______________________________________\n</pre>" +
     "<a href=\"https://www.youtube.com/watch?v=f7gZO9qn0gM\">How to install lineage os:</a>" +
     "<pre>\n\n</pre>" +
     "<a href=\"https://www.youtube.com/watch?v=2byAysSYRIg\">How to root lineage os: </a>" +
     "<pre>\n" +
-    "___________________________________________\n\n</pre>"+
+    "_______________________________________\n\n</pre>"+
 
     "<b>Flash using twrp</b>" +
     "<pre>\n"+
-    "___________________________________________\n</pre>" +
+    "_______________________________________\n</pre>" +
     "1. Extract rom.zip" +
     "<pre>\n</pre>" +
     "2. Edit the metadata file in the META-INF ROM and overwriting pre-device=I001D with pre-device=WW_I001D" +
     "<pre>\n</pre>" +
     "3. Wipe data/internal after flash success." +
     "<pre>\n" +
-    "___________________________________________</pre>";
+    "_______________________________________</pre>";
 
 const NOTES_FLASHING_SCRIPT = "<b>RogPhone2Flasher</b>" +
     "<pre>\n\n"+
-    "___________________________________________\n</pre>" +
+    "_______________________________________\n</pre>" +
     "<a href=\"https://www.youtube.com/watch?v=-M_MJUzCuvM\">youtube video</a>" +
     "<pre>\n\n</pre>" +
     "<a href=\"https://youtu.be/pvhuMtJstaU\">How to run on windows</a>" +
@@ -265,38 +265,38 @@ const NOTES_FLASHING_SCRIPT = "<b>RogPhone2Flasher</b>" +
     "<pre>\n\n</pre>" +
     "<a href=\"https://github.com/ArtiomSu/RogPhone2Flasher\">Github</a>" +
     "<pre>\n" +
-    "___________________________________________</pre>";
+    "_______________________________________</pre>";
 
 const NOTES_ROGPHONE2RGB = "<b>Asus ROG Phone 2 RGB</b>" +
     "<pre>\n\n"+
-    "___________________________________________\n</pre>" +
+    "_______________________________________\n</pre>" +
     "<a href=\"https://github.com/ArtiomSu/Asus-ROG-Phone-2-RGB/releases\">Download From Github</a>" +
     "<pre>\n\n</pre>" +
     "<a href=\"https://play.google.com/store/apps/details?id=terminal_heat_sink.asusrogphone2rgb\">Download From PlayStore</a>" +
     "<pre>\n\n</pre>" +
     "<a href=\"https://www.youtube.com/watch?v=8rNJtEDuV1I\">Latest Guide</a>" +
     "<pre>\n" +
-    "___________________________________________</pre>";
+    "_______________________________________</pre>";
 
 const NOTES_ROOT = "<b>Rooting Guides</b>" +
     "<pre>\n\n"+
-    "___________________________________________\n</pre>" +
+    "_______________________________________\n</pre>" +
     "<a href=\"https://www.youtube.com/watch?v=uGdSWUK9vNw\">Magisk Patched boot method ( payload dumper )</a>" +
     "<pre>\n\n</pre>" +
     "<a href=\"https://www.youtube.com/watch?v=pgqboLXMSuk\">Using TWRP to root</a>" +
     "<pre>\n\n</pre>" +
     "<a href=\"https://www.youtube.com/watch?v=Jq3aCh5d8ng\">Rooting WearOS ( Ticwatch E )</a>" +
     "<pre>\n" +
-    "___________________________________________</pre>";
+    "_______________________________________</pre>";
 
 const NOTES_CTS = "<b>Magisk cts profile kaput</b>" +
     "<pre>\n\n"+
-    "___________________________________________\n</pre>" +
+    "_______________________________________\n</pre>" +
     "In magisk manager settings enable magisk hide and reboot"+
     "<pre>\n\n</pre>"+
     "If the above doesn't work you can try using some safetynet fix magisk modules." +
     "<pre>\n" +
-    "___________________________________________</pre>";
+    "_______________________________________</pre>";
 
 const DONATE = "<b>Donate</b>"+
     "<pre>\n\n</pre>" +
@@ -317,7 +317,7 @@ const DONATE = "<b>Donate</b>"+
 
 const NOTES_CHANNELS = "<b>Other Telegram Groups and Channels</b>" +
     "<pre>\n\n"+
-    "___________________________________________\n</pre>" +
+    "_______________________________________\n</pre>" +
     "<a href=\"https://t.me/ROGPhoneSeriesDiscussion\">Global Discussion group for ASUS ROG Phone series</a>" +
     "<pre>\n\n</pre>" +
     "<a href=\"https://t.me/omnirog2\">Omni ROM for Rog 2</a>" +
@@ -330,11 +330,11 @@ const NOTES_CHANNELS = "<b>Other Telegram Groups and Channels</b>" +
     "<pre>\n\n</pre>" +
     "<a href=\"https://t.me/rogphonevietnam2\">Vietnam Channel for rog phones (raw firmware and stuff)</a>" +
     "<pre>\n" +
-    "___________________________________________</pre>";
+    "_______________________________________</pre>";
 
 const NOTES_PROGRAMS = "<b>Programs</b>" +
     "<pre>\n\n"+
-    "___________________________________________\n</pre>" +
+    "_______________________________________\n</pre>" +
     "<a href=\"https://t.me/c/1201136003/16\">Assassins Creed Valhala Auto Save Backup</a>" +
     "<pre>\n\n</pre>" +
     "<a href=\"https://t.me/c/1201136003/40\">CyberDunk 2077 Auto Save Backup</a>" +
@@ -366,11 +366,11 @@ const NOTES_PROGRAMS = "<b>Programs</b>" +
     "<pre>\n\n</pre>" +
     "<a href=\"https://github.com/ArtiomSu/selenium_skribbl_io_bot\">skribbl io bot</a>" +
     "<pre>\n" +
-    "___________________________________________</pre>";
+    "_______________________________________</pre>";
 
 const NOTES_CUSTOM_BOOT_ANIMATION = "<b>Custom Boot Animations</b>" +
     "<pre>\n\n"+
-    "___________________________________________\n</pre>" +
+    "_______________________________________\n</pre>" +
     "<a href=\"https://t.me/c/1201136003/15\">Matrix Boot Animation</a>" +
     "<pre>\n\n</pre>" +
     "<a href=\"https://t.me/c/1201136003/14\">Make Your Own Custom Boot Animation Template</a>" +
@@ -379,16 +379,16 @@ const NOTES_CUSTOM_BOOT_ANIMATION = "<b>Custom Boot Animations</b>" +
     "<pre>\n\n</pre>" +
     "<a href=\"https://t.me/c/1201136003/9\">One Plus 8t CyberPunk Boot Animations Download</a>" +
     "<pre>\n" +
-    "___________________________________________</pre>";
+    "_______________________________________</pre>";
 
 const NOTES_UNBRICK = "<b>Unbrick</b>" +
     "<pre>\n\n"+
-    "___________________________________________\n</pre>" +
+    "_______________________________________\n</pre>" +
     "You will need to use a program called miflash and you will need to be able to get into edl mode. This can be done using an edl cable bought from a legitimate website or you can make your own by stripping a usb 2 cable" +
     "<pre>\n\n</pre>" +
     "<a href=\"https://www.youtube.com/watch?v=uONJrZrHWxI\">Click Here For Video Guide</a>" +
     "<pre>\n" +
-    "___________________________________________</pre>";
+    "_______________________________________</pre>";
 
 const NOTES_FASTBOOT_NO_DETECT = "<b>Fastboot not detecting</b>" +
 "<pre>\n"+
@@ -466,7 +466,7 @@ const NOTES_MY_ROG_PHONE_2_SETUP = "<b>Personal Rog Phone 2 Setup</b>" +
 const NOTES = "<b>Notes</b>" +
     "<pre>\n</pre>"+
     "To see the notes just type one of the following into the chat"+
-    "<pre>\n___________________________________________\n</pre>" +
+    "<pre>\n_______________________________________\n</pre>" +
     "<pre>/notes\n\n</pre>" +
 
     "( sick shortcut for notes so you dont have to type them out (uses custom keyboard) )" +
@@ -521,7 +521,7 @@ const NOTES = "<b>Notes</b>" +
     "<pre>\n</pre>"+
     "<pre>/all\n</pre>" +
     "<pre>" +
-    "___________________________________________</pre>";
+    "_______________________________________</pre>";
 
 const NOTES_DICTIONARY = {
     '/donate':DONATE,

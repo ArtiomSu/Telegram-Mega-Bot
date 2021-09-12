@@ -328,12 +328,12 @@ var check_user_ban = (msg) => {
         };
 
         let send_to_chat = msg.chat.id;
-        if(severity_category !== 4){
-            send_to_chat = Constants.LOGGING_CHANNEL;
+        //if(severity_category !== 4){
+            //send_to_chat = Constants.LOGGING_CHANNEL;
             options.reply_to_message_id = null;
-        }
+        //}
 
-        bot.sendMessage(send_to_chat,
+        bot.sendMessage(Constants.LOGGING_CHANNEL,
             "@Terminal_Heat_Sink bot experiment triggered "+
             "<pre>\n</pre>"+
             severity_text+
@@ -356,6 +356,10 @@ var check_user_ban = (msg) => {
             "text=       "+ message_text +
             "</pre>",
             options);
+
+        if(severity_category === 4){
+            bot.deleteMessage(msg.chat.id, msg.message_id);
+        }    
     }
 
 
