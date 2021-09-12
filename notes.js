@@ -390,6 +390,34 @@ const NOTES_UNBRICK = "<b>Unbrick</b>" +
     "<pre>\n" +
     "___________________________________________</pre>";
 
+const NOTES_FASTBOOT_NO_DETECT = "<b>Fastboot not detecting</b>" +
+"<pre>\n"+
+"_______________________________________\n\n</pre>" +
+"<b>Steps for Windows Normies</b>" +
+"<pre>\n\n</pre>" +
+"1. Use the side port on the phone" +
+"<pre>\n\n</pre>" +
+"2. Try using different USB cables" +
+"<pre>\n\n</pre>" +
+"3. Try using different USB ports on PC" +
+"<pre>\n\n</pre>" +
+"4. Download and install <a href=\"https://forum.xda-developers.com/t/official-tool-windows-adb-fastboot-and-drivers-15-seconds-adb-installer-v1-4-3.2588979/\">15 second adb and fastboot drivers</a>" +
+"<pre>\n\n</pre>" +
+"5. Go into windows update and install any additional drivers/updates available" +
+"<pre>\n\n</pre>" +
+"6. Try with another pc" +
+"<pre>\n\n</pre>" +
+"7. Install Linux and live a happy life" +
+"<pre>\n\n</pre>" +
+
+"<b>Steps for Linux Chads</b>" +
+"<pre>\n\n</pre>" +
+"1. If on Arch based distro <pre>sudo pacman -S android-tools</pre>" +
+"<pre>\n\n</pre>" +
+"2. If on Debian/Ubuntu based distro <pre>sudo apt update && sudo apt install android-tools-adb android-tools-fastboot -y</pre>" +
+"<pre>\n\n</pre>" +
+"<pre>_______________________________________</pre>";    
+
 const NOTES = "<b>Notes</b>" +
     "<pre>\n</pre>"+
     "To see the notes just type one of the following into the chat"+
@@ -435,6 +463,7 @@ const NOTES = "<b>Notes</b>" +
 
     "<pre>/unbrick\n\n</pre>" +
     "<pre>/lineage\n\n</pre>" +
+    "<pre>/fastboot_no_detect\n\n</pre>" +
 
     "( Telegram Channels and groups that you will find interesting )" +
     "<pre>\n</pre>"+
@@ -465,11 +494,13 @@ const NOTES_DICTIONARY = {
     '/channels': NOTES_CHANNELS,
     '/programs': NOTES_PROGRAMS,
     '/boot_animations': NOTES_CUSTOM_BOOT_ANIMATION,
-    '/unbrick': NOTES_UNBRICK
+    '/unbrick': NOTES_UNBRICK,
+    '/fastboot_no_detect': NOTES_FASTBOOT_NO_DETECT,
 };
 
 const NOTES_KEYWORDS_AUTO_HELP_DICTIONARY = {
     '/rogphone2rgb':["rgb"],
+    '/fastboot_no_detect': ["not detect"],
     '/raw':["flash raw", "raw", "bootloader"],
     '/unbrick': ["brick"],
     '/qmk':["qmk", "keyboard"],
