@@ -12,7 +12,7 @@ var ban = (bot,chat,intended_for_user_id,callbackQuery) =>{
     }
 
 
-    bot.kickChatMember(chat,intended_for_user_id).then(status =>{
+    bot.banChatMember(chat,intended_for_user_id, {revoke_messages:true}).then(status =>{
         if(status){
             let output = "<pre>" + "Banned \n" +
                 "data="+action+" \n" +
@@ -75,7 +75,7 @@ var admin_main = function(data){
     switch (temp) {
         case "ban": 
             if(user_id_ok){
-                data.bot.kickChatMember(data.current_chat,data.user_id).then(status =>{
+                data.bot.banChatMember(data.current_chat,data.user_id, {revoke_messages:true}).then(status =>{
                     if(status){
                         data.bot.sendMessage(data.current_chat,"Banned successfully",{parse_mode: "HTML", disable_web_page_preview:true});
                     }else{

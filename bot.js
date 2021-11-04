@@ -461,59 +461,71 @@ var user_slash_functions = (msg) =>{
     }
 };
 
+const checkUserName = (msg) =>{
+    const username =  msg.new_chat_members[0].username ?  msg.new_chat_members[0].username.toLowerCase() : '';
+    const firstname = msg.new_chat_members[0].first_name ? msg.new_chat_members[0].first_name.toLowerCase() : '';
+    const lastname = msg.new_chat_members[0].last_name ? msg.new_chat_members[0].last_name.toLowerCase() : '';
+
+    let ban_words = [ "hack", "invest", "trading", "money", "crypto", "forex", "hak", "cheat", "cheet", "cash", "free"];
+
+    for(let i=0; i<ban_words.length; i++){
+        if(username.includes(ban_words[i]) || firstname.includes(ban_words[i]) || lastname.includes(ban_words[i])){
+            return true;
+        }
+    }
+
+    return false;
+}
+
 var deal_with_new_member = function(msg){
     chat_id = msg.chat.id;
     user_id = msg.new_chat_members[0].id;
     username = msg.new_chat_members[0].username || msg.new_chat_members[0].first_name;
     chat_title = msg.chat.title;
-    //console.log(chat_id, " ", user_id, " ", username, " ", chat_title);
-    //if(parseInt(chat_id) === Constants.YOUTUBE_CHANNEL) {
-        bot.deleteMessage(chat_id,msg.message_id);
 
-        var options = {
-            reply_markup: JSON.stringify({
-                inline_keyboard: [
-                    [{text: 'Other Groups And Channels on Telegram', callback_data:""+user_id+" channels"+" "+chat_id}],
-                    [{ text: 'Notes', callback_data:""+user_id+" notes"+" "+chat_id},{ text: 'Donate', callback_data:""+user_id+" donate"+" "+chat_id},{text: 'Youtube', url: 'https://www.youtube.com/c/TerminalHeatSink'}],
-                    [{text: 'My PlayStore Apps', url: 'https://play.google.com/store/apps/developer?id=Terminal+Heat+Sink'}, {text: 'My Awful Website', url: 'https://artiomsu.github.io'}]
-                ]
-            }),
-            parse_mode: "HTML",
-            disable_web_page_preview:true
-        };
+    if(msg.new_chat_members[0].username.toLowerCase().includes())
 
-        bot.sendMessage(chat_id, "<b>" + username +" (" + user_id + ")"  + " Welcome to " + chat_title + "</b>"+
-            //"<pre>\n______________________________\n</pre>"+
-            "<pre>" +
-            "\n"+
-            "    _______ _    _  _____ \n" +
-            "   |__   __| |  | |/ ____|\n" +
-            "      | |  | |__| | (___  \n" +
-            "      | |  |  __  |\\___ \\ \n" +
-            "      | |  | |  | |____) |\n" +
-            "      |_|  |_|  |_|_____/ \n" +
-            "                          \n" +
-            "</pre>"+
-            "<b>Click on the Notes bellow or type <pre>/notes</pre> for all guides, links to downloads and so on. It should have everything you need :) </b>"+
-            "<pre>\n</pre>"+
-            "<b>(New) shortcut for notes is <pre>/n</pre> this will spawn a custom keyboard pretty cool shit</b>"
-            ,
-            options); // last argument to diable link previews https://core.telegram.org/bots/api#sendmessage
-    // }else{
-    //     bot.deleteMessage(chat_id,msg.message_id);
-    //     bot.sendMessage(chat_id, "<b>" + username +" (" + user_id + ")" + " Welcome to " + chat_title + "</b>"+
-    //         //"<pre>\n______________________________\n</pre>"+
-    //         "<pre>" +
-    //         "\n" +
-    //         "    _    _ _____ \n" +
-    //         "   | |  | |_   _|\n" +
-    //         "   | |__| | | |  \n" +
-    //         "   |  __  | | |  \n" +
-    //         "   | |  | |_| |_ \n" +
-    //         "   |_|  |_|_____|\n"+
-    //         "</pre>",
-    //         {parse_mode: "HTML", disable_web_page_preview:true}); // last argument to diable link previews https://core.telegram.org/bots/api#sendmessage
-    // }
+    if(checkUserName(msg)){
+        bot.banChatMember(chat_id,user_id, {revoke_messages:true}).then(status =>{
+            if(status){
+                data.bot.sendMessage(chat_id,":)",{parse_mode: "HTML", disable_web_page_preview:true});
+            }else{
+                data.bot.sendMessage(chat_id,":(",{parse_mode: "HTML", disable_web_page_preview:true});
+            }
+        });    
+    }
+
+    bot.deleteMessage(chat_id,msg.message_id);
+
+    var options = {
+        reply_markup: JSON.stringify({
+            inline_keyboard: [
+                [{text: 'Other Groups And Channels on Telegram', callback_data:""+user_id+" channels"+" "+chat_id}],
+                [{ text: 'Notes', callback_data:""+user_id+" notes"+" "+chat_id},{ text: 'Donate', callback_data:""+user_id+" donate"+" "+chat_id},{text: 'Youtube', url: 'https://www.youtube.com/c/TerminalHeatSink'}],
+                [{text: 'My PlayStore Apps', url: 'https://play.google.com/store/apps/developer?id=Terminal+Heat+Sink'}, {text: 'My Awful Website', url: 'https://artiomsu.github.io'}]
+            ]
+        }),
+        parse_mode: "HTML",
+        disable_web_page_preview:true
+    };
+
+    bot.sendMessage(chat_id, "<b>" + username +" (" + user_id + ")"  + " Welcome to " + chat_title + "</b>"+
+        //"<pre>\n______________________________\n</pre>"+
+        "<pre>" +
+        "\n"+
+        "    _______ _    _  _____ \n" +
+        "   |__   __| |  | |/ ____|\n" +
+        "      | |  | |__| | (___  \n" +
+        "      | |  |  __  |\\___ \\ \n" +
+        "      | |  | |  | |____) |\n" +
+        "      |_|  |_|  |_|_____/ \n" +
+        "                          \n" +
+        "</pre>"+
+        "<b>Click on the Notes bellow or type <pre>/notes</pre> for all guides, links to downloads and so on. It should have everything you need :) </b>"+
+        "<pre>\n</pre>"+
+        "<b>(New) shortcut for notes is <pre>/n</pre> this will spawn a custom keyboard pretty cool shit</b>"
+        ,
+        options); // last argument to diable link previews https://core.telegram.org/bots/api#sendmessage
 };
 
 // bot.on('new_chat_members', (ctx) => {

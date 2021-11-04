@@ -6,7 +6,7 @@
     "start": "node ./bot"
   },
   "dependencies": {
-    "node-telegram-bot-api": "^0.53.0",
+    "node-telegram-bot-api": "^0.54.0",
     "request": "^2.88.2",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
