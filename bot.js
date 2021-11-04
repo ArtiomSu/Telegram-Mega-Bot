@@ -486,11 +486,12 @@ var deal_with_new_member = function(msg){
     if(checkUserName(msg)){
         bot.banChatMember(chat_id,user_id, {revoke_messages:true}).then(status =>{
             if(status){
-                data.bot.sendMessage(chat_id,":)",{parse_mode: "HTML", disable_web_page_preview:true});
+                bot.sendMessage(chat_id,":)",{parse_mode: "HTML", disable_web_page_preview:true});
             }else{
-                data.bot.sendMessage(chat_id,":(",{parse_mode: "HTML", disable_web_page_preview:true});
+                bot.sendMessage(chat_id,":(",{parse_mode: "HTML", disable_web_page_preview:true});
             }
         });    
+        return;
     }
 
     bot.deleteMessage(chat_id,msg.message_id);
