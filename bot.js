@@ -483,8 +483,6 @@ var deal_with_new_member = function(msg){
     username = msg.new_chat_members[0].username || msg.new_chat_members[0].first_name;
     chat_title = msg.chat.title;
 
-    if(msg.new_chat_members[0].username.toLowerCase().includes())
-
     if(checkUserName(msg)){
         bot.banChatMember(chat_id,user_id, {revoke_messages:true}).then(status =>{
             if(status){
