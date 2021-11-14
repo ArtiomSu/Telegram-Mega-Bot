@@ -107,7 +107,7 @@ var set_bot_send_function = (send_function) =>{
     bot_send_function = send_function;
 };
 
-var set_bot_stats_function = (stats_function) =>{
+var set_stats_function = (stats_function) =>{
     bot_stats_function = stats_function;
 };
 
