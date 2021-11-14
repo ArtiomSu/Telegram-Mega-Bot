@@ -34,9 +34,17 @@ app.post('/send', function (req, res) {
         //bot_send_function(req.body.channel, req.body.text);
         bot_send_function.sendMessage(req.body.channel, req.body.text,{
             parse_mode:"MarkdownV2"
-        });
+        }).then(status =>{
+            if(status){
+                return res.json({text_sent: "ok"});
+            }else{
+                return res.json({error: "could not send text"});
+            }
+        }).catch(err =>{
+            res.status(500);
+            return res.json({error: err});
+        });  
 
-        return res.json({text_sent: "ok"});
     }else{
         return res.json({error: "could not send text"});
     }
