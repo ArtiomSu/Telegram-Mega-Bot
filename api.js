@@ -61,18 +61,15 @@ app.post('/getUser', function (req, res) {
     if(req.body && req.body.chatId && req.body.userId){
         let userSend = {};
         bot_send_function.getChatMember(req.body.chatId, req.body.userId).then(user =>{
-            //return res.json({user: user});
             userSend = user;
-        }).catch(err =>{
-            res.status(500);
-            return res.json({error: err});
-        }).then(bot_send_function.getChat(req.body.chatId).then(chat =>{
+            return bot_send_function.getChat(req.body.chatId);
+        }).then(chat =>{
             return res.json({chat: chat, user: userSend});
         })
         .catch(err =>{
             res.status(500);
             return res.json({error: err});
-        }));
+        });
     }else{
         return res.json({error: "could not find user"});
     }
