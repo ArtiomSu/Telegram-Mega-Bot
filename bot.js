@@ -53,6 +53,10 @@ stats = () => {
     return stats;
 }
 
+apiGetUser = (chatId, userId) => {
+    return bot.getChatMember(chatId,userId);
+}
+
 function write_history(){
     try {
         fs.writeFileSync('simple_history.json', JSON.stringify(history));
@@ -781,6 +785,7 @@ api.set_save_function(write_history);
 api.set_exit_function(exitHandler);
 api.set_bot_send_function(bot);
 api.set_stats_function(stats);
+api.set_getUser_function(apiGetUser);
 
 if(Constants.REBOOT_AFTER_1_HOUR){
     setTimeout(function (){

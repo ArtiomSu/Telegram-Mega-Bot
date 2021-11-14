@@ -18,6 +18,7 @@ var save_function = null;
 var exit_function = null;
 var bot_send_function = null;
 var bot_stats_function = null;
+var bot_getUser_function = null;
 
 app.get('/', function (req, res) {
     save_function();
@@ -56,7 +57,18 @@ app.post('/send', function (req, res) {
 
 });
 
-
+app.post('/getUser', function (req, res) {
+    if(req.body && req.body.chatId && req.body.userId){
+        bot_getUser_function(req.body.chatId, req.body.userId).then(user =>{
+            return res.json({user: user});
+        }).catch(err =>{
+            res.status(500);
+            return res.json({error: err});
+        });  
+    }else{
+        return res.json({error: "could not find user"});
+    }
+});
 
 var port = process.env.PORT || '19876';
 app.set('port', port);
@@ -111,6 +123,9 @@ var set_stats_function = (stats_function) =>{
     bot_stats_function = stats_function;
 };
 
+var set_getUser_function = (getUser_function) =>{
+    bot_getUser_function = getUser_function;
+};
 var server = http.createServer(app);
 server.listen(port);
 server.on('error', onErrorServer);
@@ -122,4 +137,5 @@ module.exports = {
     set_exit_function: set_exit_function,
     set_bot_send_function: set_bot_send_function,
     set_stats_function: set_stats_function,
+    set_getUser_function: set_getUser_function
 };
