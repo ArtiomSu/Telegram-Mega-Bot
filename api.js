@@ -17,6 +17,7 @@ app.use((req, res, next) => {
 var save_function = null;
 var exit_function = null;
 var bot_send_function = null;
+var bot_stats_function = null;
 
 app.get('/', function (req, res) {
     save_function();
@@ -27,6 +28,10 @@ app.get('/', function (req, res) {
 app.get('/shutdown', function (req, res) {
     res.json( {shutdown:"ok"} );
     exit_function({exit:true}, null);
+});
+
+app.get('/stats', function (req, res) {
+    return res.json( {stats:bot_stats_function()});
 });
 
 app.post('/send', function (req, res) {
@@ -102,6 +107,10 @@ var set_bot_send_function = (send_function) =>{
     bot_send_function = send_function;
 };
 
+var set_bot_stats_function = (stats_function) =>{
+    bot_stats_function = stats_function;
+};
+
 var server = http.createServer(app);
 server.listen(port);
 server.on('error', onErrorServer);
@@ -111,5 +120,6 @@ module.exports = {
     server: server,
     set_save_function: set_save_function,
     set_exit_function: set_exit_function,
-    set_bot_send_function: set_bot_send_function
+    set_bot_send_function: set_bot_send_function,
+    set_stats_function: set_stats_function,
 };

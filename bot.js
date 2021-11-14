@@ -24,6 +24,35 @@ try {
     console.error(error);
 }
 
+stats = () => {
+    const stats = {
+        chatCount: 0,
+        chats: []
+    };
+
+    Object.keys(history).forEach((chatId) => {
+        stats.chatCount++;
+        let messages = history[chatId];
+        var sortable = [];
+        for (var count in messages) {
+            sortable.push([count, messages[count]]);
+        }
+        sortable.sort(function(a, b) {
+            return b[1] - a[1];
+        });
+
+        let output_top = [];
+        for(let i=0;i<sortable.length;i++){
+            if(i>10){
+                break;
+            }
+            output_top.push({user: sortable[i][0], count: sortable[i][1] });
+        } 
+        stats.chats.push({chat: chatId, users: output_top});
+    });
+    return stats;
+}
+
 function write_history(){
     try {
         fs.writeFileSync('simple_history.json', JSON.stringify(history));
@@ -751,6 +780,7 @@ var api = require('./api');
 api.set_save_function(write_history);
 api.set_exit_function(exitHandler);
 api.set_bot_send_function(bot);
+api.set_stats_function(stats);
 
 if(Constants.REBOOT_AFTER_1_HOUR){
     setTimeout(function (){
