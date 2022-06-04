@@ -1,3 +1,10 @@
+// const INLINE_OBJECT = {
+//     title: "",
+//     notes: [
+//         {url: '', text: ''},
+//     ]
+// }
+
 const help_page = "    <b>t80search_bot V0.0.5 Torrents help</b>" +
     "    <pre>\n" +
     "        currently only 1337x.to is used.....\n" +
@@ -14,6 +21,7 @@ const help_page = "    <b>t80search_bot V0.0.5 Torrents help</b>" +
     "            *   6 - by seeders ascending\n" +
     "            *   7 - by leechers descending\n" +
     "            *   8 - by leechers ascending\n" +
+    "        -o (n|o): how to output the results. (n) default will use the layout allowing you to click buttons. (o) will use the old layout where it just lists \n" +
     "        -d n: shows url and magnet link for torrent this is only possible after searching. n will be displayed in the first column of search results (0 - n..)\n" +
     "        -h : displays this page\n" +
     "\n" +
@@ -73,6 +81,33 @@ const HELP_PAGE_ADMIN = "    <b>t80search_bot V0.0.5 Admin</b>" +
     "        -h displays this help\n" +
     "    </pre>";
 
+const NOTES_ROG_PHONE_2_GUIDES_INLINE_OBJECT = {
+    title: "Rog Phone 2 Guides",
+    notes: [
+        {url: 'https://www.youtube.com/watch?v=pgqboLXMSuk', text: 'How to root stock android 9 and 10'},
+        {url: 'https://www.youtube.com/watch?v=uONJrZrHWxI', text: 'How to unbrick ( stuck in edl mode )'},
+        {url: 'https://www.youtube.com/watch?v=Ro62pAF1RBU', text: 'Custom Kernel for stock ROM'},
+        {url: 'https://www.youtube.com/watch?v=k4ESk9VCgI0', text: 'How to update to android 10 stock from android 9 and keep root'},
+        {url: 'https://www.youtube.com/watch?v=eteK_mhAcyw', text: 'How to downgrade from android 10 to android 9'},
+        {url: 'https://www.youtube.com/watch?v=uGdSWUK9vNw', text: 'How to use payload dumper, setup platform tools and patch boot image using magisk ( kinda all in one vid lol )'},
+        {url: 'https://www.youtube.com/watch?v=t5AJCwmGbXM', text: 'How to backup using TWRP and TitaniumBackup'},
+        {url: 'https://www.youtube.com/watch?v=_94R7ZY5zaY', text: 'How to fix safetynet while the magisk bois work on a proper fix'},
+        {url: 'https://www.youtube.com/watch?v=dKehBkHtbEI', text: 'dirty flashing havoc os update'},
+        {url: 'https://www.youtube.com/watch?v=4N05Ny8jAtA', text: 'Up to date kernel flashing'},
+        {url: 'https://www.youtube.com/watch?v=Xo3ZtxFkPbI', text: 'omni rom flashing (old)'},
+        {url: 'https://www.youtube.com/watch?v=MAz_Vqaxd14', text: 'omni android 12 flashing from scratch'},
+        {url: 'https://www.youtube.com/watch?v=wQULU-3BWvg', text: 'Omni android 11 flashing from scratch'},
+        {url: 'https://www.youtube.com/watch?v=3HqnSKmTCLM', text: 'Things to do after flashing omni 11'},
+        {url: 'https://www.youtube.com/watch?v=LsfM4Wms4GQ', text: 'making omni 11 look good with gravitybox'},
+        {url: 'https://www.youtube.com/watch?v=KQgoJCRTSsw', text: 'making omni 12 look good part 1'},
+        {url: 'https://www.youtube.com/watch?v=TTXu9NA1cLk', text: 'making omni 12 look good part 2'},
+        {url: 'https://www.youtube.com/watch?v=IEnnVAPLSeg', text: 'havoc flashing'},
+        {url: 'https://www.youtube.com/watch?v=8vhocq5UWJQ', text: 'MSM flashing'},
+        {url: 'https://www.youtube.com/watch?v=7_PtEwdZvGo', text: 'flashing stock rom in twrp'},
+        {url: 'https://www.youtube.com/watch?v=gh7b9AH51k4', text: 'Improve battery life'},
+    ]
+}
+
 
 const NOTES_ROG_PHONE_2_GUIDES = "<b>Rog Phone 2 Guides</b>" +
     "<pre>\n\n"+
@@ -97,13 +132,19 @@ const NOTES_ROG_PHONE_2_GUIDES = "<b>Rog Phone 2 Guides</b>" +
     "<pre>\n\n</pre>" +
     "<a href=\"https://www.youtube.com/watch?v=4N05Ny8jAtA\">Up to date kernel flashing</a>" +
     "<pre>\n\n</pre>" +
-    "<a href=\"https://www.youtube.com/watch?v=Xo3ZtxFkPbI\">omni rom flashing</a>" +
+    "<a href=\"https://www.youtube.com/watch?v=Xo3ZtxFkPbI\">omni rom flashing (old)</a>" +
+    "<pre>\n\n</pre>" +
+    "<a href=\"https://www.youtube.com/watch?v=MAz_Vqaxd14\">omni android 12 flashing from scratch</a>" +
     "<pre>\n\n</pre>" +
     "<a href=\"https://www.youtube.com/watch?v=wQULU-3BWvg\">Omni android 11 flashing from scratch</a>" +
     "<pre>\n\n</pre>" +
     "<a href=\"https://www.youtube.com/watch?v=3HqnSKmTCLM\">Things to do after flashing omni 11</a>" +
     "<pre>\n\n</pre>" +
     "<a href=\"https://www.youtube.com/watch?v=LsfM4Wms4GQ\">making omni 11 look good with gravitybox</a>" +
+    "<pre>\n\n</pre>" +
+    "<a href=\"https://www.youtube.com/watch?v=KQgoJCRTSsw\">making omni 12 look good part 1</a>" +
+    "<pre>\n\n</pre>" +
+    "<a href=\"https://www.youtube.com/watch?v=TTXu9NA1cLk\">making omni 12 look good part 2</a>" +
     "<pre>\n\n</pre>" +
     "<a href=\"https://www.youtube.com/watch?v=IEnnVAPLSeg\">havoc flashing</a>" +
     "<pre>\n\n</pre>" +
@@ -114,6 +155,26 @@ const NOTES_ROG_PHONE_2_GUIDES = "<b>Rog Phone 2 Guides</b>" +
     "<a href=\"https://www.youtube.com/watch?v=gh7b9AH51k4\">Improve battery life</a>" +
     "<pre>\n" +
     "_______________________________________</pre>";
+
+
+const NOTES_APPS_INLINE_OBJECT = {
+    title: "APPs And Other Misc",
+    notes: [
+        {url:'https://t.me/Terminal_Heat_Sink_Group/2540', text:'Viperfx (old)'},
+        {url:'https://t.me/Terminal_Heat_Sink_Group/2769', text:'viperfx irs and ddc collection'},
+        {url:'https://t.me/Terminal_Heat_Sink_Group/3001', text:'Gcam (old)'},
+        {url:'https://forum.xda-developers.com/apps/magisk/collection-magisk-modules-v2-t3575758/post72542167#post72542167', text:'Uninstall magisk modules using twrp'},
+        {url:'https://play.google.com/store/apps/details?id=terminal_heat_sink.asusrogphone2rgb', text:'Asus Rog Phone RGB'},
+        {url:'https://play.google.com/store/apps/details?id=terminal_heat_sink.keyboardpickershortcut', text:'Keyboard picker shortcut'},
+        {url:'https://play.google.com/store/apps/details?id=terminal_heat_sink.openwithcopyurl', text:'Open With Copy Url'},
+        {url:'https://play.google.com/store/apps/details?id=terminal_heat_sink.terminal_keyboard', text:'Ergonomic Terminal Keyboard'},
+        {url:'https://play.google.com/store/apps/details?id=terminal_heat_sink.bringbacknfcquicksettings', text:'Bring Back NFC Quick Settings'},
+        {url:'https://play.google.com/store/apps/details?id=terminalheatsink.nixieface', text:'Nixie face wearos watch face'},
+        {url:'https://github.com/ArtiomSu/AndroidClassicPowerMenuTweaks', text:'My fork of Classic Power Menu with super privacy and transparency'},
+        {url:'https://play.google.com/store/apps/details?id=terminal_heat_sink.donateterminalheatsink', text:'Donate using google play store balance app'},
+    ]
+}
+
 
 const NOTES_APPS = "<b>APPs And Other Misc</b>" +
     "<pre>\n\n"+
@@ -134,11 +195,24 @@ const NOTES_APPS = "<b>APPs And Other Misc</b>" +
     "<pre>\n\n</pre>" +
     "<a href=\"https://play.google.com/store/apps/details?id=terminal_heat_sink.terminal_keyboard\">Ergonomic Terminal Keyboard</a>" +
     "<pre>\n\n</pre>" +
+    "<a href=\"https://play.google.com/store/apps/details?id=terminal_heat_sink.bringbacknfcquicksettings\">Bring Back NFC Quick Settings</a>" +
+    "<pre>\n\n</pre>" +
     "<a href=\"https://play.google.com/store/apps/details?id=terminalheatsink.nixieface\">Nixie face wearos watch face</a>" +
+    "<pre>\n\n</pre>" +
+    "<a href=\"https://github.com/ArtiomSu/AndroidClassicPowerMenuTweaks\">My fork of Classic Power Menu with super privacy and transparency</a>" +
     "<pre>\n\n</pre>" +
     "<a href=\"https://play.google.com/store/apps/details?id=terminal_heat_sink.donateterminalheatsink\">Donate using google play store balance app</a>" +
     "<pre>\n" +
     "_______________________________________</pre>";
+
+const NOTES_PSVITA_INLINE_OBJECT = {
+    title: "PSVITA",
+    notes: [
+        {url:'https://t.me/Terminal_Heat_Sink_Group/23593', text:'custom theme: red cyber'},
+        {url:'https://www.youtube.com/watch?v=WBBfPrQsiA8', text:'Matrix Custom boot animation video'},
+        {url:'https://t.me/c/1201136003/35', text:'Matrix Custom boot image download'},
+    ]
+}
 
 const NOTES_PSVITA = "<b>PSVITA</b>" +
     "<pre>\n\n"+
@@ -218,6 +292,18 @@ const NOTES_RELOCK = "<b>Relock Bootloader</b>" +
     "<pre>\n" +
     "_______________________________________</pre>";
 
+const NOTES_QMK_INLINE_OBJECT = {
+    title: "QMK",
+    notes: [
+        {url:'https://www.youtube.com/watch?v=x6pWqjC39_I', text:'Custom RGB Animations'},
+        {url:'https://www.youtube.com/watch?v=I5HsfuSsXSQ', text:'QMK calculator feature'},
+        {url:'https://www.youtube.com/watch?v=1OD1ulmc71I&list=PLnn9-6POoRYjRVMKyUz1B_gH8U6bbUT_J&index=7', text:'QMK delete current word feature'},
+        {url:'https://github.com/ArtiomSu/qmk_firmware/tree/artiom', text:'Github link Ergodox Ez QMK Layout'},
+        {url:'https://github.com/ArtiomSu/qmk_firmware/tree/macropad_artiomsu', text:'Github link macropad QMK Layout'},
+    ]
+}
+
+
 const NOTES_QMK = "<b>QMK</b>" +
     "<pre>\n\n"+
     "_______________________________________\n</pre>" +
@@ -233,7 +319,7 @@ const NOTES_QMK = "<b>QMK</b>" +
     "<pre>\n" +
     "_______________________________________</pre>";
 
-const NOTES_LINEAGE = "<b>Lineage Guides</b>" +
+const NOTES_LINEAGE = "<b>Lineage Guides (Old)</b>" +
     "<pre>\n\n</pre>" +
     "<pre>\n"+
     "_______________________________________\n</pre>" +
@@ -254,6 +340,16 @@ const NOTES_LINEAGE = "<b>Lineage Guides</b>" +
     "<pre>\n" +
     "_______________________________________</pre>";
 
+const NOTES_FLASHING_SCRIPT_INLINE_OBJECT = {
+    title: "RogPhone2Flasher",
+    notes: [
+        {url:'https://www.youtube.com/watch?v=-M_MJUzCuvM', text:'youtube video'},
+        {url:'https://youtu.be/pvhuMtJstaU', text:'How to run on windows'},
+        {url:'https://youtu.be/Hz2166j1zhE', text:'Dual boot'},
+        {url:'https://github.com/ArtiomSu/RogPhone2Flasher', text:'Github'},
+    ]
+}
+
 const NOTES_FLASHING_SCRIPT = "<b>RogPhone2Flasher</b>" +
     "<pre>\n\n"+
     "_______________________________________\n</pre>" +
@@ -267,6 +363,16 @@ const NOTES_FLASHING_SCRIPT = "<b>RogPhone2Flasher</b>" +
     "<pre>\n" +
     "_______________________________________</pre>";
 
+const NOTES_ROGPHONE2RGB_INLINE_OBJECT = {
+    title: "Asus ROG Phone 2 RGB",
+    notes: [
+        {url:'https://github.com/ArtiomSu/Asus-ROG-Phone-2-RGB/releases', text:'Download From Github'},
+        {url:'https://play.google.com/store/apps/details?id=terminal_heat_sink.asusrogphone2rgb', text:'Download From PlayStore'},
+        {url:'https://www.youtube.com/watch?v=WONmNu35GFM', text:'Latest Guide'},
+    ]
+}
+
+
 const NOTES_ROGPHONE2RGB = "<b>Asus ROG Phone 2 RGB</b>" +
     "<pre>\n\n"+
     "_______________________________________\n</pre>" +
@@ -274,9 +380,18 @@ const NOTES_ROGPHONE2RGB = "<b>Asus ROG Phone 2 RGB</b>" +
     "<pre>\n\n</pre>" +
     "<a href=\"https://play.google.com/store/apps/details?id=terminal_heat_sink.asusrogphone2rgb\">Download From PlayStore</a>" +
     "<pre>\n\n</pre>" +
-    "<a href=\"https://www.youtube.com/watch?v=8rNJtEDuV1I\">Latest Guide</a>" +
+    "<a href=\"https://www.youtube.com/watch?v=WONmNu35GFM\">Latest Guide</a>" +
     "<pre>\n" +
     "_______________________________________</pre>";
+
+const NOTES_ROOT_INLINE_OBJECT = {
+    title: "Rooting Guides",
+    notes: [
+        {url:'https://www.youtube.com/watch?v=uGdSWUK9vNw', text:'Magisk Patched boot method ( payload dumper )'},
+        {url:'https://www.youtube.com/watch?v=pgqboLXMSuk', text:'Using TWRP to root'},
+        {url:'https://www.youtube.com/watch?v=Jq3aCh5d8ng', text:'Rooting WearOS ( Ticwatch E )'},
+    ]
+}
 
 const NOTES_ROOT = "<b>Rooting Guides</b>" +
     "<pre>\n\n"+
@@ -289,11 +404,15 @@ const NOTES_ROOT = "<b>Rooting Guides</b>" +
     "<pre>\n" +
     "_______________________________________</pre>";
 
-const NOTES_CTS = "<b>Magisk cts profile kaput</b>" +
+const NOTES_CTS = "<b>Passing SafetyNet</b>" +
     "<pre>\n\n"+
-    "_______________________________________\n</pre>" +
-    "In magisk manager settings enable magisk hide and reboot"+
+    "_______________________________________\n</pre>\n" +
+    "If you are using the old magisk manager then in magisk manager settings enable magisk hide and reboot"+
     "<pre>\n\n</pre>"+
+    "For the new one enable Zygisk and enable Enforce DenyList. reboot then select Configure DenyList. At the top right click on show system apps. Search for gms and check everything that shows up"+
+    "<pre>\n\n</pre>"+
+    "<a href=\"https://www.youtube.com/watch?v=wXJzQcD1AdI\">Passing Safetynet with Zygisk</a>" +
+    "<pre>\n\n</pre>" +
     "If the above doesn't work you can try using some safetynet fix magisk modules." +
     "<pre>\n" +
     "_______________________________________</pre>";
@@ -315,6 +434,18 @@ const DONATE = "<b>Donate</b>"+
     "        Thank you\n" +
     "</pre>";
 
+const NOTES_CHANNELS_INLINE_OBJECT = {
+    title: "Other Telegram Groups and Channels",
+    notes: [
+        {url:'https://t.me/ROGPhoneSeriesDiscussion', text:'Global Discussion group for ASUS ROG Phone series'},
+        {url:'https://t.me/omnirog2', text:'Omni ROM for Rog 2'},
+        {url:'https://t.me/msmrog2support', text:'MSM, Ancient, Bliss, Havoc Roms for Rog 2'},
+        {url:'https://t.me/rogseriesgcam', text:'Google Cam for rog'},
+        {url:'https://t.me/shady_mods_releases', text:'Shady Mods channel (best recents mod)'},
+        {url:'https://t.me/rogphonevietnam2', text:'Vietnam Channel for rog phones (raw firmware and stuff)'},
+    ]
+}
+
 const NOTES_CHANNELS = "<b>Other Telegram Groups and Channels</b>" +
     "<pre>\n\n"+
     "_______________________________________\n</pre>" +
@@ -331,6 +462,29 @@ const NOTES_CHANNELS = "<b>Other Telegram Groups and Channels</b>" +
     "<a href=\"https://t.me/rogphonevietnam2\">Vietnam Channel for rog phones (raw firmware and stuff)</a>" +
     "<pre>\n" +
     "_______________________________________</pre>";
+
+const NOTES_PROGRAMS_INLINE_OBJECT = {
+    title: "Programs",
+    notes: [
+        {url:'https://t.me/c/1201136003/16', text:'Assassins Creed Valhala Auto Save Backup'},
+        {url:'https://t.me/c/1201136003/40', text:'CyberDunk 2077 Auto Save Backup'},
+        {url:'https://github.com/ArtiomSu/MoviePickerZSH', text:'MoviePicker'},
+        {url:'https://github.com/ArtiomSu/Python-Troll-Server', text:'Python Troll Server'},
+        {url:'https://github.com/ArtiomSu/kensington-expert-trackball-linux-config', text:'kensington expert trackball linux config'},
+        {url:'https://github.com/ArtiomSu/Auto-Suspend-Current-Window', text:'Auto Suspend Current Window'},
+        {url:'https://github.com/ArtiomSu/wabbajack-nexus-free-helper', text:'wabbajack nexus free helper'},
+        {url:'https://github.com/ArtiomSu/TicWatch-All-In-One-Tool', text:'TicWatch E All In One Tool'},
+        {url:'https://github.com/ArtiomSu/PS4-controller-arduino-scuff-mod', text:'PS4 controller arduino scuff mod'},
+        {url:'https://github.com/ArtiomSu/Openvpn-connector-script-server', text:'Openvpn connector script'},
+        {url:'https://github.com/ArtiomSu/Arduino_Custom_Multilayer_Mouse', text:'Arduino Custom Multilayer Mouse'},
+        {url:'https://github.com/ArtiomSu/Python-key-sequence-app-restarter', text:'Python key sequence app restarter'},
+        {url:'https://github.com/ArtiomSu/Steam-Pin-To-Start', text:'Steam Pin To Start'},
+        {url:'https://github.com/ArtiomSu/PSP-Video-Converter-2020', text:'PSP Video Converter 2020'},
+        {url:'https://github.com/ArtiomSu/qmk_to.html', text:'QMK to HTML table web app. handy for printing layout'},
+        {url:'https://github.com/ArtiomSu/ly-display-manager', text:'My fork of ly display manager (coolest display manager ever)'},
+        {url:'https://github.com/ArtiomSu/selenium_skribbl_io_bot', text:'skribbl io bot'},
+    ]
+}
 
 const NOTES_PROGRAMS = "<b>Programs</b>" +
     "<pre>\n\n"+
@@ -364,9 +518,23 @@ const NOTES_PROGRAMS = "<b>Programs</b>" +
     "<pre>\n\n</pre>" +
     "<a href=\"https://github.com/ArtiomSu/PSP-Video-Converter-2020\">PSP Video Converter 2020</a>" +
     "<pre>\n\n</pre>" +
+    "<a href=\"https://github.com/ArtiomSu/qmk_to.html\">QMK to HTML table web app. handy for printing layout</a>" +
+    "<pre>\n\n</pre>" +
+    "<a href=\"https://github.com/ArtiomSu/ly-display-manager\">My fork of ly display manager (coolest display manager ever)</a>" +
+    "<pre>\n\n</pre>" +
     "<a href=\"https://github.com/ArtiomSu/selenium_skribbl_io_bot\">skribbl io bot</a>" +
     "<pre>\n" +
     "_______________________________________</pre>";
+
+const NOTES_CUSTOM_BOOT_ANIMATION_INLINE_OBJECT = {
+    title: "Custom Boot Animations",
+    notes: [
+    {url:'https://t.me/c/1201136003/15', text:'Matrix Boot Animation'},
+    {url:'https://t.me/c/1201136003/14', text:'Make Your Own Custom Boot Animation Template'},
+    {url:'https://t.me/c/1201136003/12', text:'One Plus 8t CyberPunk Boot Animations Preview'},
+    {url:'https://t.me/c/1201136003/9', text:'One Plus 8t CyberPunk Boot Animations Download'},
+    ]
+}
 
 const NOTES_CUSTOM_BOOT_ANIMATION = "<b>Custom Boot Animations</b>" +
     "<pre>\n\n"+
@@ -423,7 +591,7 @@ const NOTES_MY_ROG_PHONE_2_SETUP = "<b>Personal Rog Phone 2 Setup</b>" +
 "_______________________________________\n\n</pre>" +
 "<b>ROM</b>" +
 "<pre>\n\n</pre>" +
-"Latest Omni android 11" +
+"Latest Omni android 12" +
 "<pre>\n\n</pre>" +
 
 "<b>Launcher</b>" +
@@ -435,28 +603,20 @@ const NOTES_MY_ROG_PHONE_2_SETUP = "<b>Personal Rog Phone 2 Setup</b>" +
 "<pre>\n\n</pre>" +
 "1. ACC" +
 "<pre>\n\n</pre>" +
-"2. Fullscreen Immersive Gestures" +
+"2. Zygisk LSPOSED" +
 "<pre>\n\n</pre>" +
-"3. Riru" +
+"3. ClearLineage" +
 "<pre>\n\n</pre>" +
-"4. Riru LSPOSED" +
+"4. omni-asus-services-disabler (my own module)" +
 "<pre>\n\n</pre>" +
-"5. Fira Font Adder (my own module)" +
+"5. Terminal Heat Sinks custom cyberpunk boot animation (my own module)" +
 "<pre>\n\n</pre>" +
-"6. omni-asus-services-disabler (my own module)" +
-"<pre>\n\n</pre>" +
-"7. Pixel Launcher for Android R (SKULSHADY Mods)" +
-"<pre>\n\n</pre>" +
-"8. Terminal Heat Sinks custom cyberpunk boot animation (my own module)" +
-"<pre>\n\n</pre>" +
-"9. Webview Manager" +
-"<pre>\n\n</pre>" +
-"10. Axet Call Recorder" +
+"6. Basic Call Recorder by chenxiaolong" +
 "<pre>\n\n</pre>" +
 
 "<b>LSPOSED Modules</b>" +
 "<pre>\n\n</pre>" +
-"1. GravityBox R" +
+"1. Classic Power Menu" +
 "<pre>\n\n</pre>" +
 "2. XprivacyLua" +
 "<pre>\n\n</pre>" +
@@ -499,7 +659,7 @@ const NOTES = "<b>Notes</b>" +
 
     "<pre>/apps\n\n</pre>" +
     "<pre>/root\n\n</pre>" +
-    "<pre>/cts-profile\n\n</pre>" +
+    "<pre>/safetynet\n\n</pre>" +
     "<pre>/psvita\n\n</pre>" +
 
     "( keyboard custom firmware )" +
@@ -526,20 +686,20 @@ const NOTES = "<b>Notes</b>" +
 const NOTES_DICTIONARY = {
     '/donate':DONATE,
     '/notes':NOTES,
-    '/rogphone2rgb':NOTES_ROGPHONE2RGB,
-    '/rogphone2':NOTES_ROG_PHONE_2_GUIDES,
+    '/rogphone2rgb':NOTES_ROGPHONE2RGB_INLINE_OBJECT,
+    '/rogphone2':NOTES_ROG_PHONE_2_GUIDES_INLINE_OBJECT,
     '/raw':NOTES_RAW,
-    '/apps':NOTES_APPS,
-    '/psvita':NOTES_PSVITA,
-    '/qmk':NOTES_QMK,
+    '/apps':NOTES_APPS_INLINE_OBJECT,
+    '/psvita':NOTES_PSVITA_INLINE_OBJECT,
+    '/qmk':NOTES_QMK_INLINE_OBJECT,
     '/lineage':NOTES_LINEAGE,
-    '/flasher':NOTES_FLASHING_SCRIPT,
-    '/root':NOTES_ROOT,
+    '/flasher':NOTES_FLASHING_SCRIPT_INLINE_OBJECT,
+    '/root':NOTES_ROOT_INLINE_OBJECT,
     '/relock':NOTES_RELOCK,
-    '/cts-profile':NOTES_CTS,
-    '/channels': NOTES_CHANNELS,
-    '/programs': NOTES_PROGRAMS,
-    '/boot_animations': NOTES_CUSTOM_BOOT_ANIMATION,
+    '/safetynet':NOTES_CTS,
+    '/channels': NOTES_CHANNELS_INLINE_OBJECT,
+    '/programs': NOTES_PROGRAMS_INLINE_OBJECT,
+    '/boot_animations': NOTES_CUSTOM_BOOT_ANIMATION_INLINE_OBJECT,
     '/unbrick': NOTES_UNBRICK,
     '/fastboot_no_detect': NOTES_FASTBOOT_NO_DETECT,
     '/my_rog_phone_setup': NOTES_MY_ROG_PHONE_2_SETUP
@@ -555,7 +715,7 @@ const NOTES_KEYWORDS_AUTO_HELP_DICTIONARY = {
     '/flasher':["flasher", "dual boot"],
     '/root':["root", "twrp"],
     '/relock':["lock"],
-    '/cts-profile':["cts", "safety net", "safetynet"],
+    '/safetynet':["cts", "safety net", "safetynet"],
     '/channels': ["channel"],
     '/programs': ["programs"],
     '/boot_animations': ["animation"],
@@ -578,21 +738,21 @@ module.exports = {
     HELP_PAGE_ADMIN: HELP_PAGE_ADMIN,
     DONATE: DONATE,
     NOTES: NOTES,
-    NOTES_ROG_PHONE_2_GUIDES: NOTES_ROG_PHONE_2_GUIDES,
-    NOTES_APPS: NOTES_APPS,
-    NOTES_PSVITA: NOTES_PSVITA,
+    NOTES_ROG_PHONE_2_GUIDES: NOTES_ROG_PHONE_2_GUIDES_INLINE_OBJECT,
+    NOTES_APPS: NOTES_APPS_INLINE_OBJECT,
+    NOTES_PSVITA: NOTES_PSVITA_INLINE_OBJECT,
     NOTES_RAW: NOTES_RAW,
-    NOTES_QMK: NOTES_QMK,
+    NOTES_QMK: NOTES_QMK_INLINE_OBJECT,
     NOTES_LINEAGE: NOTES_LINEAGE,
-    NOTES_FLASHING_SCRIPT: NOTES_FLASHING_SCRIPT,
-    NOTES_ROGPHONE2RGB: NOTES_ROGPHONE2RGB,
+    NOTES_FLASHING_SCRIPT: NOTES_FLASHING_SCRIPT_INLINE_OBJECT,
+    NOTES_ROGPHONE2RGB: NOTES_ROGPHONE2RGB_INLINE_OBJECT,
     NOTES_RELOCK: NOTES_RELOCK,
-    NOTES_ROOT: NOTES_ROOT,
+    NOTES_ROOT: NOTES_ROOT_INLINE_OBJECT,
     NOTES_CTS: NOTES_CTS,
     NOTES_DICTIONARY: NOTES_DICTIONARY,
-    NOTES_CHANNELS: NOTES_CHANNELS,
-    NOTES_PROGRAMS: NOTES_PROGRAMS,
-    NOTES_CUSTOM_BOOT_ANIMATION: NOTES_CUSTOM_BOOT_ANIMATION,
+    NOTES_CHANNELS: NOTES_CHANNELS_INLINE_OBJECT,
+    NOTES_PROGRAMS: NOTES_PROGRAMS_INLINE_OBJECT,
+    NOTES_CUSTOM_BOOT_ANIMATION: NOTES_CUSTOM_BOOT_ANIMATION_INLINE_OBJECT,
     NOTES_UNBRICK: NOTES_UNBRICK,
     NOTES_KEYWORDS_AUTO_HELP_DICTIONARY: NOTES_KEYWORDS_AUTO_HELP_DICTIONARY,
     NOTES_KEYWORDS_AUTO_HELP_TRIGGER: NOTES_KEYWORDS_AUTO_HELP_TRIGGER

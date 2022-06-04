@@ -14,6 +14,7 @@ const bot = new TelegramBot(Constants.TOKEN, {polling: true});
 var users = {};
 var history = {};
 var history_write_counter =0;
+var t_urls = [];
 
 try {
     const file = fs.readFileSync('simple_history.json');
@@ -86,7 +87,7 @@ var help_main = function(current_chat){
 var deal_with_message = function(msg){
     if (msg.text.includes(Constants.BOT_NAME)) {
 
-        if (msg.text.length <= 90){
+        if (msg.text.length <= 200){
             let user_id = msg.from.id;
             //check if text message is properly formatted
             let user_name = msg.from.first_name;
@@ -108,7 +109,8 @@ var deal_with_message = function(msg){
                             current_chat:current_chat,
                             users:users,
                             input_array: input_array,
-                            bot: bot
+                            bot: bot,
+                            urls: t_urls
                         });
                     }
                     break;
@@ -199,8 +201,29 @@ var deal_with_message = function(msg){
     }
 };
 
+send_notes = (note_to_send, chat_id, reply_id = false) => {
+    let text_to_send = '';
+    let options = {parse_mode: "HTML", disable_web_page_preview:true};
+    if(reply_id){
+        options.reply_to_message_id = reply_id;
+    }
+    if(typeof note_to_send === 'string' || note_to_send instanceof String){
+        text_to_send = note_to_send;
+    }else{
+        text_to_send = "<b>"+note_to_send.title+"</b>";
+        let list_keyboard = [];
+        note_to_send.notes.forEach(function (note, index){
+            list_keyboard.push([note]);
+        });
+        options.reply_markup = JSON.stringify({inline_keyboard: list_keyboard});
+    }
+
+    bot.sendMessage(chat_id,text_to_send,options);
+}
+
 let auto_help_notes = (msg) => {
-    if(! Constants.USE_AUTO_HELP || msg.from.id === Constants.ROOT_USER){
+    // if(! Constants.USE_AUTO_HELP || msg.from.id === Constants.ROOT_USER){
+    if(! Constants.USE_AUTO_HELP){
         return false;
     }
     let text = msg.text.toLowerCase();
@@ -209,7 +232,8 @@ let auto_help_notes = (msg) => {
             for(let key in Notes.NOTES_KEYWORDS_AUTO_HELP_DICTIONARY){
                 for(let pattern in Notes.NOTES_KEYWORDS_AUTO_HELP_DICTIONARY[key]){
                     if(text.includes(Notes.NOTES_KEYWORDS_AUTO_HELP_DICTIONARY[key][pattern])){
-                        bot.sendMessage(msg.chat.id,Notes.NOTES_DICTIONARY[key],{parse_mode: "HTML", disable_web_page_preview:true, reply_to_message_id: msg.message_id});
+                        const note_to_send = Notes.NOTES_DICTIONARY[key];
+                        send_notes(note_to_send, msg.chat.id, msg.message_id);
                         return true;
                     }
                 }
@@ -425,7 +449,8 @@ var user_slash_functions = (msg) =>{
             "</pre>"+"Reason: "+ msg.text.toLowerCase().split("/report")[1],
             options);
     }else if(msg.text.toLowerCase() in Notes.NOTES_DICTIONARY){
-        bot.sendMessage(msg.chat.id,Notes.NOTES_DICTIONARY[msg.text.toLowerCase()],{parse_mode: "HTML", disable_web_page_preview:true, reply_to_message_id: msg.message_id});
+        const note_to_send = Notes.NOTES_DICTIONARY[msg.text.toLowerCase()];
+        send_notes(note_to_send, msg.chat.id, msg.message_id);
     }
     else if(msg.text.toLowerCase().startsWith("/all")) {
             bot.forwardMessage(msg.chat.id, Constants.YOUTUBE_CHANNEL, Constants.YOUTUBE_CHANNEL_PINNED_MSG_ID);
@@ -648,6 +673,8 @@ bot.on('callback_query', (callbackQuery) => {
     let intended_for_channel = parseInt(action.split(" ")[2]);
 
     let done_task = true;
+    let admin_tasks_found = true;
+    let torrent_tasks_found = true;
     //admin actions
     if(permission.check_permissions(user_id,"-a")) {
         switch (type_of_action){
@@ -685,13 +712,44 @@ bot.on('callback_query', (callbackQuery) => {
                 admin_main.unban(bot,intended_for_channel,intended_for_user_id,callbackQuery.message.chat.id);
                 break;
             default:
-                done_task = false;
+                admin_tasks_found = false;
+                //done_task = false;
                 break;
         }
-    }else{
-        done_task = false;
     }
 
+    if(!admin_tasks_found && permission.check_permissions(user_id, "-t")) {
+        switch (action.split(" ")[0]){
+            case "magnet":
+                if(action.split(" ")[1] !== 'none'){
+                    torrent_main.handleMagnet({
+                        user_id:user_id,
+                        user_name:user_name,
+                        current_chat:callbackQuery.message.chat.id,
+                        users:users,
+                        input_array: [],
+                        bot: bot,
+                        urls: t_urls
+                    }, 0, parseInt(action.split(" ")[1]));
+                }
+                break;
+            case "deleteTMsg":
+                if(user_id.toString() === action.split(" ")[1]){
+                    bot.deleteMessage(callbackQuery.message.chat.id,callbackQuery.message.message_id);
+                }else{
+                    torrent_tasks_found = false;
+                }
+                break;
+            default:
+                torrent_tasks_found = false;
+                break;
+        }
+    }
+
+    if(!admin_tasks_found && !torrent_tasks_found){
+        done_task = false;
+    }
+    
     if(!done_task) {
         //for normal users
         if (user_id === intended_for_user_id) {
@@ -743,10 +801,8 @@ bot.on('callback_query', (callbackQuery) => {
                 case "channels":
                     if (send_channels) {
                         callback_notes_used.channels_used = true;
-                        bot.sendMessage(callbackQuery.message.chat.id, Notes.NOTES_CHANNELS, {
-                            parse_mode: "HTML",
-                            disable_web_page_preview: true,
-                        });
+                        const note_to_send = Notes.NOTES_CHANNELS;
+                        send_notes(note_to_send, callbackQuery.message.chat.id);
                     } else {
                         return bot.answerCallbackQuery(callbackQuery.id, {
                             text: "Please dont spam bot buttons. If you badly want to see them channels again type /channels",
