@@ -1,4 +1,4 @@
-const Constants = require('../constants');
+const Notes = require('../notes');
 
 var ban = (bot,chat,intended_for_user_id,callbackQuery) =>{
     const action = callbackQuery.data;
@@ -134,7 +134,8 @@ var admin_main = function(data){
             }
             break;
         case "-h":
-            data.bot.sendMessage(data.current_chat, Constants.HELP_PAGE_ADMIN, {parse_mode: "HTML"});
+            
+            data.bot.sendMessage(data.current_chat, Notes.HELP_PAGE_ADMIN, {parse_mode: "HTML"});
             break;
         default:
             console.log("default admin statement do nothing");

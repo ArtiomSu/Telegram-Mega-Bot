@@ -201,7 +201,7 @@ var deal_with_message = function(msg){
     }
 };
 
-send_notes = (note_to_send, chat_id, reply_id = false) => {
+send_notes_func = (note_to_send, chat_id, reply_id = false) => {
     let text_to_send = '';
     let options = {parse_mode: "HTML", disable_web_page_preview:true};
     if(reply_id){
@@ -222,8 +222,7 @@ send_notes = (note_to_send, chat_id, reply_id = false) => {
 }
 
 let auto_help_notes = (msg) => {
-    // if(! Constants.USE_AUTO_HELP || msg.from.id === Constants.ROOT_USER){
-    if(! Constants.USE_AUTO_HELP){
+    if(! Constants.USE_AUTO_HELP || msg.from.id === Constants.ROOT_USER){
         return false;
     }
     let text = msg.text.toLowerCase();
@@ -233,7 +232,7 @@ let auto_help_notes = (msg) => {
                 for(let pattern in Notes.NOTES_KEYWORDS_AUTO_HELP_DICTIONARY[key]){
                     if(text.includes(Notes.NOTES_KEYWORDS_AUTO_HELP_DICTIONARY[key][pattern])){
                         const note_to_send = Notes.NOTES_DICTIONARY[key];
-                        send_notes(note_to_send, msg.chat.id, msg.message_id);
+                        send_notes_func(note_to_send, msg.chat.id, msg.message_id);
                         return true;
                     }
                 }
@@ -450,7 +449,7 @@ var user_slash_functions = (msg) =>{
             options);
     }else if(msg.text.toLowerCase() in Notes.NOTES_DICTIONARY){
         const note_to_send = Notes.NOTES_DICTIONARY[msg.text.toLowerCase()];
-        send_notes(note_to_send, msg.chat.id, msg.message_id);
+        send_notes_func(note_to_send, msg.chat.id, msg.message_id);
     }
     else if(msg.text.toLowerCase().startsWith("/all")) {
             bot.forwardMessage(msg.chat.id, Constants.YOUTUBE_CHANNEL, Constants.YOUTUBE_CHANNEL_PINNED_MSG_ID);
@@ -662,8 +661,6 @@ var callback_notes_used = {
 };
 
 bot.on('callback_query', (callbackQuery) => {
-    //console.log(callbackQuery);
-
     const action = callbackQuery.data;
     let user_id = parseInt(callbackQuery.from.id);
     let user_name = callbackQuery.from.username;
@@ -716,6 +713,8 @@ bot.on('callback_query', (callbackQuery) => {
                 //done_task = false;
                 break;
         }
+    }else{
+        admin_tasks_found = false;
     }
 
     if(!admin_tasks_found && permission.check_permissions(user_id, "-t")) {
@@ -744,12 +743,13 @@ bot.on('callback_query', (callbackQuery) => {
                 torrent_tasks_found = false;
                 break;
         }
+    }else{
+        torrent_tasks_found = false;
     }
 
     if(!admin_tasks_found && !torrent_tasks_found){
         done_task = false;
     }
-    
     if(!done_task) {
         //for normal users
         if (user_id === intended_for_user_id) {
@@ -802,7 +802,7 @@ bot.on('callback_query', (callbackQuery) => {
                     if (send_channels) {
                         callback_notes_used.channels_used = true;
                         const note_to_send = Notes.NOTES_CHANNELS;
-                        send_notes(note_to_send, callbackQuery.message.chat.id);
+                        send_notes_func(note_to_send, callbackQuery.message.chat.id);
                     } else {
                         return bot.answerCallbackQuery(callbackQuery.id, {
                             text: "Please dont spam bot buttons. If you badly want to see them channels again type /channels",
