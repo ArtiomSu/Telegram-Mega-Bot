@@ -113,7 +113,7 @@ var admin_main = function(data){
             return 1;  
         case "unrestrict": 
             if(user_id_ok){
-                data.bot.restrictChatMember(data.current_chat,data.user_id,{permissions:{can_send_messages:true,can_send_media_messages:true,can_send_polls:true,can_send_other_messages:true,can_add_web_page_previews:true,can_change_info:false,can_invite_users:false,can_pin_messages:false}}).then(status =>{
+                data.bot.restrictChatMember(data.current_chat,data.user_id,{can_send_messages:true,can_send_media_messages:true,can_send_polls:false,can_send_other_messages:true,can_add_web_page_previews:true,can_change_info:false,can_invite_users:false,can_pin_messages:false}).then(status =>{
                     if(status){
                         data.bot.sendMessage(data.current_chat,"unrestricted successfully",{parse_mode: "HTML", disable_web_page_preview:true});
                     }else{

@@ -534,6 +534,45 @@ const checkUserName = (msg) =>{
     return false;
 }
 
+shuffle_array = (a) => {
+    for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+}
+
+create_captcha_func = () => {
+    const allowed_operation = [
+        {op: '+', text: 'plus'},
+        {op: '-', text: 'minus'},
+        {op: '*', text: 'multiply'},
+    ]
+    const random_number_1 = Math.floor(Math.random() * 100) + 1;
+    const random_number_2 = Math.floor(Math.random() * 100) + 1;
+    const operation = allowed_operation[Math.floor(Math.random() * 3)];
+    const answer = eval(random_number_1 + operation.op + random_number_2);
+
+    const captcha_text = 'now for the fun stuff ' + random_number_1 + ' ' + operation.text + ' ' + random_number_2;
+
+    // generate fake answers that are close to the real answer
+    let answers = [
+        answer + Math.floor(Math.random() * 10) + 1,
+        answer - Math.floor(Math.random() * 10) - 1,
+        answer + Math.floor(Math.random() * 10) + 1,
+        answer - Math.floor(Math.random() * 10) - 1,
+        answer
+    ];
+
+    const shuffled_answers = shuffle_array(answers);
+
+    return {
+        captcha_text: captcha_text,
+        answers: shuffled_answers,
+        answer: answer
+    }
+}
+
 var deal_with_new_member = function(msg){
     chat_id = msg.chat.id;
     user_id = msg.new_chat_members[0].id;
@@ -553,11 +592,26 @@ var deal_with_new_member = function(msg){
 
     bot.deleteMessage(chat_id,msg.message_id);
 
+    const captcha = create_captcha_func();
+
+    let capcha_keyboard = [];
+
+    captcha.answers.forEach(answer => {
+        capcha_keyboard.push({text: answer, callback_data: user_id+ " captcha"+ " " + answer+ " " + captcha.answer + " " + chat_id});
+    })
+    
+    bot.restrictChatMember(chat_id,user_id,{permissions:{can_send_messages:false,can_send_media_messages:false,can_send_polls:false,can_send_other_messages:false,can_add_web_page_previews:false,can_change_info:false,can_invite_users:false,can_pin_messages:false}});
+
+    // bot.getChat(chat_id).then(chat => {
+    //     console.log("chat:" + JSON.stringify(chat.permissions));
+    // })
+
     var options = {
         reply_markup: JSON.stringify({
             inline_keyboard: [
                 [{text: 'Other Groups And Channels on Telegram', callback_data:""+user_id+" channels"+" "+chat_id}],
                 [{ text: 'Notes', callback_data:""+user_id+" notes"+" "+chat_id},{ text: 'Donate', callback_data:""+user_id+" donate"+" "+chat_id},{text: 'Youtube', url: 'https://www.youtube.com/c/TerminalHeatSink'}],
+                capcha_keyboard,
                 [{text: 'My PlayStore Apps', url: 'https://play.google.com/store/apps/developer?id=Terminal+Heat+Sink'}, {text: 'My Awful Website', url: 'https://artiomsu.github.io'}]
             ]
         }),
@@ -577,9 +631,9 @@ var deal_with_new_member = function(msg){
         "      |_|  |_|  |_|_____/ \n" +
         "                          \n" +
         "</pre>"+
-        "<b>Click on the Notes bellow or type <pre>/notes</pre> for all guides, links to downloads and so on. It should have everything you need :) </b>"+
+        "<b>Click on the Notes bellow or type /n for a cool custom keyboard</b>"+
         "<pre>\n</pre>"+
-        "<b>(New) shortcut for notes is <pre>/n</pre> this will spawn a custom keyboard pretty cool shit</b>"
+        "<pre>"+captcha.captcha_text+"</pre>"
         ,
         options); // last argument to diable link previews https://core.telegram.org/bots/api#sendmessage
 };
@@ -810,6 +864,40 @@ bot.on('callback_query', (callbackQuery) => {
                         });
                     }
                     break;
+                case "captcha":
+                    const captcha_user_id = parseInt(action.split(" ")[0]);
+                    const guess = action.split(" ")[2];    
+                    const answer = action.split(" ")[3];
+                    const chat = action.split(" ")[4];
+
+                    if(guess === answer){
+                        console.log("correct captcha");
+                        bot.restrictChatMember(chat,captcha_user_id,{can_send_messages:true,can_send_media_messages:true,can_send_polls:true,can_send_other_messages:true,can_add_web_page_previews:true,can_change_info:false,can_invite_users:false,can_pin_messages:false}).then(result => {
+                          console.log("result: "+result); 
+                        })
+                        bot.deleteMessage(chat,callbackQuery.message.message_id);
+                    }else{
+                        bot.banChatMember(chat, captcha_user_id, {revoke_messages:true}).then(result => {
+                            let output = "<pre>" + "Banned \n" +
+                                "data="+action+" \n" +
+                                "user_id="+captcha_user_id+"\n" +
+                                "user_name="+callbackQuery.message.from.user_name+"\n" +
+                                "banned for=Failed captcha. guessed "+guess+" should have been "+answer+
+                                "</pre>";
+                            var options = {
+                                reply_markup: JSON.stringify({
+                                    inline_keyboard: [
+                                        [{text: 'unban', callback_data:""+captcha_user_id+" unban"+" "+chat}]
+                                    ]
+                                }),
+                                parse_mode: "HTML",
+                                disable_web_page_preview:true
+                            };
+                            bot.sendMessage(constants.LOGGING_CHANNEL,output, options);
+                            bot.deleteMessage(chat,callbackQuery.message.message_id);
+                        })
+                    }
+
                 default:
                     break;
             }
@@ -837,6 +925,7 @@ bot.on('polling_error', (error) => {
 });
 
 var api = require('./api');
+const constants = require('./constants');
 api.set_save_function(write_history);
 api.set_exit_function(exitHandler);
 api.set_bot_send_function(bot);
