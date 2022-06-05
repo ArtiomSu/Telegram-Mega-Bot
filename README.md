@@ -3,6 +3,8 @@ Custom Telegram Bot that is primarily used for managing my personal group.
 
 It is able to detect spammers / scammers and auto ban them if you wish. By default it will just send me a report as the feature still needs some work to be trusted.
 
+It supports using a custom made math captcha to deter automated bots.
+
 It features the standard /notes functionality you see in other telegram bots.
 
 It features a built in API mostly used for restarting the bot and using the bot as a user.
@@ -133,7 +135,7 @@ t80search_bot V0.0.5 Admin
         -h displays this help
 ```
 ## Greeting new members
-When a user joins the group there will be a welcome message. It contains the name of the user aswell as attached links via buttons for handy resources.
+When a user joins the group there will be a welcome message. It contains the name of the user aswell as attached links via buttons for handy resources. The user will also need to complete a math captcha by clicking on the buttons before being able to send messages. Failing the captcha will result in a ban, failed attempts will be logged to a private channel for easy unbanning.
 
 ## Anti Scam
 Detects wether a user is a spammer/scammer and notifies the admins or bans the offender.
