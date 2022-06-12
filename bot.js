@@ -565,6 +565,15 @@ create_captcha_func = () => {
         answer
     ];
 
+    // check for duplicates
+    for(let i=0; i<answers.length; i++){
+        for(let j=i+1; j<answers.length; j++){
+            if(answers[i] === answers[j]){
+                answers[j] = answer + Math.floor(Math.random() * 10) + 1;
+            }
+        }
+    }
+
     const shuffled_answers = shuffle_array(answers);
 
     return {
@@ -622,7 +631,6 @@ var deal_with_new_member = function(msg){
     };
 
     bot.sendMessage(chat_id, "<b>" + username +" (" + user_id + ")"  + " Welcome to " + chat_title + "</b>"+
-        //"<pre>\n______________________________\n</pre>"+
         "<pre>" +
         "\n"+
         "    _______ _    _  _____ \n" +
@@ -636,11 +644,8 @@ var deal_with_new_member = function(msg){
         "<pre>\n</pre>"+
         "<pre>"+captcha.captcha_text+"</pre>"
         ,
-        options); // last argument to diable link previews https://core.telegram.org/bots/api#sendmessage
+        options); 
 };
-
-// bot.on('new_chat_members', (ctx) => {
-// });
 
 var history_update = (msg) =>{
     if (Object.keys(history).includes(msg.chat.id.toString())){
@@ -735,7 +740,6 @@ async function handle_welcome_message_callbacks(callbackQuery, user_id, intended
                 }
             }
 
-
             // check if user has permissions to type, if they don't, don't allow them to use buttons.
             if(type_of_action !== 'captcha'){
                 const member = await bot.getChatMember(callbackQuery.message.chat.id,user_id);
@@ -794,23 +798,18 @@ async function handle_welcome_message_callbacks(callbackQuery, user_id, intended
                     const chat = action.split(" ")[4];
 
                     if(guess === answer){
-                        //console.log("correct captcha");
                         bot.restrictChatMember(chat,captcha_user_id,{can_send_messages:true,can_send_media_messages:true,can_send_polls:true,can_send_other_messages:true,can_add_web_page_previews:true,can_change_info:false,can_invite_users:false,can_pin_messages:false}).then(result => {
                           //console.log("result: "+result); // true
                         })
-                        //bot.deleteMessage(chat,callbackQuery.message.message_id);
                         //update the reply keyboard to hide the answers.
                         const updatedKeyboard = callbackQuery.message.reply_markup;
                         updatedKeyboard.inline_keyboard.forEach((key, index) =>{
-                            console.log("key: ",key);
                             if(key.length === 5){
-                                //remove this from the array
                                 updatedKeyboard.inline_keyboard.splice(index,1);
                             }else if(key[0].text.includes("ban me")){
                                 updatedKeyboard.inline_keyboard.splice(index,1);
                             }
                         });
-                        //bot.editMessageReplyMarkup(updatedKeyboard, {chat_id: callbackQuery.message.chat.id, message_id: callbackQuery.message.message_id});
                         var options = {
                             reply_markup: updatedKeyboard,
                             parse_mode: "HTML",
@@ -818,11 +817,8 @@ async function handle_welcome_message_callbacks(callbackQuery, user_id, intended
                             chat_id: callbackQuery.message.chat.id,
                             message_id: callbackQuery.message.message_id
                         };
-                        //const currentMessage = callbackQuery.message.text;
                         const username = callbackQuery.from.username || callbackQuery.from.first_name;
                         const chat_title = callbackQuery.message.chat.title;
-                        //remove last line from message
-                        //const updatedMessage = currentMessage.substring(0, currentMessage.lastIndexOf("\n"));
                         const updatedMessage = "<b>" + username +" (" + user_id + ")"  + " Welcome to " + chat_title + "</b>"+
                             //"<pre>\n______________________________\n</pre>"+
                             "<pre>" +
@@ -900,7 +896,6 @@ bot.on('callback_query', (callbackQuery) => {
                 };
                 let intended = intended_for_user_id === user_id ? " Yes" : " No";
                 bot.sendMessage(callbackQuery.message.chat.id,
-                    //"<pre>\n______________________________\n</pre>"+
                     "<pre>" + "callback response \n" +
                     "data="+action+" \n" +
                     "user_id="+user_id+"\n" +
@@ -923,7 +918,6 @@ bot.on('callback_query', (callbackQuery) => {
                 break;
             default:
                 admin_tasks_found = false;
-                //done_task = false;
                 break;
         }
     }else{
