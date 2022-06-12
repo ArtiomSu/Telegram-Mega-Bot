@@ -1,6 +1,7 @@
 const TelegramBot = require('node-telegram-bot-api');
 require('dotenv').config();
 const fs = require('fs');
+const async = require('async');
 
 const Terminal = require('./Terminal');
 const Constants = require('./constants');
@@ -553,7 +554,7 @@ create_captcha_func = () => {
     const operation = allowed_operation[Math.floor(Math.random() * 3)];
     const answer = eval(random_number_1 + operation.op + random_number_2);
 
-    const captcha_text = 'now for the fun stuff ' + random_number_1 + ' ' + operation.text + ' ' + random_number_2;
+    const captcha_text = 'To be able to send messages in this group you need to solve the following ( ' + random_number_1 + ' ' + operation.text + ' ' + random_number_2 + ' ) by pressing on the correct number bellow';
 
     // generate fake answers that are close to the real answer
     let answers = [
@@ -609,6 +610,7 @@ var deal_with_new_member = function(msg){
     var options = {
         reply_markup: JSON.stringify({
             inline_keyboard: [
+                [{text: 'I am an intelligent bot please ban me', callback_data: user_id+ " captcha"+ " " + "1"+ " " + "2" + " " + chat_id}],
                 [{text: 'Other Groups And Channels on Telegram', callback_data:""+user_id+" channels"+" "+chat_id}],
                 [{ text: 'Notes', callback_data:""+user_id+" notes"+" "+chat_id},{ text: 'Donate', callback_data:""+user_id+" donate"+" "+chat_id},{text: 'Youtube', url: 'https://www.youtube.com/c/TerminalHeatSink'}],
                 capcha_keyboard,
@@ -631,7 +633,6 @@ var deal_with_new_member = function(msg){
         "      |_|  |_|  |_|_____/ \n" +
         "                          \n" +
         "</pre>"+
-        "<b>Click on the Notes bellow or type /n for a cool custom keyboard</b>"+
         "<pre>\n</pre>"+
         "<pre>"+captcha.captcha_text+"</pre>"
         ,
@@ -714,10 +715,168 @@ var callback_notes_used = {
     channels_used: false
 };
 
+async function handle_welcome_message_callbacks(callbackQuery, user_id, intended_for_user_id, type_of_action, action){
+        //for normal users
+        if (user_id === intended_for_user_id) {
+            let send_notes = true;
+            let send_donation = true;
+            let send_channels = true;
+            if (callback_notes_used.user_id !== intended_for_user_id) {
+                callback_notes_used.user_id = intended_for_user_id;
+            } else {
+                if (callback_notes_used.notes_used) {
+                    send_notes = false;
+                }
+                if (callback_notes_used.donate_used) {
+                    send_donation = false;
+                }
+                if (callback_notes_used.channels_used) {
+                    send_channels = false;
+                }
+            }
+
+
+            // check if user has permissions to type, if they don't, don't allow them to use buttons.
+            if(type_of_action !== 'captcha'){
+                const member = await bot.getChatMember(callbackQuery.message.chat.id,user_id);
+                if(member && member.can_send_messages === false){
+                    return bot.answerCallbackQuery(callbackQuery.id, {
+                        text: "Solve the captcha first!!!",
+                        show_alert: true
+                    });
+                }
+            }
+            switch (type_of_action) {
+                case "notes":
+                    if (send_notes) {
+                        callback_notes_used.notes_used = true;
+                        bot.sendMessage(callbackQuery.message.chat.id, Notes.NOTES, {
+                            parse_mode: "HTML",
+                            disable_web_page_preview: true,
+                        });
+                    } else {
+                        return bot.answerCallbackQuery(callbackQuery.id, {
+                            text: "Please dont spam bot buttons. If you badly want to see notes again type /notes",
+                            show_alert: true
+                        });
+                    }
+                    break;
+                case "donate":
+                    if (send_donation) {
+                        callback_notes_used.donate_used = true;
+                        bot.sendMessage(callbackQuery.message.chat.id, Notes.DONATE, {
+                            parse_mode: "HTML",
+                            disable_web_page_preview: true,
+                        });
+                    } else {
+                        return bot.answerCallbackQuery(callbackQuery.id, {
+                            text: "Please dont spam bot buttons. If you badly want to see donation again type /donate",
+                            show_alert: true
+                        });
+                    }
+                    break;
+                case "channels":
+                    if (send_channels) {
+                        callback_notes_used.channels_used = true;
+                        const note_to_send = Notes.NOTES_CHANNELS;
+                        send_notes_func(note_to_send, callbackQuery.message.chat.id);
+                    } else {
+                        return bot.answerCallbackQuery(callbackQuery.id, {
+                            text: "Please dont spam bot buttons. If you badly want to see them channels again type /channels",
+                            show_alert: true
+                        });
+                    }
+                    break;
+                case "captcha":
+                    const captcha_user_id = parseInt(action.split(" ")[0]);
+                    const guess = action.split(" ")[2];    
+                    const answer = action.split(" ")[3];
+                    const chat = action.split(" ")[4];
+
+                    if(guess === answer){
+                        //console.log("correct captcha");
+                        bot.restrictChatMember(chat,captcha_user_id,{can_send_messages:true,can_send_media_messages:true,can_send_polls:true,can_send_other_messages:true,can_add_web_page_previews:true,can_change_info:false,can_invite_users:false,can_pin_messages:false}).then(result => {
+                          //console.log("result: "+result); // true
+                        })
+                        //bot.deleteMessage(chat,callbackQuery.message.message_id);
+                        //update the reply keyboard to hide the answers.
+                        const updatedKeyboard = callbackQuery.message.reply_markup;
+                        updatedKeyboard.inline_keyboard.forEach((key, index) =>{
+                            console.log("key: ",key);
+                            if(key.length === 5){
+                                //remove this from the array
+                                updatedKeyboard.inline_keyboard.splice(index,1);
+                            }else if(key[0].text.includes("ban me")){
+                                updatedKeyboard.inline_keyboard.splice(index,1);
+                            }
+                        });
+                        //bot.editMessageReplyMarkup(updatedKeyboard, {chat_id: callbackQuery.message.chat.id, message_id: callbackQuery.message.message_id});
+                        var options = {
+                            reply_markup: updatedKeyboard,
+                            parse_mode: "HTML",
+                            disable_web_page_preview:true,
+                            chat_id: callbackQuery.message.chat.id,
+                            message_id: callbackQuery.message.message_id
+                        };
+                        //const currentMessage = callbackQuery.message.text;
+                        const username = callbackQuery.from.username || callbackQuery.from.first_name;
+                        const chat_title = callbackQuery.message.chat.title;
+                        //remove last line from message
+                        //const updatedMessage = currentMessage.substring(0, currentMessage.lastIndexOf("\n"));
+                        const updatedMessage = "<b>" + username +" (" + user_id + ")"  + " Welcome to " + chat_title + "</b>"+
+                            //"<pre>\n______________________________\n</pre>"+
+                            "<pre>" +
+                            "\n"+
+                            "    _______ _    _  _____ \n" +
+                            "   |__   __| |  | |/ ____|\n" +
+                            "      | |  | |__| | (___  \n" +
+                            "      | |  |  __  |\\___ \\ \n" +
+                            "      | |  | |  | |____) |\n" +
+                            "      |_|  |_|  |_|_____/ \n" +
+                            "                          \n" +
+                            "</pre>"+
+                            "<b>Click on the Notes bellow or type /n for a cool custom keyboard</b>"+
+                            "<pre>\n</pre>";
+
+                        bot.editMessageText(updatedMessage, options);
+                    }else{
+                        bot.banChatMember(chat, captcha_user_id, {revoke_messages:true}).then(result => {
+                            let output = "<pre>" + "Banned \n" +
+                                "data="+action+" \n" +
+                                "user_id="+captcha_user_id+"\n" +
+                                "user_name="+callbackQuery.message.from.user_name+"\n" +
+                                "banned for=Failed captcha. guessed "+guess+" should have been "+answer+
+                                "</pre>";
+                            var options = {
+                                reply_markup: JSON.stringify({
+                                    inline_keyboard: [
+                                        [{text: 'unban', callback_data:""+captcha_user_id+" unban"+" "+chat}]
+                                    ]
+                                }),
+                                parse_mode: "HTML",
+                                disable_web_page_preview:true
+                            };
+                            bot.sendMessage(constants.LOGGING_CHANNEL,output, options);
+                            bot.deleteMessage(chat,callbackQuery.message.message_id);
+                        })
+                    }
+
+                default:
+                    break;
+            }
+        } else {
+            return bot.answerCallbackQuery(callbackQuery.id, {
+                text: "This messages was not meant for you. Type /notes or whatever",
+                show_alert: true
+            });
+        }
+        bot.answerCallbackQuery(callbackQuery.id);
+}
+
 bot.on('callback_query', (callbackQuery) => {
     const action = callbackQuery.data;
     let user_id = parseInt(callbackQuery.from.id);
-    let user_name = callbackQuery.from.username;
+    let user_name = callbackQuery.from.username || callbackQuery.from.first_name;
 
     let intended_for_user_id = parseInt(action.split(" ")[0]);
     let type_of_action = action.split(" ")[1];
@@ -805,111 +964,11 @@ bot.on('callback_query', (callbackQuery) => {
         done_task = false;
     }
     if(!done_task) {
-        //for normal users
-        if (user_id === intended_for_user_id) {
-            let send_notes = true;
-            let send_donation = true;
-            let send_channels = true;
-            if (callback_notes_used.user_id !== intended_for_user_id) {
-                callback_notes_used.user_id = intended_for_user_id;
-            } else {
-                if (callback_notes_used.notes_used) {
-                    send_notes = false;
-                }
-                if (callback_notes_used.donate_used) {
-                    send_donation = false;
-                }
-                if (callback_notes_used.channels_used) {
-                    send_channels = false;
-                }
-            }
-            switch (type_of_action) {
-                case "notes":
-                    if (send_notes) {
-                        callback_notes_used.notes_used = true;
-                        bot.sendMessage(callbackQuery.message.chat.id, Notes.NOTES, {
-                            parse_mode: "HTML",
-                            disable_web_page_preview: true,
-                        });
-                    } else {
-                        return bot.answerCallbackQuery(callbackQuery.id, {
-                            text: "Please dont spam bot buttons. If you badly want to see notes again type /notes",
-                            show_alert: true
-                        });
-                    }
-                    break;
-                case "donate":
-                    if (send_donation) {
-                        callback_notes_used.donate_used = true;
-                        bot.sendMessage(callbackQuery.message.chat.id, Notes.DONATE, {
-                            parse_mode: "HTML",
-                            disable_web_page_preview: true,
-                        });
-                    } else {
-                        return bot.answerCallbackQuery(callbackQuery.id, {
-                            text: "Please dont spam bot buttons. If you badly want to see donation again type /donate",
-                            show_alert: true
-                        });
-                    }
-                    break;
-                case "channels":
-                    if (send_channels) {
-                        callback_notes_used.channels_used = true;
-                        const note_to_send = Notes.NOTES_CHANNELS;
-                        send_notes_func(note_to_send, callbackQuery.message.chat.id);
-                    } else {
-                        return bot.answerCallbackQuery(callbackQuery.id, {
-                            text: "Please dont spam bot buttons. If you badly want to see them channels again type /channels",
-                            show_alert: true
-                        });
-                    }
-                    break;
-                case "captcha":
-                    const captcha_user_id = parseInt(action.split(" ")[0]);
-                    const guess = action.split(" ")[2];    
-                    const answer = action.split(" ")[3];
-                    const chat = action.split(" ")[4];
-
-                    if(guess === answer){
-                        console.log("correct captcha");
-                        bot.restrictChatMember(chat,captcha_user_id,{can_send_messages:true,can_send_media_messages:true,can_send_polls:true,can_send_other_messages:true,can_add_web_page_previews:true,can_change_info:false,can_invite_users:false,can_pin_messages:false}).then(result => {
-                          console.log("result: "+result); 
-                        })
-                        bot.deleteMessage(chat,callbackQuery.message.message_id);
-                    }else{
-                        bot.banChatMember(chat, captcha_user_id, {revoke_messages:true}).then(result => {
-                            let output = "<pre>" + "Banned \n" +
-                                "data="+action+" \n" +
-                                "user_id="+captcha_user_id+"\n" +
-                                "user_name="+callbackQuery.message.from.user_name+"\n" +
-                                "banned for=Failed captcha. guessed "+guess+" should have been "+answer+
-                                "</pre>";
-                            var options = {
-                                reply_markup: JSON.stringify({
-                                    inline_keyboard: [
-                                        [{text: 'unban', callback_data:""+captcha_user_id+" unban"+" "+chat}]
-                                    ]
-                                }),
-                                parse_mode: "HTML",
-                                disable_web_page_preview:true
-                            };
-                            bot.sendMessage(constants.LOGGING_CHANNEL,output, options);
-                            bot.deleteMessage(chat,callbackQuery.message.message_id);
-                        })
-                    }
-
-                default:
-                    break;
-            }
-        } else {
-            return bot.answerCallbackQuery(callbackQuery.id, {
-                text: "This messages was not meant for you. Type /notes or whatever",
-                show_alert: true
-            });
-        }
+        handle_welcome_message_callbacks(callbackQuery, user_id, intended_for_user_id, type_of_action, action);
+    }else{
+        bot.answerCallbackQuery(callbackQuery.id);
     }
 
-    bot.answerCallbackQuery(callbackQuery.id);
 });
 
 
@@ -926,6 +985,8 @@ bot.on('polling_error', (error) => {
 
 var api = require('./api');
 const constants = require('./constants');
+const { type } = require('express/lib/response');
+const e = require('express');
 api.set_save_function(write_history);
 api.set_exit_function(exitHandler);
 api.set_bot_send_function(bot);
