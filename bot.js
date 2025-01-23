@@ -1,12 +1,12 @@
 const TelegramBot = require('node-telegram-bot-api');
 require('dotenv').config();
 const fs = require('fs');
-const async = require('async');
+//const async = require('async');
 
 const Terminal = require('./Terminal');
 const Constants = require('./constants');
 const Notes = require('./notes');
-const torrent_main = require('./torrent_search/torrent_main');
+//const torrent_main = require('./torrent_search/torrent_main');
 const permission = require('./permissions/permission_main');
 const admin_main = require('./admin/admin_main');
 
@@ -102,19 +102,19 @@ var deal_with_message = function(msg){
             //console.log("main menu option= ",temp);
 
             switch (temp) {
-                case "-t":
-                    if(permission.check_permissions(user_id,"-t")){
-                        torrent_main.tmain({
-                            user_id:user_id,
-                            user_name:user_name,
-                            current_chat:current_chat,
-                            users:users,
-                            input_array: input_array,
-                            bot: bot,
-                            urls: t_urls
-                        });
-                    }
-                    break;
+                // case "-t":
+                //     if(permission.check_permissions(user_id,"-t")){
+                //         torrent_main.tmain({
+                //             user_id:user_id,
+                //             user_name:user_name,
+                //             current_chat:current_chat,
+                //             users:users,
+                //             input_array: input_array,
+                //             bot: bot,
+                //             urls: t_urls
+                //         });
+                //     }
+                //     break;
                 case "-p":
                     if(permission.check_permissions(user_id,"-p")) {
                         permission.permission_main({
@@ -926,19 +926,19 @@ bot.on('callback_query', (callbackQuery) => {
 
     if(!admin_tasks_found && permission.check_permissions(user_id, "-t")) {
         switch (action.split(" ")[0]){
-            case "magnet":
-                if(action.split(" ")[1] !== 'none'){
-                    torrent_main.handleMagnet({
-                        user_id:user_id,
-                        user_name:user_name,
-                        current_chat:callbackQuery.message.chat.id,
-                        users:users,
-                        input_array: [],
-                        bot: bot,
-                        urls: t_urls
-                    }, 0, parseInt(action.split(" ")[1]));
-                }
-                break;
+            // case "magnet":
+            //     if(action.split(" ")[1] !== 'none'){
+            //         torrent_main.handleMagnet({
+            //             user_id:user_id,
+            //             user_name:user_name,
+            //             current_chat:callbackQuery.message.chat.id,
+            //             users:users,
+            //             input_array: [],
+            //             bot: bot,
+            //             urls: t_urls
+            //         }, 0, parseInt(action.split(" ")[1]));
+            //     }
+            //     break;
             case "deleteTMsg":
                 if(user_id.toString() === action.split(" ")[1]){
                     bot.deleteMessage(callbackQuery.message.chat.id,callbackQuery.message.message_id);

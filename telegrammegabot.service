@@ -1,0 +1,14 @@
+[Unit]
+Description=Telegram Mega Bot Application
+After=network.target
+
+[Service]
+WorkingDirectory=/home/telegram/bots/Torrent-search-Telegram-Bot
+ExecStart=/usr/bin/node bot.js
+Restart=always
+RestartSec=10
+User=telegram
+Environment=NODE_ENV=production
+
+[Install]
+WantedBy=multi-user.target

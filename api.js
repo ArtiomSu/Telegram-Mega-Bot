@@ -1,11 +1,11 @@
 var express = require('express');
-var cookieParser = require('cookie-parser');
+//var cookieParser = require('cookie-parser');
 var http = require('http');
 var app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
+//app.use(cookieParser());
 
 app.use((req, res, next) => {
     res.append('Access-Control-Allow-Origin', ['*']);
